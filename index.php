@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>Study Sessions</title>
 </head>
-
+<!-- Garbles were removed. -->
 <body>
 	<h1>Study Storm</h1>
 	<h2>Jens wuz here.</h2>
