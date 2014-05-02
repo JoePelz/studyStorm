@@ -1,5 +1,6 @@
 <?php
-    include 'connection.php';
+    include 'config.php';
+	$conn=mysqli_connect(DB_HOST, DB_USER,DB_PASSWORD);
     // Get connected
     if (mysqli_connect_errno())
       {
@@ -7,19 +8,20 @@
       }
 
 	
-    $name = $_POST['name'];
-	$time = $_POST['time'];
+    $courseName = $_POST['courseName'];
+	$startTime = $_POST['startTime'];
+	$endTime = $_POST['endTime'];
 	$location = $_POST['location'];
 	$details = $_POST['details'];
 	
 
-    $myrequ = "INSERT INTO sessions (id, name, time, location, details) VALUES ('$num', '$name', '$time', '$location', '$details')";
+    $myrequ = "INSERT INTO sessions (courseName, startTime, endTime, location, details, studID, isActive) VALUES ('$courseName', '$startTime', '$endTime', '$location', '$details', '1', 'true')";
 
-        mysqli_query($myconn, $myrequ);
+        mysqli_query($conn, $myrequ);
         echo "worked".$num;
 	} else {
         echo $acct;
     }
 
-    mysqli_close($myconn);
+    mysqli_close($conn);
 ?>
