@@ -7,6 +7,7 @@
 
 <body>
 	<h1>Study Storm</h1>
+	<h2>Jens wuz here.</h2>
 	<a href="addSessionForm.html">Add session</a>
 	<hr />
 	<ul>
