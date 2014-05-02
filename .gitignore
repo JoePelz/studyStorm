@@ -1,0 +1,4 @@
+#backup/swap/cache files
+*.???~
+*.swp
+*.bak
