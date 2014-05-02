@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>Study Sessions</title>
 </head>
-
+akdjhsdflkjehlkgj
 <body>
 	<h1>Study Storm</h1>
 	<a href="addSessionForm.html">Add session</a>
