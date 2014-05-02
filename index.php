@@ -8,6 +8,7 @@
 <body>
 	<h1>Study Storm</h1>
 	<h2>Jens & Joe wERE here.</h2>
+	<h2>Jesus wuz here.</h2>
 	<a href="addSessionForm.html">Add session</a>
 	<hr />
 	<ul>
