@@ -7,7 +7,7 @@
 <!-- Garbles were removed. -->
 <body>
 	<h1>Study Storm</h1>
-	<h2>Jens was here.</h2>
+	<h2>Jens was here and I broke my pencil.</h2>
 	<a href="addSessionForm.html">Add session</a>
 	<hr />
 	<ul>
