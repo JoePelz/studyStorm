@@ -1,12 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-</head>
-
+<html>
 <body>
-	<form method="POST" action="./php/addSession.php">
-		<input type="submit" value="Add Session"/>
-	</form>
+
+<h1>ADD SESSION</h1>
+
+<form method="post" action="php/addSession2.php">
+
+<div>
+	<label for="courseName">Select a Course:</label>
+	<select name="courseName" id="courseName">
+		<option value="">Select One</option>
+		<option value="comp1510">comp1510</option>
+		<option value="comp1536">comp1536</option>
+		<option value="comp1111">comp1111</option>
+		<option value="comp1100">comp1100</option>
+		<option value="comp1113">comp1113</option>
+		<option value="comm1116">comm1116</option>
+		<option value="busa">busa</option>
+	</select>
+</div>
+
+<div>
+	<label for="location">Location:</label>
+	<input type="text" name="location" id="location">
+</div>
+
+<div>
+	<label for="startTime">Start Time:</label>
+	<input type="time" name="startTime" id="startTime">
+</div>
+
+<div>
+	<label for="endTime">End Time:</label>
+	<input type="time" name="endTime" id="endTime">
+</div>
+
+<div>
+	<label for="details">Details:</label>
+	<textarea name="details" id="details"></textarea>
+</div>
+
+<input type="submit">
+
+</form>
+
+<a href="index.php">Main page</a>
+
 </body>
-</html
+</html>
