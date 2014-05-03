@@ -37,7 +37,7 @@ if(!$db) {
 }
 
 //data available: studName, sessionId, courseName, details, startTime, endTime, location, studId, isActive
-$qry = "SELECT u.studName, s.startTime, s.sessionId FROM sessions s, students u WHERE u.studId=s.studId AND s.isActive=1";
+$qry = "SELECT u.studName, s.startTime, s.sessionId FROM sessions s, students u WHERE u.studId=s.studId"; #AND s.isActive=1";
 $result = mysql_query($qry);
 
 
