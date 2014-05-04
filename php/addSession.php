@@ -1,27 +1,24 @@
 <?php
+	session_start();
     include 'config.php';
-	$conn=mysqli_connect(DB_HOST, DB_USER,DB_PASSWORD);
+	$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or die(mysql_error());
+	mysql_select_db(DB_DATABASE) or die("Error to connect to database.");
     // Get connected
-    if (mysqli_connect_errno())
-      {
-      echo "Connection to database failed. MySQL error " . mysqli_connect_error();
-      }
 
-	
     $courseName = $_POST['courseName'];
 	$startTime = $_POST['startTime'];
 	$endTime = $_POST['endTime'];
 	$location = $_POST['location'];
 	$details = $_POST['details'];
+	$studId = 1;
 	
 
-    $myrequ = "INSERT INTO sessions (courseName, startTime, endTime, location, details, studID, isActive) VALUES ('$courseName', '$startTime', '$endTime', '$location', '$details', '1', 'true')";
+    $myrequ = "INSERT INTO sessions (courseName, startTime, endTime, location, details, studID, isActive) VALUES ('$courseName', '$startTime', '$endTime', '$location', '$details', '$studId', 'true')";
 
-        mysqli_query($conn, $myrequ);
-        echo "worked".$num;
-	} else {
-        echo $acct;
-    }
+    $result = mysql_query($myrequ);
+	
+	
+    echo "Session added by Carter";
 
-    mysqli_close($conn);
+	mysql_close($con);
 ?>
