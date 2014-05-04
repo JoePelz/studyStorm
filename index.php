@@ -1,5 +1,8 @@
 <?php
 session_start();
+include 'php/config.php';
+$con = mysql_connect(DB_HOST,DB_USER,DB_PASSWORD) or die(mysql_error());
+mysql_select_db(DB_DATABASE) or die(mysql_error());
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +15,10 @@ session_start();
 
 <?php
 if (isset($_SESSION['email'])) {
-echo 'Welcome, ' . $_SESSION['studName'] . '!<hr>';
+	echo 'Welcome, ' . $_SESSION['studName'] . '!<hr>';
 } else {
-	echo 'not logged in. <br>';
-}
+		echo 'not logged in. <br>';
+	}
 ?>
 <a href="signInForm.html">Sign in</a>
 <a href="registerForm.html">Register</a>
