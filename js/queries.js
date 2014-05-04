@@ -1,6 +1,5 @@
 function getDetails() {
 	//The id of the element to put detail info into.
-	//"I'm thinking of changing #dest to #details, as that will be the id of the page. Is this correct?" - Jens
 	var target = "#dest";
 	//The error message if sessionId is missing
 	var errorMsgSession = "<p>No session specified.</p>";
@@ -10,6 +9,7 @@ function getDetails() {
 	//if sessionId is not found, abort.
 	var url = window.location;
 	var patt = /sessionId=([0-9]+)/;
+	//"What's exec()?" -Jens
 	var result = patt.exec(url);
 	if (result) {
 		var sessionId = result[1];
