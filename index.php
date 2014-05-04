@@ -40,7 +40,7 @@ $result = mysql_query($qry);
 if ($result) {
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		echo "\t\t<li>";
-		echo "<a href='details.php?sessionId=".$row['sessionId']."'>";
+		echo "<a href='details.html?sessionId=".$row['sessionId']."'>";
 		echo $row['studName']."</a>\t";
 		echo $row['startTime']."\t";
 		echo "</li>\n";
