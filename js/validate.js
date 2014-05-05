@@ -48,7 +48,12 @@ var detailsValid;
 		detailsValid = true;
 	}
 	
-	return false;
+	if (courseValid && locationValid && timeValid && detailsValid) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 function $(id) {
