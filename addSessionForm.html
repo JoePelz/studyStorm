@@ -1,13 +1,19 @@
 <html>
+<head>
+<script src="./js/validate.js"></script>
+</head>
 <body>
 
 <h1>ADD SESSION</h1>
 
-<form method="post" action="php/addSession.php">
+<form method="post" action="php/addSession.php" onsubmit="return addSessionValidate()">
 
 <div>
 	<label for="courseName">Select a Course:</label>
-	<select name="courseName" id="courseName">
+	<div id="itmCourse">
+		<div id="errCourse">
+		</div>
+	<select name="courseName" id="courseName" onchange="testCourseValid('courseName')">
 		<option value="">Select One</option>
 		<option value="comp1510">comp1510</option>
 		<option value="comp1536">comp1536</option>
@@ -17,26 +23,39 @@
 		<option value="comm1116">comm1116</option>
 		<option value="busa2720">busa2720</option>
 	</select>
+	</div>
 </div>
 
 <div>
 	<label for="location">Location:</label>
-	<input type="text" name="location" id="location">
+	<div id="itmLocation">
+		<div id="errLocation">
+		</div>
+	<input type="text" name="location" id="location" onkeyup="testLocation('location')">
+	</div>
 </div>
 
 <div>
 	<label for="startTime">Start Time:</label>
-	<input type="time" name="startTime" id="startTime">
+	<div id="itmTime">
+		<div id="errTime">
+		</div>
+	<input type="time" name="startTime" id="startTime" onchange="testTime('startTime')">
 </div>
 
 <div>
 	<label for="endTime">End Time:</label>
-	<input type="time" name="endTime" id="endTime">
+	<input type="time" name="endTime" id="endTime" onchange="testTime('endTime')">
+	</div>
 </div>
 
 <div>
 	<label for="details">Details:</label>
-	<textarea name="details" id="details"></textarea>
+	<div id="itmDetails">
+		<div id="errDetails">
+		</div>
+	<textarea name="details" id="details" onkeyup="testDetails('details')"></textarea>
+	</div>
 </div>
 
 <input type="Submit">
