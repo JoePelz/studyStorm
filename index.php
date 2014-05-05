@@ -35,7 +35,7 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 		if (isset($_SESSION['email'])) {
 			echo 'Welcome, ' . $_SESSION['studName'] . '!<hr>';
 			echo '<a href="php/logout.php">Log Out</a> ';
-			echo '<a href="#addSessionPage">Add Session</a>';
+			echo '<a href="#addSessionPage" data-rel="dialog" data-transition="pop">Add Session</a>';
 		} else {
 				echo 'not logged in. <br>';
 				echo '<a href="#loginPage">Log in</a> ';
@@ -115,7 +115,8 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 
 
 <section data-role="page" id="regPage">
-	<div data-role="header">
+	<div data-role="header" data-add-back-btn="false">
+		<a href="#loginPage" data-direction="reverse" data-role="button" data-icon="delete" data-iconpos="notext">Back</a>
 		<h1>Register</h1>
 	</div>
 	<div data-role="main" class="ui-content">
@@ -141,6 +142,71 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 		</form>
 	</div><!-- /data-role="main" -->
 </section><!-- /#regPage -->
+
+
+
+<section data-role="page" id="addSessionPage">
+	<div data-role="header">
+		<h1>Add Session</h1>
+	</div>
+	<div data-role="main" class="ui-content">
+		<form method="post" action="php/addSession.php" onsubmit="return addSessionValidate()">
+
+<div>
+	<label for="courseName">Select a Course:</label>
+	<div id="itmCourse">
+		<div id="errCourse">
+		</div>
+	<select name="courseName" id="courseName" onchange="testCourseValid('courseName')">
+		<option value="">Select One</option>
+		<option value="comp1510">comp1510</option>
+		<option value="comp1536">comp1536</option>
+		<option value="comp1111">comp1111</option>
+		<option value="comp1100">comp1100</option>
+		<option value="comp1113">comp1113</option>
+		<option value="comm1116">comm1116</option>
+		<option value="busa2720">busa2720</option>
+	</select>
+	</div>
+</div>
+
+<div>
+	<label for="location">Location:</label>
+	<div id="itmLocation">
+		<div id="errLocation">
+		</div>
+	<input type="text" name="location" id="location" onkeyup="testLocation('location')">
+	</div>
+</div>
+
+<div>
+	<label for="startTime">Start Time:</label>
+	<div id="itmTime">
+		<div id="errTime">
+		</div>
+	<input type="time" name="startTime" id="startTime" onchange="testTime('startTime')">
+</div>
+
+<div>
+	<label for="endTime">End Time:</label>
+	<input type="time" name="endTime" id="endTime" onchange="testTime('endTime')">
+	</div>
+</div>
+
+<div>
+	<label for="details">Details:</label>
+	<div id="itmDetails">
+		<div id="errDetails">
+		</div>
+	<textarea name="details" id="details" onkeyup="testDetails('details')"></textarea>
+	</div>
+</div>
+
+<input type="Submit" value="Add">
+
+</form>
+	</div><!-- /data-role="main" -->
+</section>
 
 </body>
 </html>
