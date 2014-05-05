@@ -13,7 +13,7 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
 <script src="./js/queries.js"></script>
-<script src="./js/validation.js"></script>
+<script src="./js/validate.js"></script>
 <title>Study Storm</title>
 </head>
 <body>
