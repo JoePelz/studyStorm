@@ -1,22 +1,8 @@
-function getDetails() {
+function getDetails(sessionId) {
 	//The id of the element to put detail info into.
 	var target = "#dest";
 	//The error message if sessionId is missing
 	var errorMsgSession = "<p>No session specified.</p>";
-
-
-	//look in the URL for a sessionID to fetch
-	//if sessionId is not found, abort.
-	var url = window.location;
-	var patt = /sessionId=([0-9]+)/;
-	//"What's exec()?" -Jens
-	var result = patt.exec(url);
-	if (result) {
-		var sessionId = result[1];
-	} else {
-		$(target).html(errorMsgSession);
-		return;
-	}
 
 	//use AJAX to ask getDetails.php for information.
 	//the returned data is in JSON format.
