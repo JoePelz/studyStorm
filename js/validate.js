@@ -4,47 +4,47 @@ var locationValid;
 var timeValid;
 var detailsValid;
 
-	if (!testCourseValid('courseName')) {
-		$('itmCourse').className="badInput";
-		$('errCourse').innerHTML = "You must select a course";
+	if (!testCourseValid('#courseName')) {
+		$('#itmCourse').addClass("badInput");
+		$("#errCourse").html("You must select a course");
 		courseValid = false;
 	}
 	else {
-		$('itmCourse').className = "";
-		$('errCourse').innerHTML = "";
+		$('#itmCourse').removeClass("badInput");
+		$("#errCourse").html("");
 		courseValid = true;
 	}
 	
-	if (!testLocationValid('location')) {
-		$('itmLocation').className="badInput";
-		$('errLocation').innerHTML = "You must enter a location";
+	if (!testLocationValid('#location')) {
+		$('#itmLocation').addClass="badInput";
+		$('#errLocation').html("You must enter a location");
 		locationValid = false;
 	}
 	else {
-		$('itmLocation').className = "";
-		$('errLocation').innerHTML = "";
+		$('#itmLocation').removeClass("badInput");;
+		$('#errLocation').html("");
 		locationValid = true;
 	}
 	
-	if (!testTimeValid('startTime') || !testTimeValid('endTime')) {
-		$('itmTime').className="badInput";
-		$('errTime').innerHTML = "You must choose a time";
+	if (!testTimeValid('#startTime') || !testTimeValid('#endTime')) {
+		$('#itmTime').addClass("badInput");
+		$('#errTime').html("You must choose a time");
 		timeValid = false;
 	}
 	else {
-		$('itmTime').className = "";
-		$('errTime').innerHTML = "";
+		$('#itmTime').removeClass("badInput");
+		$('#errTime').html("");
 		timeValid = true;
 	}
 	
-	if (!testDetailsValid('details')) {
-		$('itmDetails').className="badInput";
-		$('errDetails').innerHTML = "You must enter details";
+	if (!testDetailsValid('#details')) {
+		$('#itmDetails').addClass("badInput");
+		$('#errDetails').html("You must enter details");
 		detailsValid = false;
 	}
 	else {
-		$('itmDetails').className = "";
-		$('errDetails').innerHTML = "";
+		$('#itmDetails').removeClass("badInput");
+		$('#errDetails').html("");
 		detailsValid = true;
 	}
 	
@@ -54,13 +54,6 @@ var detailsValid;
 	else {
 		return false;
 	}
-}
-
-function $(id) {
-	var element = document.getElementById(id);
-	if (element == null )
-		alert("programmer error: " + id + "does not exist.");
-	return element;
 }
 
 function testCourseValid(id) {
