@@ -9,27 +9,11 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+<link rel="stylesheet" href="css/style.css">
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
 <script src="./js/queries.js"></script>
 <title>Study Storm</title>
-<style>
-.badInput {
-	background-color: red;
-}
-.goodInput {
-	background-color: lime;
-}
-.errMsg {
-	border: 1px solid black;
-}
-.invisible	{
-	display: none;
-}
-li {
-	list-style-type: none;
-}
-</style>
 </head>
 <body>
 
@@ -49,7 +33,7 @@ li {
 		<?php
 		if (isset($_SESSION['email'])) {
 			echo 'Welcome, ' . $_SESSION['studName'] . '!<hr>';
-			echo '<a href="php/signOut.php">Log Out</a> ';
+			echo '<a href="php/logout.php">Log Out</a> ';
 			echo '<a href="addSessionForm.html">Add Session</a>';
 		} else {
 				echo 'not logged in. <br>';
@@ -130,31 +114,31 @@ li {
 
 
 <section data-role="page" id="regPage">
-<div data-role="header">
-	<h1>Register</h1>
-</div>
-<div data-role="main" class="ui-content">
-	<form method="post" action="php/register.php" onsubmit="return validateForm()">
-	
-		<label for="regEmail">Email (must be a valid bcit email account):</label>
-		<input type="email" name="regEmail" id="regEmail" onkeyup="validateEmail('#regEmail', '#errRegEmail');">
-		<div id="errRegEmail" class="errMsg invisible">Your email must be from my.bcit.ca</div>
+	<div data-role="header">
+		<h1>Register</h1>
+	</div>
+	<div data-role="main" class="ui-content">
+		<form method="post" action="php/register.php" onsubmit="return validateForm()">
 		
-		<label for="regStudName">Choose a name (one that people might recognize!):</label>
-		<input type="text" name="regStudName" id="regStudName" onkeyup="validateName('#regStudName', '#errRegName');">
-		<div id="errRegName" class="errMsg invisible">Your name must be at least 2 letters.</div>
+			<label for="regEmail">Email (must be a valid bcit email account):</label>
+			<input type="email" name="regEmail" id="regEmail" onkeyup="validateEmail('#regEmail', '#errRegEmail');">
+			<div id="errRegEmail" class="errMsg invisible">Your email must be from my.bcit.ca</div>
+			
+			<label for="regStudName">Choose a name (one that people might recognize!):</label>
+			<input type="text" name="regStudName" id="regStudName" onkeyup="validateName('#regStudName', '#errRegName');">
+			<div id="errRegName" class="errMsg invisible">Your name must be at least 2 letters.</div>
 
-		<label for="regPassword">Choose a password:</label>
-		<input type="password" name="regPassword" id="regPassword" onkeyup="validatePass('#regPassword', '#errRegPass');">
-		<div id="errRegPass" class="errMsg invisible">Your password must be at least 4 letters.</div>
+			<label for="regPassword">Choose a password:</label>
+			<input type="password" name="regPassword" id="regPassword" onkeyup="validatePass('#regPassword', '#errRegPass');">
+			<div id="errRegPass" class="errMsg invisible">Your password must be at least 4 letters.</div>
 
-		<label for="regConfirmPassword">Confirm your password:</label>
-		<input type="password" name="regConfirmPassword" id="regConfirmPassword" onkeyup="validateMatching('#regPassword', '#regConfirmPassword', '#errRegConfirmPass')">
-		<div id="errRegConfirmPass" class="errMsg invisible">Your passwords don't match right now.</div>
+			<label for="regConfirmPassword">Confirm your password:</label>
+			<input type="password" name="regConfirmPassword" id="regConfirmPassword" onkeyup="validateMatching('#regPassword', '#regConfirmPassword', '#errRegConfirmPass')">
+			<div id="errRegConfirmPass" class="errMsg invisible">Your passwords don't match right now.</div>
 
-		<input type="submit" value="Register">
-	</form>
-</div><!-- /data-role="main" -->
+			<input type="submit" value="Register">
+		</form>
+	</div><!-- /data-role="main" -->
 </section><!-- /#regPage -->
 
 </body>

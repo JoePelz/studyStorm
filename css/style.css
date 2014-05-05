@@ -1,0 +1,15 @@
+.badInput {
+	background-color: red;
+}
+.goodInput {
+	background-color: lime;
+}
+.errMsg {
+	border: 1px solid black;
+}
+.invisible	{
+	display: none;
+}
+li {
+	list-style-type: none;
+}
