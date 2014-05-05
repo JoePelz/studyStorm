@@ -35,7 +35,7 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 		if (isset($_SESSION['email'])) {
 			echo 'Welcome, ' . $_SESSION['studName'] . '!<hr>';
 			echo '<a href="php/logout.php">Log Out</a> ';
-			echo '<a href="addSessionForm.html">Add Session</a>';
+			echo '<a href="#addSessionPage">Add Session</a>';
 		} else {
 				echo 'not logged in. <br>';
 				echo '<a href="#loginPage">Log in</a> ';
