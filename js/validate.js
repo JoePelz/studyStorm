@@ -73,3 +73,26 @@ function testMatching(id1, id2){
     var val2 = $(id2).val();
     return (val1 == val2);
 }
+
+function validateForm() {
+    result = true;
+
+    if (!testValidEmail('#regEmail')) {
+        validateEmail('#regEmail', '#errRegEmail');
+        result = false;
+    }
+    if (!testValidName('#regStudName')) {
+        validateName('#regStudName', '#errRegName');
+        result = false;
+    }
+    if (!testValidPass('#regPassword')) {
+        validatePass('#regPassword', '#errRegPass');
+        result = false;
+    }
+    if (!testMatching('#regPassword', '#regConfirmPassword')) {
+        validateMatching('#regPassword', '#regConfirmPassword', '#errRegConfirmPass');
+        result = false;
+    }
+    return result;
+    alert("result");
+}
