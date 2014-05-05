@@ -1,22 +1,40 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sign Up!</title>
+<script src="./js/jquery.js"></script>
+<script src="./js/jquerymobile.js"></script>
+<script src="./js/validate.js"></script>
+<style>
+.badInput{background-color: red;}
+.goodInput{background-color: lime;}
+.errMsg{border: 1px solid black;}
+.invisible{display: none;}
+</style>
+</head>
 <body>
 <h1>Register</h1>
-<form method="post" action="php/register.php">
+<form method="post" action="php/register.php" onsubmit="return validateForm()">
 	<div>
 		<label for="email">Email (must be a valid bcit email account):</label>
-		<input type="email" name="email" id="email">
+		<input type="email" name="email" id="email" onkeyup="validateEmail('#email', '#errRegEmail');">
+        <div id="errRegEmail" class="errMsg invisible">Your email must be from my.bcit.ca</div>
 	</div>
 	<div>
 		<label for="name">Choose a name (one that people might recognize!):</label>
-		<input type="text" name="studName" id="studName">
+		<input type="text" name="studName" id="studName" onkeyup="validateName('#studName', '#errRegName');">
+        <div id="errRegName" class="errMsg invisible">Your name must be at least 2 letters.</div>
 	</div>
 	<div>
 		<label for="password">Choose a password:</label>
-		<input type="password" name="password" id="password">
+		<input type="password" name="password" id="password" onkeyup="validatePass('#password', '#errRegPass');">
+        <div id="errRegPass" class="errMsg invisible">Your password must be at least 4 letters.</div>
 	</div>
 	<div>
 		<label for="confirmPassword">Confirm your password:</label>
-		<input type="password" name="confirmPassword" id="confirmPassword">
+		<input type="password" name="confirmPassword" id="confirmPassword" onkeyup="validateMatching('#password', '#confirmPassword', '#errRegConfirmPass')">
+        <div id="errRegConfirmPass" class="errMsg invisible">Your passwords don't match right now.</div>
 	</div>
 	<div>
 		<input type="submit">
