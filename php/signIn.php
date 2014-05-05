@@ -17,6 +17,7 @@ if($result) {
 		$studArray = mysql_fetch_assoc($result);
 		$_SESSION['studName'] = $studArray['studName'];
 		$_SESSION['email'] = $studArray['email'];
+		$_SESSION['studId'] = $studArray['studId'];
 		session_write_close();
 		header("location: ../index.php");
 		exit();
