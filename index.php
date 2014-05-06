@@ -34,7 +34,7 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 		<?php
 		if (isset($_SESSION['email'])) {
 			echo 'Welcome, ' . $_SESSION['studName'] . '!<hr>';
-			echo '<a href="php/logout.php">Log Out</a> ';
+			echo '<a href="php/logout.php" data-ajax="false">Log Out</a> ';
 			echo '<a href="#addSessionPage" data-rel="dialog" data-transition="pop">Add Session</a>';
 		} else {
 				echo 'not logged in. <br>';
@@ -90,7 +90,7 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 		<h1>Sign In</h1>
 	</div>
 	<div data-role="main" class="ui-content">
-		<form method="post" action="php/login.php" id="loginForm">
+		<form method="post" action="php/login.php" id="loginForm" data-ajax="false">
 			<label for="loginEmail">Email</label>
 			<input type="email" name="loginEmail" id="loginEmail">
 			<label for="loginPassword">Password</label>
