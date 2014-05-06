@@ -1,8 +1,8 @@
 .badInput {
-	background-color: red;
+	color: red;
 }
 .goodInput {
-	background-color: lime;
+	color: green;
 }
 .errMsg {
 	border: 1px solid black;

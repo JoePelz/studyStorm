@@ -5,49 +5,51 @@ var timeValid;
 var detailsValid;
 
 	if (!testCourseValid('#courseName')) {
-		$('#itmCourse').addClass("badInput");
+		$('#errCourse').removeClass("goodInput").addClass("badInput");
 		$("#errCourse").html("You must select a course");
 		courseValid = false;
 	}
 	else {
-		$('#itmCourse').removeClass("badInput");
-		$("#errCourse").html("");
+		$('#errCourse').removeClass("badInput").addClass("goodInput");
+		$("#errCourse").html("Valid");
 		courseValid = true;
 	}
 	
 	if (!testLocationValid('#location')) {
-		$('#itmLocation').addClass="badInput";
+		$('#errLocation').removeClass("goodInput");
+		$('#errLocation').addClass("badInput");
 		$('#errLocation').html("You must enter a location");
 		locationValid = false;
 	}
 	else {
-		$('#itmLocation').removeClass("badInput");;
-		$('#errLocation').html("");
+		$('#errLocation').removeClass("badInput");
+		$('#errLocation').addClass("goodInput");
+		$('#errLocation').html("Valid");
 		locationValid = true;
 	}
 	
 	if (!testTimeValid('#startTime') || !testTimeValid('#endTime')) {
-		$('#itmTime').addClass("badInput");
+		$('#errTime').removeClass("goodInput").addClass("badInput");
 		$('#errTime').html("You must choose a time");
 		timeValid = false;
 	}
 	else {
-		$('#itmTime').removeClass("badInput");
-		$('#errTime').html("");
+		$('#errTime').removeClass("badInput").addClass("goodInput");
+		$('#errTime').html("Valid");
 		timeValid = true;
 	}
 	
 	if (!testDetailsValid('#details')) {
-		$('#itmDetails').addClass("badInput");
+		$('#errDetails').removeClass("goodInput").addClass("badInput");
 		$('#errDetails').html("You must enter details");
 		detailsValid = false;
 	}
 	else {
-		$('#itmDetails').removeClass("badInput");
-		$('#errDetails').html("");
+		$('#errDetails').removeClass("badInput").addClass("goodInput");
+		$('#errDetails').html("Valid");
 		detailsValid = true;
 	}
-	
+
 	if (courseValid && locationValid && timeValid && detailsValid) {
 		return true;
 	}
@@ -56,38 +58,58 @@ var detailsValid;
 	}
 }
 
+/*=============================================================*/
+
 function testCourseValid(id) {
-	if ($(id).selectedIndex == 0) {
+	if ($(id).prop("selectedIndex") == 0) {
+		$('#errCourse').removeClass("goodInput").addClass("badInput");
+		$("#errCourse").html("You must select a course");
 		return false;
 	}
 	else {
+		$('#errCourse').removeClass("badInput").addClass("goodInput");
+		$("#errCourse").html("Valid");
 		return true;
 	}
 }
 
 function testLocationValid(id) {
-	if ($(id).value == "") {
+	if ($(id).val() == "") {
+		$('#errLocation').removeClass("goodInput");
+		$('#errLocation').addClass("badInput");
+		$('#errLocation').html("You must enter a location");
 		return false;
 	}
 	else {
+		$('#errLocation').removeClass("badInput");
+		$('#errLocation').addClass("goodInput");
+		$('#errLocation').html("Valid");
 		return true;
 	}
 }
 
 function testTimeValid(id) {
-	if ($(id).value == "") {
+	if ($(id).val() == "") {
+		$('#errTime').removeClass("goodInput").addClass("badInput");
+		$('#errTime').html("You must choose a time");
 		return false;
 	}
 	else {
+		$('#errTime').removeClass("badInput").addClass("goodInput");
+		$('#errTime').html("Valid");
 		return true;
 	}
 }
 
 function testDetailsValid(id) {
-	if ($(id).value == "") {
+	if ($(id).val() == "") {
+		$('#errDetails').removeClass("goodInput").addClass("badInput");
+		$('#errDetails').html("You must enter details");
 		return false;
 	}
 	else {
+		$('#errDetails').removeClass("badInput").addClass("goodInput");
+		$('#errDetails').html("Valid");
 		return true;
 	}
 }

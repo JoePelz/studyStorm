@@ -38,8 +38,7 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 			echo '<a href="#addSessionPage" data-rel="dialog" data-transition="pop">Add Session</a>';
 		} else {
 				echo 'not logged in. <br>';
-				echo '<a href="#loginPage">Log in</a> ';
-				echo '<a href="#regPage">Register</a>';
+				echo '<a href="#regPage" data-rel="dialog">Register</a>';
 			}
 		?>
 
@@ -158,11 +157,9 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 	<div data-role="main" class="ui-content">
 		<form method="post" action="php/addSession.php" onsubmit="return addSessionValidate()">
 
-			<label for="courseName">Select a Course:</label>
+			<label for="courseName">Select a Course: <span id="errCourse"></span></label>
 			<div id="itmCourse">
-				<div id="errCourse">
-				</div>
-				<select name="courseName" id="courseName" onchange="testCourseValid('courseName')">
+				<select name="courseName" id="courseName" onblur="testCourseValid('#courseName')">
 					<option value="">Select One</option>
 					<option value="comp1510">comp1510</option>
 					<option value="comp1536">comp1536</option>
@@ -174,28 +171,21 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 				</select>
 			</div><!-- /#itmCourse -->
 
-			<label for="location">Location:</label>
 			<div id="itmLocation">
-				<div id="errLocation">
-				</div>
-				<input type="text" name="location" id="location" onkeyup="testLocation('location')">
+				<label for="location">Location: <span id="errLocation"></span></label>
+				<input type="text" name="location" id="location" onkeyup="testLocationValid('#location')">
 			</div><!-- /end itmLocation div -->
 
-			<label for="startTime">Start Time:</label>
+			<label for="startTime">Start Time: <span id="errTime"></span></label>
 			<div id="itmTime">
-				<div id="errTime">
-				</div>
-				<input type="time" name="startTime" id="startTime" onchange="testTime('startTime')">
-
-				<label for="endTime">End Time:</label>
-				<input type="time" name="endTime" id="endTime" onchange="testTime('endTime')">
+				<input type="time" name="startTime" id="startTime" onkeyup="testTimeValid('#startTime')">
+				<label for="endTime">End Time: </label>
+				<input type="time" name="endTime" id="endTime" onkeyup="testTimeValid('#endTime')">
 			</div><!-- /end itmTime div -->
 
-			<label for="details">Details:</label>
+			<label for="details">Details: <span id="errDetails"></span></label>
 			<div id="itmDetails">
-				<div id="errDetails">
-				</div>
-				<textarea name="details" id="details" onkeyup="testDetails('details')"></textarea>
+				<textarea name="details" id="details" onkeyup="testDetailsValid('#details')"></textarea>
 			</div><!-- /end itmDetails -->
 
 			<input type="Submit" value="Add">
