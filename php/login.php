@@ -19,15 +19,16 @@ if($result) {
 		$_SESSION['email'] = $studArray['email'];
 		$_SESSION['studId'] = $studArray['studId'];
 		session_write_close();
-		header("location: ../index.php");
+		//header("location: ../index.php");
+		echo "Success!";
 		exit();
 	} else {
-			echo "invalid name or password!" . mysql_error();
-			exit();
-		}
-} else {
-		die("query failed. " . mysql_error());
+		echo "Invalid name or password!" . mysql_error();
+		exit();
 	}
+} else {
+	die("query failed. " . mysql_error());
+}
 
 
 mysql_close($con);

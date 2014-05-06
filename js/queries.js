@@ -27,10 +27,64 @@ $(document).ready(function() {
         });
         return false;
     });
+
+	
+
+	function loginSuccess(data, status) {
+			data = $.trim(data);
+			if (data == "Success!") {
+				updateLogin();
+				location.hash="mainPage";
+			} else {
+				$("#loginResult").html("Oh no! " + data);
+			}
+    }
+
+    function loginError(data, status) {
+        alert("something went wrong: " + status);
+    }
+
+    $("#loginSubmit").click(function(){
+
+        var formData = $("#loginForm").serialize();
+        
+        $.ajax({
+            type: "POST",
+            url: "./php/login.php",
+            cache: false,
+            data: formData,
+            success: loginSuccess,
+            error: loginError
+        });
+        return false;
+    });
+	
+	updateLogin();
 });
 
+function updateLogin() {
+	//query server
+	function loginSuccess(data, status) {
+		info = $.parseJSON(data);
+		if (info.loggedIn) {
+			$("#mainWelcome").html("Welcome, " + info.studName);
+			$("#btnLogout").removeClass("invisible");
+			$("#btnRegister").addClass("invisible");
+			$("#btnAddSession").removeClass("invisible");
+		} else {
+			$("#mainWelcome").html("Not logged in.");
+			$("#btnLogout").addClass("invisible");
+			$("#btnRegister").removeClass("invisible");
+			$("#btnAddSession").addClass("invisible");
+		}
+	}
 
-
+	$.ajax({
+            url: "./php/testLogin.php",
+            cache: false,
+            success: loginSuccess
+        });
+}
 
 function getDetails(sessionId) {
 	//The id of the element to put detail info into.

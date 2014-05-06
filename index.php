@@ -31,17 +31,10 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 	</div><!-- /data-role="header" -->
 
 	<div data-role="main" class="ui-content">
-		<?php
-		if (isset($_SESSION['email'])) {
-			echo 'Welcome, ' . $_SESSION['studName'] . '!<hr>';
-			echo '<a href="php/logout.php" data-ajax="false">Log Out</a> ';
-			echo '<a href="#addSessionPage" data-rel="dialog" data-transition="pop">Add Session</a>';
-		} else {
-				echo 'not logged in. <br>';
-				echo '<a href="#regPage" data-rel="dialog">Register</a>';
-			}
-		?>
-
+		<span id="mainWelcome">Not logged in.</span><hr>
+		<a href="php/logout.php" data-ajax="false" class="invisible" id="btnLogout">Log Out</a>
+		<a href="#addSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnAddSession">Add Session</a>
+		<a href="#regPage" data-rel="dialog" id="btnRegister">Register</a>
 		<hr />
 		<div data-role="collapsibleset" data-inset="false">
 			<div data-role="collapsible">
@@ -89,15 +82,16 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 		<h1>Sign In</h1>
 	</div>
 	<div data-role="main" class="ui-content">
-		<form method="post" action="php/login.php" id="loginForm" data-ajax="false">
+		<form id="loginForm">
 			<label for="loginEmail">Email</label>
 			<input type="email" name="loginEmail" id="loginEmail">
 			<label for="loginPassword">Password</label>
 			<input type="password" name="loginPassword" id="loginPassword">
 			<a href="#">Forgot password?</a>
-			<input type="submit" value="Log In">
+			<input type="submit" value="Log In" id="loginSubmit">
 		</form>
 	<a href="#regPage" data-role="button" data-rel="dialog" data-transition="slide">Register</a>
+	<div id="loginResult"></div>
 	</div><!-- /data-role="main" -->
 </section><!-- /#loginPage -->
 
