@@ -90,7 +90,7 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 		<h1>Sign In</h1>
 	</div>
 	<div data-role="main" class="ui-content">
-		<form method="post" action="php/login.php">
+		<form method="post" action="php/login.php" id="loginForm">
 			<label for="loginEmail">Email</label>
 			<input type="email" name="loginEmail" id="loginEmail">
 			<label for="loginPassword">Password</label>
@@ -101,6 +101,10 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 	<a href="#regPage" data-role="button" data-rel="dialog" data-transition="slide">Register</a>
 	</div><!-- /data-role="main" -->
 </section><!-- /#loginPage -->
+
+
+
+
 
 
 <section data-role="page" id="detailsPage">
@@ -115,12 +119,11 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 
 
 <section data-role="page" id="regPage">
-	<div data-role="header" data-add-back-btn="false">
-		<a href="#loginPage" data-direction="reverse" data-role="button" data-icon="delete" data-iconpos="notext">Back</a>
+	<div data-role="header">
 		<h1>Register</h1>
 	</div>
 	<div data-role="main" class="ui-content">
-		<form method="post" action="php/register.php" onsubmit="return validateForm()">
+		<form method="post" action="php/register.php" onsubmit="return validateForm()" id="regForm">
 		
 			<label for="regEmail">Email (must be a valid bcit email account):</label>
 			<input type="email" name="regEmail" id="regEmail" onkeyup="validateEmail('#regEmail', '#errRegEmail');">
@@ -152,23 +155,21 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 	<div data-role="main" class="ui-content">
 		<form method="post" action="php/addSession.php" onsubmit="return addSessionValidate()">
 
-<div>
-	<label for="courseName">Select a Course:</label>
-	<div id="itmCourse">
-		<div id="errCourse">
+			<label for="courseName">Select a Course:</label>
+			<div id="itmCourse">
+			<div id="errCourse">
+			</div>
+			<select name="courseName" id="courseName" onchange="testCourseValid('courseName')">
+				<option value="">Select One</option>
+				<option value="comp1510">comp1510</option>
+				<option value="comp1536">comp1536</option>
+				<option value="comp1111">comp1111</option>
+				<option value="comp1100">comp1100</option>
+				<option value="comp1113">comp1113</option>
+				<option value="comm1116">comm1116</option>
+				<option value="busa2720">busa2720</option>
+			</select>
 		</div>
-	<select name="courseName" id="courseName" onchange="testCourseValid('courseName')">
-		<option value="">Select One</option>
-		<option value="comp1510">comp1510</option>
-		<option value="comp1536">comp1536</option>
-		<option value="comp1111">comp1111</option>
-		<option value="comp1100">comp1100</option>
-		<option value="comp1113">comp1113</option>
-		<option value="comm1116">comm1116</option>
-		<option value="busa2720">busa2720</option>
-	</select>
-	</div>
-</div>
 
 <div>
 	<label for="location">Location:</label>
