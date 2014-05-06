@@ -2,8 +2,6 @@ $(document).ready(function() {
     function regSuccess(data, status) {
 			data = $.trim(data);
 			
-			//myData = $.parseJSON(data); //JSON.parse(data);
-			
 			$("#regResult").html("Response data: " + data);
     }
 

@@ -50,7 +50,7 @@ if(mysql_num_rows($result) != 0) {
 if ($errflag == true) {
     $output = "";
     foreach ($errmsg_arr as $err) {
-        $output .= "<p>" . $err . "</p>";
+        $output .= $err;
     }
     echo $output;
 } else {
