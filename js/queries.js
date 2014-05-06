@@ -1,3 +1,39 @@
+$(document).ready(function() {
+    function regSuccess(data, status) {
+			data = $.trim(data);
+			
+			//myData = $.parseJSON(data); //JSON.parse(data);
+			
+			$("#regResult").html("Response data: " + data);
+    }
+
+    function regError(data, status) {
+        alert("something went wrong: " + status);
+    }
+
+    $("#regSubmit").click(function(){
+
+        if(!validateForm()) {
+            return false;
+        }
+
+        var formData = $("#regForm").serialize();
+        
+        $.ajax({
+            type: "POST",
+            url: "./php/register.php",
+            cache: false,
+            data: formData,
+            success: regSuccess,
+            error: regError
+        });
+        return false;
+    });
+});
+
+
+
+
 function getDetails(sessionId) {
 	//The id of the element to put detail info into.
 	var target = "#dest";

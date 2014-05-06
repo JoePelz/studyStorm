@@ -125,7 +125,7 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 		<h1>Register</h1>
 	</div>
 	<div data-role="main" class="ui-content">
-		<form method="post" action="php/register.php" onsubmit="return validateForm()" id="regForm">
+		<form id="regForm">
 		
 			<label for="regEmail">Email (must be a valid bcit email account):</label>
 			<input type="email" name="regEmail" id="regEmail" onkeyup="validateEmail('#regEmail', '#errRegEmail');">
@@ -143,8 +143,9 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 			<input type="password" name="regConfirmPassword" id="regConfirmPassword" onkeyup="validateMatching('#regPassword', '#regConfirmPassword', '#errRegConfirmPass')">
 			<div id="errRegConfirmPass" class="errMsg invisible">Your passwords don't match right now.</div>
 
-			<input type="submit" value="Register">
+			<input type="submit" value="Register" id="regSubmit">
 		</form>
+        <div id="regResult"></div>
 	</div><!-- /data-role="main" -->
 </section><!-- /#regPage -->
 
