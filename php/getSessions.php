@@ -8,16 +8,18 @@ $db = mysql_select_db(DB_DATABASE) or die("Unable to select database");
 
 
 //data available: studName, sessionId, courseName, details, startTime, endTime, location, studId, isActive
-$qry = "SELECT u.studName, s.* FROM sessions s, students u WHERE u.studId=s.studId AND s.sessionId=".$_GET['sessionId']." LIMIT 1";
+$qry = "SELECT u.studName, s.* FROM sessions s, students u WHERE u.studId=s.studId";
 $result = mysql_query($qry);
-
+$courseArray = array();
 
 if ($result) {
-	$row = mysql_fetch_array($result, MYSQL_ASSOC);
-	print json_encode($row);
+	while ($row = mysql_fetch_assoc($result)) {
+		$courseArray[] = $row;
+	}
+	print json_encode($courseArray);
 } else {
 	die("Query failed");
-}
+	}
 
 mysql_close($con);
 

@@ -27,16 +27,30 @@ $(document).ready(function() {
         });
         return false;
     });
+
+		getSessions();
 });
 
+function getSessions() {
+	$.getJSON("./php/getSessions.php", function(result) {
+		var output = "";
+		output += "<ul>";
+		
+		for (var i = 0; i < result.length; i++) {
+			output += "<li>" + result[i].startTime + "&nbsp;&nbsp;&nbsp;&nbsp;";
+			output += "<a href=\"#detailsPage\" onclick=\"getDetails(" + result[i].sessionId + ")\" data-rel=\"dialog\" data-transition=\"pop\">" + result[i].studName + "</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+			output += result[i].courseName + "</li>";
+		}
+		output += "</ul>";
+		$("#courseDest").html(output);
+	});
 
+}
 
-
+			
 function getDetails(sessionId) {
 	//The id of the element to put detail info into.
 	var target = "#dest";
-	//The error message if sessionId is missing
-	var errorMsgSession = "<p>No session specified.</p>";
 
 	//use AJAX to ask getDetails.php for information.
 	//the returned data is in JSON format.

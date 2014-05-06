@@ -43,6 +43,10 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 		?>
 
 		<hr />
+		<div id="courseDest">
+			Stuff goes here
+		</div>
+		
 		<div data-role="collapsibleset" data-inset="false">
 			<div data-role="collapsible">
 				<h1>Expand!</h1>
