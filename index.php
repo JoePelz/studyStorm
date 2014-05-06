@@ -26,8 +26,8 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 					<li><a href="#addSessionPage" class="ui-btn" data-rel="dialog" data-transition="pop" data-icon="plus">Add Session</a></li>
 					<li><a href="#loginPage" class="ui-btn" data-rel="dialog" data-transition="pop" data-icon="back">Sign In</a></li>
 				</ul>
-			</div>
-		</div>
+			</div><!-- /data-role=navbar" -->
+		</div><!-- /data-role="header" -->
 	</div><!-- /data-role="header" -->
 
 	<div data-role="main" class="ui-content">
@@ -118,6 +118,8 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 
 
 
+
+
 <section data-role="page" id="regPage">
 	<div data-role="header">
 		<h1>Register</h1>
@@ -157,55 +159,47 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 
 			<label for="courseName">Select a Course:</label>
 			<div id="itmCourse">
-			<div id="errCourse">
-			</div>
-			<select name="courseName" id="courseName" onchange="testCourseValid('courseName')">
-				<option value="">Select One</option>
-				<option value="comp1510">comp1510</option>
-				<option value="comp1536">comp1536</option>
-				<option value="comp1111">comp1111</option>
-				<option value="comp1100">comp1100</option>
-				<option value="comp1113">comp1113</option>
-				<option value="comm1116">comm1116</option>
-				<option value="busa2720">busa2720</option>
-			</select>
-		</div>
+				<div id="errCourse">
+				</div>
+				<select name="courseName" id="courseName" onchange="testCourseValid('courseName')">
+					<option value="">Select One</option>
+					<option value="comp1510">comp1510</option>
+					<option value="comp1536">comp1536</option>
+					<option value="comp1111">comp1111</option>
+					<option value="comp1100">comp1100</option>
+					<option value="comp1113">comp1113</option>
+					<option value="comm1116">comm1116</option>
+					<option value="busa2720">busa2720</option>
+				</select>
+			</div><!-- /#itmCourse -->
 
-<div>
-	<label for="location">Location:</label>
-	<div id="itmLocation">
-		<div id="errLocation">
-		</div>
-	<input type="text" name="location" id="location" onkeyup="testLocation('location')">
-	</div>
-</div>
+			<label for="location">Location:</label>
+			<div id="itmLocation">
+				<div id="errLocation">
+				</div>
+				<input type="text" name="location" id="location" onkeyup="testLocation('location')">
+			</div><!-- /end itmLocation div -->
 
-<div>
-	<label for="startTime">Start Time:</label>
-	<div id="itmTime">
-		<div id="errTime">
-		</div>
-	<input type="time" name="startTime" id="startTime" onchange="testTime('startTime')">
-</div>
+			<label for="startTime">Start Time:</label>
+			<div id="itmTime">
+				<div id="errTime">
+				</div>
+				<input type="time" name="startTime" id="startTime" onchange="testTime('startTime')">
 
-<div>
-	<label for="endTime">End Time:</label>
-	<input type="time" name="endTime" id="endTime" onchange="testTime('endTime')">
-	</div>
-</div>
+				<label for="endTime">End Time:</label>
+				<input type="time" name="endTime" id="endTime" onchange="testTime('endTime')">
+			</div><!-- /end itmTime div -->
 
-<div>
-	<label for="details">Details:</label>
-	<div id="itmDetails">
-		<div id="errDetails">
-		</div>
-	<textarea name="details" id="details" onkeyup="testDetails('details')"></textarea>
-	</div>
-</div>
+			<label for="details">Details:</label>
+			<div id="itmDetails">
+				<div id="errDetails">
+				</div>
+				<textarea name="details" id="details" onkeyup="testDetails('details')"></textarea>
+			</div><!-- /end itmDetails -->
 
-<input type="Submit" value="Add">
+			<input type="Submit" value="Add">
 
-</form>
+		</form>
 	</div><!-- /data-role="main" -->
 </section>
 
