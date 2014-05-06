@@ -6,20 +6,62 @@ mysql_select_db(DB_DATABASE) or die('No database found!');
 $studName = mysql_real_escape_string($_POST['regStudName']);
 $email = mysql_real_escape_string($_POST['regEmail']);
 $password = mysql_real_escape_string($_POST['regPassword']);
+$confirmPassword = mysql_real_escape_string($_POST['regConfirmPassword']);
 
-echo $studName . "<br>";
-echo $email . "<br>";
-echo $password . "<br>";
+//-- Validation --
+//Placeholder for errors
+$errmsg_arr = array();
+$errflag = false;
 
-$qry = "INSERT INTO students (studName, email, password) VALUES ('$studName', '$email', '$password')";
+//Check that email is valid and ends with my.bcit.ca
+if (!preg_match( "/^[A-Z0-9._%+-]+@my.bcit.ca$/i", $email )) {
+	$errmsg_arr[] = "<p>You must use a bcit email address.</p>";
+	$errflag = true;
+}
+
+//Check that username is at least 2 letters.
+$test = @trim($studName);
+if (strlen($test) <= 2) {
+    $errmsg_arr[] = "<p>Username must be at least 2 letters.</p>";
+    $errflag = true;
+}
+
+//Check that password is 4+ non-space characters.
+if (strlen($password) < 4 || strstr($password, " ") != FALSE) {
+    $errmsg_arr[] = "<p>Password must be at least 4 characters, and not contain whitespace</p>";
+    $errflag = true;
+}
+
+//Check that passwords match
+if (strcmp($password, $confirmPassword) != 0) {
+    $errflag = true;
+    $errmsg_arr[] = "<p>Passwords do not match.</p>";
+}
+
+//Check that user doesn't already exist
+$qry = "SELECT `studName` FROM `students` WHERE `email`=\"" . $email . "\"";
 $result = mysql_query($qry);
+if(mysql_num_rows($result) != 0) {
+    $errflag = true;
+    $errmsg_arr[] = "<p>A user with that email already exists!</p>";
+}
 
-if($result) {
-	echo 'Successfully added student to database! <a href="../index.php">Home</a>';
+//Insert into the table!
+if ($errflag == true) {
+    $output = "";
+    foreach ($errmsg_arr as $err) {
+        $output .= "<p>" . $err . "</p>";
+    }
+    echo $output;
 } else {
-	echo 'ERROR, did not add student to database!';
-	}
-
+    $qry = "INSERT INTO students (studName, email, password) VALUES ('$studName', '$email', '$password')";
+    $result = mysql_query($qry);
+    if($result) {
+    	echo 'Successfully added student to database! <a href="../index.php">Home</a>';
+    } else {
+    	echo 'ERROR, did not add student to database!';
+    }
+}
 
 mysql_close($con);
 
