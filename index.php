@@ -26,8 +26,8 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 					<li><a href="#addSessionPage" class="ui-btn" data-rel="dialog" data-transition="pop" data-icon="plus">Add Session</a></li>
 					<li><a href="#loginPage" class="ui-btn" data-rel="dialog" data-transition="pop" data-icon="back">Sign In</a></li>
 				</ul>
-			</div>
-		</div>
+			</div><!-- /data-role=navbar" -->
+		</div><!-- /data-role="header" -->
 	</div><!-- /data-role="header" -->
 
 	<div data-role="main" class="ui-content">
@@ -167,8 +167,8 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 		<option value="comm1116">comm1116</option>
 		<option value="busa2720">busa2720</option>
 	</select>
-	</div>
-</div>
+	</div><!-- /end itmCourse div -->
+</div><!-- /end course selector div -->
 
 <div>
 	<label for="location">Location:</label>
@@ -176,8 +176,8 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 		<div id="errLocation">
 		</div>
 	<input type="text" name="location" id="location" onkeyup="testLocation('location')">
-	</div>
-</div>
+	</div><!-- /end itmLocation div -->
+</div> <!-- /end location input div -->
 
 <div>
 	<label for="startTime">Start Time:</label>
@@ -190,8 +190,8 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 <div>
 	<label for="endTime">End Time:</label>
 	<input type="time" name="endTime" id="endTime" onchange="testTime('endTime')">
-	</div>
-</div>
+	</div><!-- /end itmTime div -->
+</div><!-- /end time input divs -->
 
 <div>
 	<label for="details">Details:</label>
@@ -199,8 +199,8 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 		<div id="errDetails">
 		</div>
 	<textarea name="details" id="details" onkeyup="testDetails('details')"></textarea>
-	</div>
-</div>
+	</div><!-- /end itmDetails -->
+</div><!-- /end details input div -->
 
 <input type="Submit" value="Add">
 
