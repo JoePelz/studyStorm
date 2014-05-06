@@ -32,7 +32,7 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 
 	<div data-role="main" class="ui-content">
 		<span id="mainWelcome">Not logged in.</span><hr>
-		<a href="php/logout.php" data-ajax="false" class="invisible" id="btnLogout">Log Out</a>
+		<a href="#mainPage" data-ajax="false" class="invisible" id="btnLogout">Log Out</a>
 		<a href="#addSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnAddSession">Add Session</a>
 		<a href="#regPage" data-rel="dialog" id="btnRegister">Register</a>
 		<hr />

@@ -59,6 +59,18 @@ $(document).ready(function() {
         return false;
     });
 	
+    $("#btnLogout").click(function(){
+
+        $.ajax({
+            url: "./php/logout.php",
+            cache: false,
+            success: function(a, b) {updateLogin();}
+        });
+        return false;
+    });
+
+
+	
 	updateLogin();
 });
 
