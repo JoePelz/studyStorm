@@ -75,6 +75,7 @@ $(document).ready(function() {
 });
 
 function getSessions() {
+	$("#courseDest").html("Loading...");
 	$.getJSON("./php/getSessions.php", function(result) {
 		var content = "";
 		content += "<ul>";
@@ -115,7 +116,7 @@ function updateLogin() {
 
 			
 function getDetails(sessionId) {
-
+	$("#detailsContent").html("Loading...");
 	//use AJAX to ask getDetails.php for information.
 	//the returned data is in JSON format.
 	$.getJSON("../php/getDetails.php?sessionId=" + sessionId, function(result){

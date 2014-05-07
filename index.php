@@ -35,45 +35,13 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 		<a href="#mainPage" data-ajax="false" class="invisible" id="btnLogout">Log Out</a>
 		<a href="#addSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnAddSession">Add Session</a>
 		<a href="#regPage" data-rel="dialog" id="btnRegister">Register</a>
-		<hr />
-		<div id="courseDest">
-			Stuff goes here
-		</div>
 		
 		<div data-role="collapsibleset" data-inset="false">
-			<div data-role="collapsible">
-				<h1>Expand!</h1>
-				<ul>
-				<?php
-				require_once('./php/config.php');
-
-				$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD)
-					or die('Failed to connect to server: ' . mysql_error());
-
-				$db = mysql_select_db(DB_DATABASE) or die("Unable to select database");
-
-
-				//data available: studName, sessionId, courseName, details, startTime, endTime, location, studId, isActive
-				$qry = "SELECT u.studName, s.startTime, s.sessionId FROM sessions s, students u WHERE u.studId=s.studId"; #AND s.isActive=1";
-				$result = mysql_query($qry);
-
-				if ($result) {
-					while ($row = mysql_fetch_assoc($result)) {
-						echo "\t\t<li>";
-						echo "<a href='#detailsPage' onclick='getDetails(".$row['sessionId'].")' data-rel='dialog' data-transition='pop'>";
-						echo $row['studName']."</a>\t";
-						echo $row['startTime']."\t";
-						echo "</li>\n";
-					}
-				} else {
-					die("Query failed");
-				}
-
-				mysql_close($con);
-				?>
-				</ul>
-			</div><!-- /data-role="collapsible" -->
+			<div id="courseDest">
+				sessions go here
+			</div>
 		</div><!-- /data-role="collapsibleset" -->
+		
 	</div><!-- /data-role="main" -->
 </section><!-- /#mainPage -->
 
