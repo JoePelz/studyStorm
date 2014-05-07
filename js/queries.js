@@ -111,8 +111,24 @@ $(document).ready(function() {
     });
 
 	updateLogin();
-});
+	getSessionDetails();
+}); /*==== /$(document).ready() ====*/
 
+
+
+/*====================================*/
+
+
+function getSessionDetails() {
+	$.getJSON("./php/getDetails.php", function(result) {
+		document.getElementById("addSessionPage").getElementsByTagName("h1")[0].innerHTML = "Edit Session";
+		document.getElementById("addSessionForm").courseName.value = result.courseName;
+		document.getElementById("addSessionForm").location.value = result.location;
+		document.getElementById("addSessionForm").startTime.value = result.startTime;
+		document.getElementById("addSessionForm").endTime.value = result.endTime;
+		document.getElementById("addSessionForm").details.value = result.details;
+		});
+}
 
 function getSessions() {
 	$("#courseDest").html("Loading...");

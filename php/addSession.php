@@ -20,7 +20,7 @@ echo $location . "<BR>";
 echo $details . "<BR>";
 
 
-$myrequ = "INSERT INTO sessions (courseName, startTime, endTime, location, details, studID, isActive) VALUES ('$courseName', '$startTime', '$endTime', '$location', '$details', '$studId', 'true')";
+$myrequ = "INSERT INTO sessions (courseName, startTime, endTime, location, details, studID, isActive) VALUES ('$courseName', '$startTime', '$endTime', '$location', '$details', '$studId', 1)";
 $result = mysql_query($myrequ);
 
 if ($result) {
