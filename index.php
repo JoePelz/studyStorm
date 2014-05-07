@@ -106,10 +106,11 @@ mysql_select_db(DB_DATABASE) or die(mysql_error());
 
 <section data-role="page" id="detailsPage">
 	<div data-role="header">
-	
+		<h1 id="detailsHeader"></h1>
 	</div>
 	<div data-role="main" class="ui-content">
-		<div id="dest"></div>
+		<div id="detailsContent">
+		</div><!-- /#detailsContent" -->
 	</div><!-- /data-role="main" -->
 </section><!-- /#detailsPage -->
 

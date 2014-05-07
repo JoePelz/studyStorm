@@ -76,16 +76,16 @@ $(document).ready(function() {
 
 function getSessions() {
 	$.getJSON("./php/getSessions.php", function(result) {
-		var output = "";
-		output += "<ul>";
+		var content = "";
+		content += "<ul>";
 		
 		for (var i = 0; i < result.length; i++) {
-			output += "<li>" + result[i].startTime + "&nbsp;&nbsp;&nbsp;&nbsp;";
-			output += "<a href=\"#detailsPage\" onclick=\"getDetails(" + result[i].sessionId + ")\" data-rel=\"dialog\" data-transition=\"pop\">" + result[i].studName + "</a>&nbsp;&nbsp;&nbsp;&nbsp;";
-			output += result[i].courseName + "</li>";
+			content += "<li>" + result[i].startTime + "&nbsp;&nbsp;&nbsp;&nbsp;";
+			content += "<a href=\"#detailsPage\" onclick=\"getDetails(" + result[i].sessionId + ")\" data-rel=\"dialog\" data-transition=\"pop\">" + result[i].studName + "</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+			content += result[i].courseName + "</li>";
 		}
-		output += "</ul>";
-		$("#courseDest").html(output);
+		content += "</ul>";
+		$("#courseDest").html(content);
 	});
 }
 
@@ -115,23 +115,21 @@ function updateLogin() {
 
 			
 function getDetails(sessionId) {
-	//The id of the element to put detail info into.
-	var target = "#dest";
 
 	//use AJAX to ask getDetails.php for information.
 	//the returned data is in JSON format.
 	$.getJSON("../php/getDetails.php?sessionId=" + sessionId, function(result){
-		var output = "";
-		
-		//Format the output into html.
-		//TODO:  convert to object notation instead of using strings.
-		output += "<h1>" + result.studName + "'s Study Session</h1>";
-		output += "<ul>";
-		output += "<li>Subject: "  + result.courseName + "</li>";
-		output += "<li>Time: "     + result.startTime  + " to " + result.endTime + "</li>";
-		output += "<li>Location: " + result.location   + "</li>";
-		output += "<li>Details: "  + result.details    + "</li>";
-		output += "</ul>";
-		$(target).html(output);
+		var header = "";
+		var content = "";
+		//Format the content into html.
+		header += result.studName + "'s Study Session";
+		content += "<ul>";
+		content += "<li>Subject: "  + result.courseName + "</li>";
+		content += "<li>Time: "     + result.startTime  + " to " + result.endTime + "</li>";
+		content += "<li>Location: " + result.location   + "</li>";
+		content += "<li>Details: "  + result.details    + "</li>";
+		content += "</ul>";
+		$("#detailsHeader").html(header);
+		$("#detailsContent").html(content);
 	});
 }
