@@ -98,7 +98,7 @@ function getSessions() {
 
 function updateLogin() {
 	//query server
-	function loginSuccess(data, status) {
+	function updateSuccess(data, status) {
 		info = $.parseJSON(data);
 		if (info.loggedIn) {
 			$("#mainWelcome").html("Welcome, " + info.studName);
@@ -116,7 +116,7 @@ function updateLogin() {
 	$.ajax({
             url: "./php/testLogin.php",
             cache: false,
-            success: loginSuccess
+            success: updateSuccess
 	});
 }
 
