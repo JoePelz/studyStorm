@@ -1,10 +1,7 @@
 $(document).ready(function() {
-    function regSuccess(data, status) {
-			data = $.trim(data);
-			
-			$("#regResult").html("Response data: " + data);
-    }
 
+	getSessions();
+	
     function regError(data, status) {
         alert("something went wrong: " + status);
     }
@@ -27,17 +24,27 @@ $(document).ready(function() {
         });
         return false;
     });
+	
+    function regSuccess(data, status) {
+		data = $.trim(data);
+		if (data == "Success!") {
+			location.hash="loginPage";
+			$("#loginResult").html("You have been successfully registered!");
+		} else {
+			$("#regResult").html("Response data: " + data);
+		}
+    }
 
-		getSessions();
 		
-			function loginSuccess(data, status) {
-			data = $.trim(data);
-			if (data == "Success!") {
-				updateLogin();
-				location.hash="mainPage";
-			} else {
-				$("#loginResult").html("Oh no! " + data);
-			}
+	function loginSuccess(data, status) {
+		data = $.trim(data);
+		if (data == "Success!") {
+			updateLogin();
+			$( "#myPop" ).popup( "open" );
+			location.hash="mainPage";
+		} else {
+			$("#loginResult").html("Oh no! " + data);
+		}
     }
 
     function loginError(data, status) {
@@ -69,10 +76,9 @@ $(document).ready(function() {
         return false;
     });
 
-
-	
 	updateLogin();
 });
+
 
 function getSessions() {
 	$("#courseDest").html("Loading...");
@@ -111,7 +117,7 @@ function updateLogin() {
             url: "./php/testLogin.php",
             cache: false,
             success: loginSuccess
-        });
+	});
 }
 
 			

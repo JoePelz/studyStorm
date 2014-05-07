@@ -57,7 +57,7 @@ if ($errflag == true) {
     $qry = "INSERT INTO students (studName, email, password) VALUES ('$studName', '$email', '$password')";
     $result = mysql_query($qry);
     if($result) {
-    	echo 'Successfully added student to database! <a href="#mainPage">Home</a>';
+    	echo 'Success!';
     } else {
     	echo 'ERROR, did not add student to database!';
     }
