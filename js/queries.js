@@ -6,6 +6,40 @@ $(document).ready(function() {
         alert("something went wrong: " + status);
     }
 
+		
+		$("#addSessionSubmit").click(function() {
+		
+			if(!addSessionValidate()) {
+				return false;
+			}
+		
+			var formData = $("#addSessionForm").serialize();
+			
+			$.ajax({
+				type: "POST",
+				url: "./php/addSession.php",
+				cache: false,
+				data: formData,
+				success: addSessionSuccess,
+				error: addSessionError
+			});
+			return false;
+		});
+		
+		function addSessionSuccess(data, status) {
+			data = $.trim(data);
+			if (data = "Success!") {
+				location.hash = "mainPage";
+			} else {
+					alert("Response data: " + data);
+			}
+		}
+		
+		function addSessionError(data, status) {
+			alert("Something went wrong " + data);
+		}
+		
+		
     $("#regSubmit").click(function(){
 
         if(!validateForm()) {

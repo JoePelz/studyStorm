@@ -24,9 +24,10 @@ $myrequ = "INSERT INTO sessions (courseName, startTime, endTime, location, detai
 $result = mysql_query($myrequ);
 
 if ($result) {
-echo 'Added to database! <a href="../index.php">Back to main</a>';
+	echo 'Success!';
+	exit();
 } else {
-echo 'ERROR, did not add to database! <a href="../addSessionForm.html">Back to form</a>';
+		echo 'ERROR, did not add to database!' . mysql_error();
 }
 
 mysql_close($con);

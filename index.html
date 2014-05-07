@@ -147,7 +147,7 @@
 		<h1>Add Session</h1>
 	</div>
 	<div data-role="main" class="ui-content">
-		<form method="post" action="php/addSession.php" onsubmit="return addSessionValidate()">
+		<form id="addSessionForm">
 
 			<label for="courseName">Select a Course: <span id="errCourse"></span></label>
 			<div id="itmCourse">
@@ -180,7 +180,7 @@
 				<textarea name="details" id="details" onkeyup="testDetailsValid('#details')"></textarea>
 			</div><!-- /end itmDetails -->
 
-			<input type="Submit" value="Add">
+			<input type="Submit" value="Add" id="addSessionSubmit">
 
 		</form>
 	</div><!-- /data-role="main" -->
