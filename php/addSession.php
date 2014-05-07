@@ -14,7 +14,7 @@ $studId = $_SESSION['studId'];
 
 
 echo $courseName . "<BR>";
-echo $startTime . "<br>";
+echo $startTime . "<BR>";
 echo $endTime . "<BR>";
 echo $location . "<BR>";
 echo $details . "<BR>";
