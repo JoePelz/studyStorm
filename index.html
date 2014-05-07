@@ -9,7 +9,6 @@
 <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
 <script src="./js/queries.js"></script>
 <script src="./js/validate.js"></script>
-<script src="./js/disclaimerValidation.js"></script>
 <title>Study Storm</title>
 </head>
 <body>
@@ -86,7 +85,7 @@
 		<h1>Terms of Use</h1>
 	</div>
 	<div data-role="main" class="ui-content">
-		<form id="dislaimer">
+		<form id="disclaimer">
 
 			<h1>Disclaimer</h1>
 			<p>Studystorm.org is created for CST students to facilitate study group formation between students. In the following disclaimer studystorm.org will be referred to as "US", "OUR", or "WE". Any advertiser, user or member will be referred to as "YOU", "PERSON" or "PERSONS." 
@@ -98,9 +97,9 @@
 			<p><strong>We do not scrutinize or checks the the validity of, or backgrounds of, any user or participant of this site.  While using this site to meet someone for a study group we suggest you take necessary precautions to be safe. You are encouraged to meet in public places during regular BCIT hours.  When meeting someone for the first time we encourage you to bring a friend.</strong></p>
 			<p>In no event shall studystorm.org be liable for any damages whatsoever, whether direct, indirect, special, general, compensatory, consequential, and/or incidental, arising out of or relating to the conduct of you or anyone else in connection with the use of the service, including without limitation, emotional distress, bodily injury, and/or any other damages resulting from meetings or communications with other registered users of our service or persons you meet through our service. You agree to take reasonable precautions in all interactions with other users of the service, particularly if you decide to meet again after one of our group study events. </p>			
 
-			<label for="disclaimerYes1">I have read the Disclaimer.</label>
-			<input type="checkbox" name="read" id="disclaimerYes1" value="false" 
-			onchange="disclaimerCheckboxValidation('disclaimerYes1', 'disclaimerReg');">
+			<label for="disclaimerYes">I agree to the Terms of Use.</label>
+			<input type="checkbox" name="read" id="disclaimerYes" value="false" 
+			onchange="disclaimerCheckboxValidation('#disclaimerYes', '#disclaimerReg');">
 			<a href="#regPage" data-rel="dialog" id="disclaimerReg" style="display:none">Continue to Registration</a>
 			<!-- <input type="submit" value="Register" href="#regPage"> --> <!-- id="regSubmit" -->
 		</form>
@@ -134,10 +133,6 @@
 			<label for="regConfirmPassword">Confirm your password:</label>
 			<input type="password" name="regConfirmPassword" id="regConfirmPassword" onkeyup="validateMatching('#regPassword', '#regConfirmPassword', '#errRegConfirmPass')">
 			<div id="errRegConfirmPass" class="errMsg invisible">Your passwords don't match right now.</div>
-
-			<label for="disclaimerYes2">I agree to the terms of use.</label>
-			<input type="checkbox" name="read" id="disclaimerYes2" value="false">
-			<div id="errRegConfirmDisclaimer" class="errMsg invisible">You must agree to terms of use if you want to proceed.</div>
 
 			<input type="submit" value="Register" id="regSubmit">
 		</form>
