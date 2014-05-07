@@ -118,15 +118,32 @@ function getSessions() {
 	$("#courseDest").html("Loading...");
 	$.getJSON("./php/getSessions.php", function(result) {
 		var content = "";
-		content += "<ul>";
-		
+
+		courses = [];
 		for (var i = 0; i < result.length; i++) {
-			content += "<li>" + result[i].startTime + "&nbsp;&nbsp;&nbsp;&nbsp;";
-			content += "<a href=\"#detailsPage\" onclick=\"getDetails(" + result[i].sessionId + ")\" data-rel=\"dialog\" data-transition=\"pop\">" + result[i].studName + "</a>&nbsp;&nbsp;&nbsp;&nbsp;";
-			content += result[i].courseName + "</li>";
+			if (courses.indexOf(result[i].courseName) == -1) {
+				courses.push(result[i].courseName);
+			}
 		}
-		content += "</ul>";
+		
+		content += '<div data-role="collapsibleset" data-inset="false">';
+		for (var i=0; i < courses.length; i++) {
+			content += '<div data-role="collapsible">';
+			content += "<h1>" + courses[i] + "</h1>";
+			content += "<ul>";
+			for (var j = 0; j < result.length; j++) {
+				if (result[j].courseName == courses[i]) {
+					content += "<li>" + result[j].startTime + "&nbsp;&nbsp;&nbsp;&nbsp;";
+					content += "<a href=\"#detailsPage\" onclick=\"getDetails(" + result[j].sessionId + ")\" data-rel=\"dialog\" data-transition=\"pop\">" + result[j].studName + "</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+					content += result[j].courseName + "</li>";
+				}
+			}
+			content += "</ul></div>";
+		}
+		content += "</div>";
+
 		$("#courseDest").html(content);
+		$('div[data-role=collapsible]').collapsible();
 	});
 }
 

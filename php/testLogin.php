@@ -5,6 +5,14 @@ session_start();
 if (isset($_SESSION['studId']) 
  && isset($_SESSION['email']) 
  && isset($_SESSION['studName'])) {
+
+	//connect to mysql
+	//send query
+	//read results
+	//if user has a active session
+		$results["sessionId"] = //blah
+	//no 'else' is needed
+
 	$results = array();
 	$results["loggedIn"] = TRUE;
 	$results["studId"]   = $_SESSION['studId'];
