@@ -189,6 +189,11 @@ function testMatching(id1, id2){
     var val2 = $(id2).val();
     return (val1 == val2);
 }
+/*DISCLAIMER addition by Nadia*/
+function testChecked(id1){
+	console.log('function testChecked(id1){');
+	return $("#" + id1)[0].checked;
+}
 
 function validateForm() {
     result = true;
@@ -209,6 +214,12 @@ function validateForm() {
         validateMatching('#regPassword', '#regConfirmPassword', '#errRegConfirmPass');
         result = false;
     }
+
+    /*DISCLAIMER addition by Nadia*/
+    if(!testChecked('disclaimerYes2')) {
+ 		
+    }
+
     return result;
     alert("result");
 }

@@ -100,7 +100,7 @@
 
 			<label for="disclaimerYes1">I have read the Disclaimer.</label>
 			<input type="checkbox" name="read" id="disclaimerYes1" value="false" 
-			onchange="disValidation1()">
+			onchange="disclaimerCheckboxValidation('disclaimerYes1', 'disclaimerReg');">
 			<a href="#regPage" data-rel="dialog" id="disclaimerReg" style="display:none">Continue to Registration</a>
 			<!-- <input type="submit" value="Register" href="#regPage"> --> <!-- id="regSubmit" -->
 		</form>
@@ -135,6 +135,10 @@
 			<label for="regConfirmPassword">Confirm your password:</label>
 			<input type="password" name="regConfirmPassword" id="regConfirmPassword" onkeyup="validateMatching('#regPassword', '#regConfirmPassword', '#errRegConfirmPass')">
 			<div id="errRegConfirmPass" class="errMsg invisible">Your passwords don't match right now.</div>
+
+			<label for="disclaimerYes2">I agree to the terms of use.</label>
+			<input type="checkbox" name="read" id="disclaimerYes2" value="false">
+			<div id="errRegConfirmDisclaimer" class="errMsg invisible">You must agree to terms of use if you want to proceed.</div>
 
 			<input type="submit" value="Register" id="regSubmit">
 		</form>

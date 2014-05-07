@@ -1,13 +1,13 @@
-function disValidation1(){
+function disclaimerCheckboxValidation(checkboxId, hiddenElementId){
 
-	if($("#disclaimerYes1")[0].checked) { 
-		$('#disclaimerReg').fadeIn('fast');
+	if($("#" + checkboxId)[0].checked) { 
+		$('#' + hiddenElementId).fadeIn('fast');
 
 		// var element = document.getElementById(disclaimerReg);
 		// element.setAttribute('display', 'inline');
 
 	}
 	else{
-		$('#disclaimerReg').fadeOut('fast');
+		$('#' + hiddenElementId).fadeOut('fast');
 	}
 }
