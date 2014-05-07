@@ -87,6 +87,7 @@ function getSessions() {
 		output += "</ul>";
 		$("#courseDest").html(output);
 	});
+}
 
 function updateLogin() {
 	//query server
