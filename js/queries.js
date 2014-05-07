@@ -142,7 +142,7 @@ function getSessions() {
 			}
 		}
 		
-		content += '<div data-role="collapsibleset" data-inset="false">';
+		content += '<div data-role="collapsibleset" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">';
 		for (var i=0; i < courses.length; i++) {
 			content += '<div data-role="collapsible">';
 			content += "<h1>" + courses[i] + "</h1>";
