@@ -1,3 +1,12 @@
+
+/***********************************************************************
+ * Validate study session information before adding it or modifying it.
+ ***********************************************************************/
+
+/*  
+ * Function: addSessionValidate()
+ * Purpose: Test all conditions in the form
+ */
 function addSessionValidate() {
 var courseValid;
 var locationValid;
@@ -58,8 +67,14 @@ var detailsValid;
 	}
 }
 
-/*=============================================================*/
-
+/* 
+ * Function: testCourseValid(id)
+ * Purpose: Test if a course has been selected for the study session.
+ *          and give feedback if invalid.
+ * Params:
+ *      id - The id of the option box to test.
+ * Return true if course is valid
+ */
 function testCourseValid(id) {
 	if ($(id).prop("selectedIndex") == 0) {
 		$('#errCourse').removeClass("goodInput").addClass("badInput");
@@ -73,6 +88,13 @@ function testCourseValid(id) {
 	}
 }
 
+/* 
+ * Function: testLocationValid(id)
+ * Purpose: Test if a location has been entered and show an error if not.
+ * Params:
+ *      id - The id of the textbox to test.
+ * Return true if location is valid
+ */
 function testLocationValid(id) {
 	if ($(id).val() == "") {
 		$('#errLocation').removeClass("goodInput");
@@ -88,6 +110,13 @@ function testLocationValid(id) {
 	}
 }
 
+/* 
+ * Function: testTimeValid(id)
+ * Purpose: Test if the user has entered a time.
+ * Params:
+ *      id - The id of the time input to test.
+ * Return true if the time is valid.
+ */
 function testTimeValid(id) {
 	if ($(id).val() == "") {
 		$('#errTime').removeClass("goodInput").addClass("badInput");
@@ -101,6 +130,13 @@ function testTimeValid(id) {
 	}
 }
 
+/* 
+ * Function: testDetailsValid(id)
+ * Purpose: Test if the user has entered any details.
+ * Params:
+ *      id - The id of the text input to test.
+ * Return true if any details are entered.
+ */
 function testDetailsValid(id) {
 	if ($(id).val() == "") {
 		$('#errDetails').removeClass("goodInput").addClass("badInput");
@@ -113,13 +149,23 @@ function testDetailsValid(id) {
 		return true;
 	}
 }
+/*
+ *  End of add/modify session validation.
+ */
 
-//Helper functions it tests if string ends with another string
-String.prototype.endsWith = function(suffix) {
-    return this.indexOf(suffix, this.length - suffix.length) !== -1;
-};
 
-//Test if an email address is valid my.bcit.ca address
+
+/*******************************************************************
+ *  Validate registration information before allowing registration.
+ *******************************************************************/
+
+/* 
+ * Function: validateEmail(id, err)
+ * Purpose: Show an error if the email is invalid.
+ * Params:
+ *      id  - The id of the email input to test.
+ *      err - The id of the div that holds the error message.
+ */
 function validateEmail(id, err){
     if (testValidEmail(id)) {
         $(id).addClass('goodInput').removeClass('badInput');
@@ -130,6 +176,18 @@ function validateEmail(id, err){
     }
 }
 
+//Helper functions it tests if string ends with another string
+String.prototype.endsWith = function(suffix) {
+    return this.indexOf(suffix, this.length - suffix.length) !== -1;
+};
+
+/* 
+ * Function: testValidEmail(id)
+ * Purpose: test if an email is valid (ends with my.bcit.ca)
+ * Params:
+ *      id  - The id of the email input to test.
+ * Return: True if the email is valid.
+ */
 function testValidEmail(id){
     var elem = $(id);
     var value = elem.val();
@@ -137,7 +195,13 @@ function testValidEmail(id){
     return (value.endsWith("my.bcit.ca"));
 }
 
-//Test if a User Name is valid (at least 2 non-space characters)
+/* 
+ * Function: validateName(id, err)
+ * Purpose: Show an error if the username is invalid.
+ * Params:
+ *      id  - The id of the name input to test.
+ *      err - The id of the div that holds the error message.
+ */
 function validateName(id, err){
     if (testValidName(id)) {
         $(id).addClass('goodInput').removeClass('badInput');
@@ -148,6 +212,13 @@ function validateName(id, err){
     }
 }
 
+/* 
+ * Function: testValidName(id)
+ * Purpose: Test if the username is valid (at least two letters, non-space).
+ * Params:
+ *      id  - The id of the name input to test.
+ * Return: True if the name is valid.
+ */
 function testValidName(id){
     var elem = $(id);
     var value = elem.val();
@@ -155,7 +226,13 @@ function testValidName(id){
     return (value.length >= 2);
 }
 
-//Test if a password is valid (at least 4 non-space characters)
+/* 
+ * Function: validatePass(id, err)
+ * Purpose: Show an error if the password is invalid.
+ * Params:
+ *      id  - The id of the password input to test.
+ *      err - The id of the div that holds the error message.
+ */
 function validatePass(id, err){
     if (testValidPass(id)) {
         $(id).addClass('goodInput').removeClass('badInput');
@@ -166,6 +243,13 @@ function validatePass(id, err){
     }
 }
 
+/* 
+ * Function: testValidPass(id)
+ * Purpose: Test if the password is valid (4+ chars, no spaces)
+ * Params:
+ *      id - The id of the password input to test.
+ * Return: True if the password is valid.
+ */
 function testValidPass(id){
     var elem = $(id);
     var value = elem.val();
@@ -173,7 +257,14 @@ function testValidPass(id){
     return (value.length >= 4);
 }
 
-//Test if two things (passwords) match
+/* 
+ * Function: validateMatching(id1, id2, err)
+ * Purpose: Show an error if the values of the ids don't match.
+ * Params:
+ *      id1 - The id of first  element to test.
+ *      id2 - The id of second element to test.
+ *      err - The id of the div that holds the error message.
+ */
 function validateMatching(id1, id2, err){
     if (testMatching(id1, id2)) {
         $(id2).addClass('goodInput').removeClass('badInput');
@@ -184,12 +275,24 @@ function validateMatching(id1, id2, err){
     }
 }
 
+/* 
+ * Function: testMatching(id1, id2)
+ * Purpose: Test if the password is valid (4+ chars, no spaces)
+ * Params:
+ *      id - The id of the password input to test.
+ * Return: True if the password is valid.
+ */
 function testMatching(id1, id2){
     var val1 = $(id1).val();
     var val2 = $(id2).val();
     return (val1 == val2);
 }
 
+/* 
+ * Function: validateForm()
+ * Purpose: Test all the elements of the registration form
+ * Return: true if everything checks out.
+ */
 function validateForm() {
     result = true;
 
@@ -212,7 +315,16 @@ function validateForm() {
     return result;
 }
 
-//Show link only if the box is checked.
+/*****************************************************
+ *  Validate disclaimer before allowing registration.
+ *****************************************************/
+
+/* 
+ * Function: disclaimerCheckboxValidation(checkboxId, hiddenElementId)
+ * Purpose: Display the continue button only if the user 
+ *  		agrees to the terms of use.
+ *
+ */
 function disclaimerCheckboxValidation(checkboxId, hiddenElementId){
 	if($(checkboxId)[0].checked) { 
 		$(hiddenElementId).fadeIn('fast');
