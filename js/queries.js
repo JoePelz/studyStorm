@@ -160,6 +160,7 @@ function getSessions() {
 
 		$("#courseDest").html(content);
 		$('div[data-role=collapsible]').collapsible();
+		$('div[data-role=collapsibleset]').collapsibleset();
 	});
 }
 
