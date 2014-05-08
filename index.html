@@ -15,14 +15,12 @@
 
 <section data-role="page" id="mainPage">
 	<div data-role="header">
-		<div data-role="header">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#addSessionPage" class="ui-btn" data-rel="dialog" data-transition="pop" data-icon="plus">Add Session</a></li>
-					<li><a href="#loginPage" class="ui-btn" data-rel="dialog" data-transition="pop" data-icon="back">Sign In</a></li>
-				</ul>
-			</div><!-- /data-role=navbar" -->
-		</div><!-- /data-role="header" -->
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#addSessionPage" class="ui-btn" data-rel="dialog" data-transition="pop" data-icon="plus" id="addSessionBtn">Add Session</a></li>
+				<li><a href="#loginPage" class="ui-btn" data-rel="dialog" data-transition="pop" data-icon="back">Sign In</a></li>
+			</ul>
+		</div><!-- /data-role=navbar" -->
 	</div><!-- /data-role="header" -->
 
 	<div data-role="main" class="ui-content">
@@ -161,16 +159,19 @@
 			</div><!-- /#itmCourse -->
 
 			<div id="itmLocation">
-			
 				<label for="location">Location: <span id="errLocation"></span></label>
 				<input type="text" name="location" id="location" onkeyup="testLocationValid('#location')">
 			</div><!-- /end itmLocation div -->
 
-			<label for="startTime">Start Time: <span id="errTime"></span></label>
-			<div id="itmTime">
-				<input type="time" name="startTime" id="startTime" onkeyup="testTimeValid('#startTime')">
-				<label for="endTime">End Time: </label>
-				<input type="time" name="endTime" id="endTime" onkeyup="testTimeValid('#endTime')">
+			<div id="itmTime" class="ui-grid-a">
+				<div class="ui-block-a">
+					<label for="startTime">Start Time: <span id="errTime"></span></label>
+					<input type="time" name="startTime" id="startTime" onkeyup="testTimeValid('#startTime')">
+				</div>
+				<div class="ui-block-b">
+					<label for="endTime">End Time: </label>
+					<input type="time" name="endTime" id="endTime" onkeyup="testTimeValid('#endTime')">
+				</div>
 			</div><!-- /end itmTime div -->
 
 			<label for="details">Details: <span id="errDetails"></span></label>

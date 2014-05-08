@@ -6,7 +6,7 @@ var detailsValid;
 
 	if (!testCourseValid('#courseName')) {
 		$('#errCourse').removeClass("goodInput").addClass("badInput");
-		$("#errCourse").html("You must select a course");
+		$("#errCourse").html("Select a course");
 		courseValid = false;
 	}
 	else {
@@ -18,7 +18,7 @@ var detailsValid;
 	if (!testLocationValid('#location')) {
 		$('#errLocation').removeClass("goodInput");
 		$('#errLocation').addClass("badInput");
-		$('#errLocation').html("You must enter a location");
+		$('#errLocation').html("Enter a location");
 		locationValid = false;
 	}
 	else {
@@ -30,7 +30,7 @@ var detailsValid;
 	
 	if (!testTimeValid('#startTime') || !testTimeValid('#endTime')) {
 		$('#errTime').removeClass("goodInput").addClass("badInput");
-		$('#errTime').html("You must choose a time");
+		$('#errTime').html("Choose a time");
 		timeValid = false;
 	}
 	else {
@@ -41,7 +41,7 @@ var detailsValid;
 	
 	if (!testDetailsValid('#details')) {
 		$('#errDetails').removeClass("goodInput").addClass("badInput");
-		$('#errDetails').html("You must enter details");
+		$('#errDetails').html("Enter some details");
 		detailsValid = false;
 	}
 	else {
@@ -63,7 +63,7 @@ var detailsValid;
 function testCourseValid(id) {
 	if ($(id).prop("selectedIndex") == 0) {
 		$('#errCourse').removeClass("goodInput").addClass("badInput");
-		$("#errCourse").html("You must select a course");
+		$("#errCourse").html("Select a course");
 		return false;
 	}
 	else {
@@ -77,7 +77,7 @@ function testLocationValid(id) {
 	if ($(id).val() == "") {
 		$('#errLocation').removeClass("goodInput");
 		$('#errLocation').addClass("badInput");
-		$('#errLocation').html("You must enter a location");
+		$('#errLocation').html("Enter a location");
 		return false;
 	}
 	else {
@@ -91,7 +91,7 @@ function testLocationValid(id) {
 function testTimeValid(id) {
 	if ($(id).val() == "") {
 		$('#errTime').removeClass("goodInput").addClass("badInput");
-		$('#errTime').html("You must choose a time");
+		$('#errTime').html("Choose a time");
 		return false;
 	}
 	else {
@@ -104,7 +104,7 @@ function testTimeValid(id) {
 function testDetailsValid(id) {
 	if ($(id).val() == "") {
 		$('#errDetails').removeClass("goodInput").addClass("badInput");
-		$('#errDetails').html("You must enter details");
+		$('#errDetails').html("Enter some details");
 		return false;
 	}
 	else {
