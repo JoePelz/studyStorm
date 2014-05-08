@@ -7,17 +7,33 @@ if (isset($_SESSION['studId'])
  && isset($_SESSION['studName'])) {
 
 	//connect to mysql
+	include 'config.php';
+	$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or die(mysql_error());
+	mysql_select_db(DB_DATABASE) or die("No database, foo'!");
 	//send query
+	$myrequ = "SELECT * FROM sessions WHERE isActive=1";
 	//read results
-	//if user has a active session
-		$results["sessionId"] = //blah
-	//no 'else' is needed
+	$result = mysql_query($myrequ);
+
+	//while there's still rows to check in the result array,
+	while($rowActive=mysql_fetch_array($result)){
+		$studId = $_SESSION['studId'];
+		//check if student has an active session
+		if ($rowActive['studId'] == $studId) {
+			//if user has a active session, let a variable be created with that session num (> 0)
+			$session = $rowActive['sessionId'];
+			//no 'else' is needed
+		}
+	}
+
+	mysql_close($con);
 
 	$results = array();
 	$results["loggedIn"] = TRUE;
 	$results["studId"]   = $_SESSION['studId'];
 	$results["studName"] = $_SESSION['studName'];
 	$results["email"]    = $_SESSION['email'];
+	$results["sessionId"] = $session;
 	echo json_encode($results);
 } else {
 	$results = array();
