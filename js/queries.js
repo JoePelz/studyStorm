@@ -171,12 +171,26 @@ function updateLogin() {
 			$("#mainWelcome").html("Welcome, " + info.studName);
 			$("#btnLogout").removeClass("invisible");
 			$("#btnRegister").addClass("invisible");
-			$("#btnAddSession").removeClass("invisible");
+			// if there is a session for that user, then...
+			if (info.sessionId > 0) {
+				//change page to show edit links
+				$("#menuLeft").attr("href", "http://studystorm.org/_rosanna/#editSessionPage");
+				$("#menuLeft").html("Edit Session");
+				$("#btnEditSession").removeClass("invisible");
+				$("#btnAddSession").addClass("invisible");
+			}
+			else {
+				//otherwise show add links
+				$("#btnEditSession").addClass("invisible");
+				$("#btnAddSession").removeClass("invisible");
+			}
 		} else {
+			//if not logged in show register button
 			$("#mainWelcome").html("Not logged in.");
 			$("#btnLogout").addClass("invisible");
 			$("#btnRegister").removeClass("invisible");
 			$("#btnAddSession").addClass("invisible");
+			$("#btnEditSession").addClass("invisible");
 		}
 	}
 
