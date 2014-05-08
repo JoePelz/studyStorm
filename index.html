@@ -17,8 +17,8 @@
 	<div data-role="header">
 		<div data-role="navbar">
 			<ul>
-				<li><a href="#addSessionPage" class="ui-btn" data-rel="dialog" data-transition="pop" data-icon="plus" id="addSessionBtn">Add Session</a></li>
-				<li><a href="#loginPage" class="ui-btn" data-rel="dialog" data-transition="pop" data-icon="back">Sign In</a></li>
+				<li><a href="#addSessionPage" class="ui-btn" id="menuLeft" data-rel="dialog" data-transition="pop" data-icon="plus">Add Session</a></li>
+				<li><a href="#loginPage" class="ui-btn" id="menuRight" data-rel="dialog" data-transition="pop" data-icon="back">Sign In</a></li>
 			</ul>
 		</div><!-- /data-role=navbar" -->
 	</div><!-- /data-role="header" -->
@@ -27,6 +27,7 @@
 		<span id="mainWelcome">Not logged in.</span><hr>
 		<a href="#mainPage" data-ajax="false" class="invisible" id="btnLogout">Log Out</a>
 		<a href="#addSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnAddSession">Add Session</a>
+		<a href="#editSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnEditSession">Edit Session</a>
 		<a href="#disclaimerPage" data-rel="dialog" id="btnRegister">Register</a>
 
 		<div id="courseDest">
