@@ -2,11 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<!--<link rel="stylesheet" href="css/StudyStormRoughDraft.min.css">-->
-<!--<link rel="stylesheet" href="css/jquery.mobile.icons.min.css">-->
+<link rel="stylesheet" href="css/StudyStormRoughDraft.min.css">
+<link rel="stylesheet" href="css/jquery.mobile.icons.min.css">
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile.structure-1.4.2.min.css">
-<link rel="stylesheet" href="themes/studyStormThemeJens.min.css" />
-<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
 <script src="./js/queries.js"></script>
@@ -15,14 +13,16 @@
 </head>
 <body>
 
-<section data-role="page" id="mainPage" data-theme="b" data-content-theme="b">
+<section data-role="page" id="mainPage">
 	<div data-role="header">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#addSessionPage" class="ui-btn" id="menuLeft" data-rel="dialog" data-transition="pop" data-icon="plus">Add Session</a></li>
-				<li><a href="#loginPage" class="ui-btn" id="menuRight" data-rel="dialog" data-transition="pop" data-icon="back">Sign In</a></li>
-			</ul>
-		</div><!-- /data-role=navbar" -->
+		<div data-role="header">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#addSessionPage" class="ui-btn" id="menuLeft" data-rel="dialog" data-transition="pop" data-icon="plus">Add Session</a></li>
+					<li><a href="#loginPage" class="ui-btn" id="menuRight" data-rel="dialog" data-transition="pop" data-icon="back">Sign In</a></li>
+				</ul>
+			</div><!-- /data-role=navbar" -->
+		</div><!-- /data-role="header" -->
 	</div><!-- /data-role="header" -->
 
 	<div data-role="main" class="ui-content">
@@ -42,7 +42,7 @@
 
 
 
-<section data-role="page" id="loginPage" data-theme="b" data-content-theme="b">
+<section data-role="page" id="loginPage">
 	<div data-role="header">
 		<h1>Sign In</h1>
 	</div>
@@ -65,7 +65,7 @@
 
 
 
-<section data-role="page" id="detailsPage" data-theme="b" data-content-theme="b">
+<section data-role="page" id="detailsPage">
 	<div data-role="header">
 		<h1 id="detailsHeader"></h1>
 	</div>
@@ -78,7 +78,7 @@
 <!-- END OF LOGIN PAGE -->
 
 <!-- DISCLAIMER PAGE - Nadia 05/06/2014 7:30 -->
-<section data-role="page" id="disclaimerPage" data-theme="b" data-content-theme="b">
+<section data-role="page" id="disclaimerPage">
 	<div data-role="header">
 		<h1>Terms of Use</h1>
 	</div>
@@ -109,7 +109,7 @@
 
 <!-- REGISTER PAGE - STUART 05/07/2014 5:42 -->
 
-<section data-role="page" id="regPage" data-theme="b" data-content-theme="b">
+<section data-role="page" id="regPage">
 	<div data-role="header">
 		<h1>Register</h1>
 	</div>
@@ -142,7 +142,7 @@
  
  <!-- ADD SESSION PAGE - STUART 05/07/2014 5:43 -->
 
-<section data-role="page" id="addSessionPage" data-theme="b" data-content-theme="b">
+<section data-role="page" id="addSessionPage">
 	<div data-role="header">
 		<h1>Add Session</h1>
 	</div>
@@ -187,7 +187,7 @@
 	</div><!-- /data-role="main" -->
 </section>
 
-<section data-role="page" id="editSessionPage" data-theme="b" data-content-theme="b">
+<section data-role="page" id="editSessionPage">
 	<div data-role="header">
 		<h1>Edit Session</h1>
 	</div>
