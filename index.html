@@ -5,8 +5,9 @@
 <link rel="stylesheet" href="css/StudyStormRoughDraft.min.css">
 <link rel="stylesheet" href="css/jquery.mobile.icons.min.css">
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile.structure-1.4.2.min.css">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
 <link rel="stylesheet" href="css/style.css">
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
 <script src="./js/queries.js"></script>
 <script src="./js/validate.js"></script>
@@ -15,28 +16,33 @@
 <body>
 
 <section data-role="page" id="mainPage">
-	<div data-role="header">
-		<div data-role="header">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#userSessionPage" class="ui-btn" id="menuLeft" data-rel="dialog" data-transition="pop" data-icon="plus">Add Session</a></li>
-					<li><a href="#loginPage" class="ui-btn" id="menuRight" data-rel="dialog" data-transition="pop" data-icon="back">Sign In</a></li>
-				</ul>
-			</div><!-- /data-role=navbar" -->
-		</div><!-- /data-role="header" -->
+	<div data-role="header" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#userSessionPage" class="ui-btn" id="menuLeft" data-rel="dialog" data-transition="pop" data-icon="plus">Add Session</a></li>
+				<li><a href="#loginPage" class="ui-btn" id="menuRight" data-rel="dialog" data-transition="pop" data-icon="back">Sign In</a></li>
+			</ul>
+		</div><!-- /data-role=navbar" -->
 	</div><!-- /data-role="header" -->
 
 	<div data-role="main" class="ui-content">
-		<span id="mainWelcome">Not logged in.</span><hr>
-		<a href="#mainPage" data-ajax="false" class="invisible" id="btnLogout">Log Out</a>
-		<a href="#userSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnAddSession">Add Session</a>
-		<a href="#userSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnEditSession">Edit Session</a>
-		<a href="#disclaimerPage" data-rel="dialog" id="btnRegister">Register</a>
-
 		<div id="courseDest">
 		</div>
-		
 	</div><!-- /data-role="main" -->
+	
+	
+	<!-- developer div -->
+		<div data-role="footer" data-position="fixed">
+			<span id="mainWelcome">Not logged in.</span>
+			<a href="#mainPage" data-ajax="false" class="invisible" id="btnLogout">Log Out</a>
+			<a href="#userSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnAddSession">Add Session</a>
+			<a href="#userSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnEditSession">Edit Session</a>
+			<a href="#disclaimerPage" data-rel="dialog" id="btnRegister">Register</a>
+		</div><!-- /footer -->
+		<!-- /developer div -->
+		
+		
+		
 </section><!-- /#mainPage -->
 
 <!-- Login PAGE - Stuart Budd 05/07/2014 5:38 -->
