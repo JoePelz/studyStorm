@@ -1,4 +1,10 @@
 <?php
 session_start();
 session_destroy();
+//////////////////////////////////////////
+//
+//  All this script does is destroy the user's session,
+//  effectively logging them out.
+//
+//////////////////////////////////////////
 ?>

@@ -1,4 +1,13 @@
 <?php
+
+///////////////////////////////////////////////
+//
+//  This script is run when the webpage loads.
+//  It gets the active study sessions from MySQL 
+//  and returns them to the client as JSON data.
+//
+///////////////////////////////////////////////
+
 require_once('./config.php');
 
 $con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD)

@@ -1,8 +1,18 @@
 <?php
+
+///////////////////////////////////////////////////
+// This script is run with POST data from the registration form.
+// It adds a new user to the students database 
+// if all the validation checks out fine.
+///////////////////////////////////////////////////
+
 include 'config.php';
 $con = mysql_connect(DB_HOST,DB_USER,DB_PASSWORD) or die(mysql_error());
 mysql_select_db(DB_DATABASE) or die('No database found!');
 
+
+//Prevent MySQL injection attacks 
+//by filtering out dangerous characters.
 $studName = mysql_real_escape_string($_POST['regStudName']);
 $email = mysql_real_escape_string($_POST['regEmail']);
 $password = mysql_real_escape_string($_POST['regPassword']);

@@ -1,4 +1,13 @@
 <?php
+
+//////////////////////////////////////////////
+//
+//  This script pulls a row from the MySQL sessions table.
+//  The sessionId to retrieve is sent as GET data.
+//  Returns JSON encoded row information.
+//
+//////////////////////////////////////////////
+
 require_once('./config.php');
 
 $con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD)

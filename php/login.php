@@ -1,6 +1,22 @@
 <?php
 session_start();
 
+/////////////////////////////////////////
+//
+//  This script is run from the login form.
+//  It accepts an email and password as POST data 
+//  and searches the students table for matches
+//
+//  If a match is found, the user is logged in.
+//  This means that session data is set, including:
+//      $_SESSION['studName']
+//      $_SESSION['studId']
+//      $_SESSION['email']
+//
+//  Returns a string indicating success or other.
+//
+/////////////////////////////////////////
+
 include_once 'config.php';
 $con = mysql_connect(DB_HOST,DB_USER,DB_PASSWORD) or die(mysql_error());
 mysql_select_db(DB_DATABASE) or die('database not found');

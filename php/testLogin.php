@@ -2,6 +2,19 @@
 
 session_start();
 
+/////////////////////////////////////////////////
+//
+//  This script checks if the user is logged in
+//  and returns useful information if so.
+//  
+//  Returned data includes:
+//      "loggedIn", 
+//      "studId", 
+//      "studName", 
+//      "email", 
+//      "sessionId"
+//
+////////////////////////////////////////////////
 if (isset($_SESSION['studId']) 
  && isset($_SESSION['email']) 
  && isset($_SESSION['studName'])) {

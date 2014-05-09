@@ -1,5 +1,19 @@
 <?php
 session_start();
+
+//////////////////////////////////////////////////
+//
+//  This script is run when the user submits the Add Session form.
+//  It takes all the form fields as POST data.
+//  
+//  Does not do any validation.
+//
+//  Inserts the submitted information into the sessions table.
+//
+//  Returns a text string.
+//
+//////////////////////////////////////////////////
+
 include 'config.php';
 $con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or die(mysql_error());
 mysql_select_db(DB_DATABASE) or die("No database, foo'!");
