@@ -8,135 +8,233 @@
 				-Logout button
 
 			It calls getSessions to fill the main browsing page
-			It calls updateLogin to display welcome messages and the right buttons
+			It calls updateLogin to display welcome messages and the correct buttons
 			It calls getSessionDetails to fill the edit session form
  * Params: none
  * Return: none
  */
 $(document).ready(function() {
+    // Add onclick event to the Add Session button
+	$("#addSessionSubmit").click(addSession);
 	
-	/**********************************************
-	 * Add onclick event to the Add Session button
-	 **********************************************/
-	$("#addSessionSubmit").click(function() {
-	
-		if(!addSessionValidate()) {
-			return false;
-		}
-	
-		var formData = $("#addSessionForm").serialize();
-		
-		$.ajax({
-			type: "POST",
-			url: "./php/addSession.php",
-			cache: false,
-			data: formData,
-			success: addSessionSuccess,
-			error: addSessionError
-		});
-		return false;
-	});
-	
-	function addSessionSuccess(data, status) {
-		data = $.trim(data);
-		if (data = "Success!") {
-			location.hash = "mainPage";
-		} else {
-				alert("Response data: " + data);
-		}
-	}
-	
-	function addSessionError(data, status) {
-		alert("Something went wrong " + data);
-	}
-	
-	
-	/*******************************************
-	 * Add onclick event to the Register button
-	 *******************************************/
-	$("#regSubmit").click(function(){
+	// Add onclick event to the Register button
+    $("#regSubmit").click(register);
 
-		if(!validateForm()) {
-			return false;
-		}
-
-		var formData = $("#regForm").serialize();
-		
-		$.ajax({
-			type: "POST",
-			url: "./php/register.php",
-			cache: false,
-			data: formData,
-			success: regSuccess,
-			error: regError
-		});
-		return false;
-	});
-
-	function regSuccess(data, status) {
-		data = $.trim(data);
-		if (data == "Success!") {
-			location.hash="loginPage";
-			$("#loginResult").html("You have been successfully registered!");
-		} else {
-			$("#regResult").html("Response data: " + data);
-		}
-	}
-
-	function regError(data, status) {
-		alert("something went wrong: " + status);
-	}
-
-	/*******************************************
-	 * Add onclick event to the Login button
-	 *******************************************/
-	$("#loginSubmit").click(function(){
-
-		var formData = $("#loginForm").serialize();
-		
-		$.ajax({
-			type: "POST",
-			url: "./php/login.php",
-			cache: false,
-			data: formData,
-			success: loginSuccess,
-			error: loginError
-		});
-		return false;
-	});
-
-	function loginSuccess(data, status) {
-		data = $.trim(data);
-		if (data == "Success!") {
-			updateLogin();
-			$( "#myPop" ).popup( "open" );
-			location.hash="mainPage";
-		} else {
-			$("#loginResult").html("Oh no! " + data);
-		}
-	}
-
-	function loginError(data, status) {
-		alert("something went wrong: " + status);
-	}
-
-	/*******************************************
-	 * Add onclick event to the Logout button
-	 *******************************************/
-	$("#btnLogout").click(function(){
-
-		$.ajax({
-			url: "./php/logout.php",
-			cache: false,
-			success: function(a, b) {updateLogin();}
-		});
-		return false;
-	});
+    // Add onclick event to the Login button
+	$("#loginSubmit").click(login);
+    
+    // Add onclick event to the Logout button
+	$("#btnLogout").click(logout);
 
 	getSessions();
 	updateLogin();
 	getSessionDetails();
 }); /*==== /$(document).ready() ====*/
+
+/* 
+ * Function: addSession()
+ * Purpose: validate the data in the form, 
+ *          and if it's okay, send an ajax request 
+ *          to add a new session.
+ *
+ *          Calls addSessionSuccess(data, status) if ajax works
+ *          and addSessionError(data, status) if not.
+ * Params: 
+ *      data: empty object
+ *      status: string indicating success/error
+ * Return: none
+ */
+function addSession() {
+	if(!addSessionValidate()) {
+		return false;
+	}
+
+	var formData = $("#addSessionForm").serialize();
+	
+	$.ajax({
+		type: "POST",
+		url: "./php/addSession.php",
+		cache: false,
+		data: formData,
+		success: addSessionSuccess,
+		error: addSessionError
+	});
+	return false;
+}
+	
+/* 
+ * Function: addSessionSuccess(data, status)
+ * Purpose: Supplemental to addSession(), above.
+ *          Runs if AJAX succeeded.
+ *          
+ *          If adding worked take the user to the main page
+ *          Else make an alertbox that gives you the ajax response data
+ * Params: 
+ *      data: empty object
+ *      status: string indicating success/error
+ * Return: none
+ */
+function addSessionSuccess(data, status) {
+	data = $.trim(data);
+	if (data = "Success!") {
+		location.hash = "mainPage";
+	} else {
+			alert("Response data: " + data);
+	}
+}
+/* 
+ * Function: addSessionError(data, status)
+ * Purpose: Supplemental to addSession(), above.
+ *          Runs if AJAX failed.
+ *          Pops up an alert box to display the status code.
+ * Params: 
+ *      data: empty object
+ *      status: string indicating success/error
+ * Return: none
+ */
+function addSessionError(data, status) {
+	alert("Something went wrong " + data);
+}
+
+/* 
+ * Function: register(data, status)
+ * Purpose: validate the data in the form, 
+ *          and if it's okay, send an ajax request 
+ *          to register the user.
+ *
+ *          Calls regSuccess(data, status) if ajax works
+ *          and regError if not.
+ * Params: 
+ *      data: empty object
+ *      status: string indicating success/error
+ * Return: none
+ */
+function register() {
+	if(!validateForm()) {
+		return false;
+	}
+	var formData = $("#regForm").serialize();
+	
+	$.ajax({
+		type: "POST",
+		url: "./php/register.php",
+		cache: false,
+		data: formData,
+		success: regSuccess,
+		error: regError
+	});
+	return false;
+}
+/* 
+ * Function: regSuccess(data, status)
+ * Purpose: Supplemental to register(), above.
+ *          Runs if AJAX succeeded.
+ *          
+ *          If registration worked, it indicates you succeeded 
+ *             and takes you to the login page.
+ *          Else if gives you the reason it failed.
+ * Params: 
+ *      data: empty object
+ *      status: string indicating success/error
+ * Return: none
+ */
+function regSuccess(data, status) {
+	data = $.trim(data);
+	if (data == "Success!") {
+		location.hash="loginPage";
+		$("#loginResult").html("You have been successfully registered!");
+	} else {
+		$("#regResult").html("Response data: " + data);
+	}
+}
+/* 
+ * Function: regError(data, status)
+ * Purpose: Supplemental to register(), above.
+ *          Runs if AJAX failed.
+ *          Pops up an alert box to display the status code.
+ * Params: 
+ *      data: empty object
+ *      status: string indicating success/error
+ * Return: none
+ */
+function regError(data, status) {
+	alert("something went wrong: " + status);
+}
+
+/* 
+ * Function: login()
+ * Purpose: Send the login form data to login.php
+ *          to log the user in.
+ *
+ *          calls loginSuccess(data, status) if successful
+ *          else  loginError(data, status) if ajax fails (can't find login.php)
+ * Params: none
+ * Return: false
+ */
+function login(){
+	var formData = $("#loginForm").serialize();
+		
+	$.ajax({
+		type: "POST",
+		url: "./php/login.php",
+		cache: false,
+		data: formData,
+		success: loginSuccess,
+		error: loginError
+	});
+	return false;
+}
+/* 
+ * Function: loginSuccess(data, status)
+ * Purpose: Supplemental to login(), above.
+ *          Runs if AJAX succeeded.
+ *
+ *          If login info is correct: update the site and go to the main page
+ *          If login isn't successful: print an error message on the login page.
+ * Params: 
+ *      data: the returned data from the php file
+ *      status: string indicating success/error
+ * Return: none
+ */
+function loginSuccess(data, status) {
+	data = $.trim(data);
+	if (data == "Success!") {
+		updateLogin();
+		$( "#myPop" ).popup( "open" );
+		location.hash="mainPage";
+	} else {
+		$("#loginResult").html("Oh no! " + data);
+	}
+}
+/* 
+ * Function: loginError(data, status)
+ * Purpose: Supplemental to login(), above.
+ *          Runs if AJAX failed.
+ *          Pops up an alert box.
+ * Params: 
+ *      data: empty object
+ *      status: string indicating success/error
+ * Return: none
+ */
+function loginError(data, status) {
+	alert("something went wrong: " + status);
+}
+
+/* 
+ * Function: logout()
+ * Purpose: run the logout php script and 
+ *          update the webpage.
+ * Params: none
+ * Return: false
+ */
+function logout() {
+	$.ajax({
+		url: "./php/logout.php",
+		cache: false,
+		success: function(a, b) {updateLogin();}
+	});
+	return false;
+}
 
 
 /* 
