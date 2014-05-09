@@ -15,6 +15,7 @@ if (isset($_SESSION['studId'])
 	//read results
 	$result = mysql_query($myrequ);
 
+	$session = -1;
 	//while there's still rows to check in the result array,
 	while($rowActive=mysql_fetch_array($result)){
 		$studId = $_SESSION['studId'];

@@ -8,8 +8,7 @@ $db = mysql_select_db(DB_DATABASE) or die("Unable to select database");
 
 
 //data available: studName, sessionId, courseName, details, startTime, endTime, location, studId, isActive
-//$qry = "SELECT u.studName, s.* FROM sessions s, students u WHERE u.studId=s.studId AND s.sessionId=".$_GET['sessionId']." LIMIT 1"; <--Temporarily removed for testing --Jens
-$qry = "SELECT * FROM sessions WHERE sessionId=1";
+$qry = "SELECT u.studName, s.* FROM sessions s, students u WHERE u.studId=s.studId AND s.sessionId=".$_GET['sessionId']." LIMIT 1";
 $result = mysql_query($qry);
 
 
