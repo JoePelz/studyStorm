@@ -18,7 +18,7 @@ if (isset($_SESSION['studId'])
 	//while there's still rows to check in the result array,
 	while($rowActive=mysql_fetch_array($result)){
 		$studId = $_SESSION['studId'];
-		//check if student has an active session
+		//check if student h3as an active session
 		if ($rowActive['studId'] == $studId) {
 			//if user has a active session, let a variable be created with that session num (> 0)
 			$session = $rowActive['sessionId'];

@@ -185,50 +185,5 @@
 	</div><!-- /data-role="main" -->
 </section>
 
-<section data-role="page" id="editSessionPage">
-	<div data-role="header">
-		<h1>Edit Session</h1>
-	</div>
-	<div data-role="main" class="ui-content">
-		<form id="editSessionForm" onload="getSessions()">
-
-			<label for="courseName">Select a Course: <span id="errCourse"></span></label>
-			<div id="itmCourse">
-				<select name="courseName" id="courseName" onblur="testCourseValid('#courseName')">
-					<option value="">Select One</option>
-					<option value="comp1510">comp1510</option>
-					<option value="comp1536">comp1536</option>
-					<option value="comp1111">comp1111</option>
-					<option value="comp1100">comp1100</option>
-					<option value="comp1113">comp1113</option>
-					<option value="comm1116">comm1116</option>
-					<option value="busa2720">busa2720</option>
-				</select>
-			</div><!-- /#itmCourse -->
-
-			<div id="itmLocation">
-			
-				<label for="location">Location: <span id="errLocation"></span></label>
-				<input type="text" name="location" id="location" onkeyup="testLocationValid('#location')">
-			</div><!-- /end itmLocation div -->
-
-			<label for="startTime">Start Time: <span id="errTime"></span></label>
-			<div id="itmTime">
-				<input type="time" name="startTime" id="startTime" onkeyup="testTimeValid('#startTime')">
-				<label for="endTime">End Time: </label>
-				<input type="time" name="endTime" id="endTime" onkeyup="testTimeValid('#endTime')">
-			</div><!-- /end itmTime div -->
-
-			<label for="details">Details: <span id="errDetails"></span></label>
-			<div id="itmDetails">
-				<textarea name="details" id="details" onkeyup="testDetailsValid('#details')"></textarea>
-			</div><!-- /end itmDetails -->
-
-			<!--<input type="Submit" value="Edit" id="editSessionSubmit">  disabled until user can only have one session each. -- Jens -->
-
-		</form>
-	</div><!-- /data-role="main" -->
-</section>
-
 </body>
 </html>
