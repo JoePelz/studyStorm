@@ -150,10 +150,10 @@ $(document).ready(function() {
  */
 function getSessionDetails() {
 	$.getJSON("./php/getDetails.php", function(result) {
-		document.getElementById("addSessionPage").getElementsByTagName("h1")[0].innerHTML = "Edit Session";
+		document.getElementById("userSessionPage").getElementsByTagName("h1")[0].innerHTML = "Edit Session";
 		
 		//The form to fill in
-		form = document.getElementById("addSessionForm")
+		form = document.getElementById("userSessionForm")
 		
 		form.courseName.value = result.courseName;
 		form.location.value = result.location;
@@ -238,7 +238,7 @@ function updateLogin() {
 			// if there is a session for that user, then...
 			if (info.sessionId > 0) {
 				//change page to show edit links
-				$("#menuLeft").attr("href", "http://studystorm.org/_rosanna/#editSessionPage");
+				$("#menuLeft").attr("href", "http://studystorm.org/_rosanna/#userSessionPage");
 				$("#menuLeft").html("Edit Session");
 				$("#btnEditSession").removeClass("invisible");
 				$("#btnAddSession").addClass("invisible");

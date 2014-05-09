@@ -18,7 +18,7 @@
 		<div data-role="header">
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#addSessionPage" class="ui-btn" id="menuLeft" data-rel="dialog" data-transition="pop" data-icon="plus">Add Session</a></li>
+					<li><a href="#userSessionPage" class="ui-btn" id="menuLeft" data-rel="dialog" data-transition="pop" data-icon="plus">Add Session</a></li>
 					<li><a href="#loginPage" class="ui-btn" id="menuRight" data-rel="dialog" data-transition="pop" data-icon="back">Sign In</a></li>
 				</ul>
 			</div><!-- /data-role=navbar" -->
@@ -28,8 +28,8 @@
 	<div data-role="main" class="ui-content">
 		<span id="mainWelcome">Not logged in.</span><hr>
 		<a href="#mainPage" data-ajax="false" class="invisible" id="btnLogout">Log Out</a>
-		<a href="#addSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnAddSession">Add Session</a>
-		<a href="#editSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnEditSession">Edit Session</a>
+		<a href="#userSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnAddSession">Add Session</a>
+		<a href="#userSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnEditSession">Edit Session</a>
 		<a href="#disclaimerPage" data-rel="dialog" id="btnRegister">Register</a>
 
 		<div id="courseDest">
@@ -142,12 +142,12 @@
  
  <!-- ADD SESSION PAGE - STUART 05/07/2014 5:43 -->
 
-<section data-role="page" id="addSessionPage">
+<section data-role="page" id="userSessionPage">
 	<div data-role="header">
 		<h1>Add Session</h1>
 	</div>
 	<div data-role="main" class="ui-content">
-		<form id="addSessionForm">
+		<form id="userSessionForm">
 
 			<label for="courseName">Select a Course: <span id="errCourse"></span></label>
 			<div id="itmCourse">
@@ -187,55 +187,6 @@
 	</div><!-- /data-role="main" -->
 </section>
 
-<<<<<<< HEAD
-=======
-<section data-role="page" id="editSessionPage">
-	<div data-role="header">
-		<h1>Edit Session</h1>
-	</div>
-	<div data-role="main" class="ui-content">
-		<form id="editSessionForm" onload="getSessions()">
 
-			<label for="courseName">Select a Course: <span id="errCourse"></span></label>
-			<div id="itmCourse">
-				<select name="courseName" id="courseName" onblur="testCourseValid('#courseName')">
-					<option value="">Select One</option>
-					<option value="comp1510">comp1510</option>
-					<option value="comp1536">comp1536</option>
-					<option value="comp1111">comp1111</option>
-					<option value="comp1100">comp1100</option>
-					<option value="comp1113">comp1113</option>
-					<option value="comm1116">comm1116</option>
-					<option value="busa2720">busa2720</option>
-				</select>
-			</div><!-- /#itmCourse -->
-
-			<div id="itmLocation">
-			
-				<label for="location">Location: <span id="errLocation"></span></label>
-				<input type="text" name="location" id="location" onkeyup="testLocationValid('#location')">
-			</div><!-- /end itmLocation div -->
-
-			<label for="startTime">Start Time: <span id="errTime"></span></label>
-			<div id="itmTime">
-				<input type="time" name="startTime" id="startTime" onkeyup="testTimeValid('#startTime')">
-				<label for="endTime">End Time: </label>
-				<input type="time" name="endTime" id="endTime" onkeyup="testTimeValid('#endTime')">
-			</div><!-- /end itmTime div -->
-
-			<label for="details">Details: <span id="errDetails"></span></label>
-			<div id="itmDetails">
-				<textarea name="details" id="details" onkeyup="testDetailsValid('#details')"></textarea>
-			</div><!-- /end itmDetails -->
-
-			<!--<input type="Submit" value="Edit" id="editSessionSubmit">  disabled until user can only have one session each. -- Jens -->
-
-		</form>
-	</div><!-- /data-role="main" -->
-</section>
-
-<!-- END OF SESSION PAGE -->
-
->>>>>>> 87401cdb5175379d2af77168f66f5a4258522f06
 </body>
 </html>
