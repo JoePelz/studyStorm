@@ -9,13 +9,13 @@
 
 			It calls getSessions to fill the main browsing page
 			It calls updateLogin to display welcome messages and the correct buttons
-			It calls getSessionDetails to fill the edit session form
+			It calls populateSessionForm to fill the edit session form
  * Params: none
  * Return: none
  */
 $(document).ready(function() {
     // Add onclick event to the Add Session button
-	$("#addSessionSubmit").click(addSession);
+	$("#userSessionSubmit").click(addSession);
 	
 	// Add onclick event to the Register button
     $("#regSubmit").click(register);
@@ -28,7 +28,6 @@ $(document).ready(function() {
 
 	getSessions();
 	updateLogin();
-	getSessionDetails();
 }); /*==== /$(document).ready() ====*/
 
 /* 
@@ -200,7 +199,6 @@ function loginSuccess(data, status) {
 	data = $.trim(data);
 	if (data == "Success!") {
 		updateLogin();
-		$( "#myPop" ).popup( "open" );
 		location.hash="mainPage";
 	} else {
 		$("#loginResult").html("Oh no! " + data);
@@ -231,29 +229,32 @@ function logout() {
 	$.ajax({
 		url: "./php/logout.php",
 		cache: false,
-		success: function(a, b) {updateLogin();}
+		success: updateLogin
 	});
 	return false;
 }
 
 
 /* 
- * Function: getSessionDetails()
+ * Function: populateSessionForm()
  * Purpose: Get the details of a particular study session
  *			and plop them into the add session form.
  *
- *			Currently hard-coded to get session 0.
- * Params: none
+ * Params: sessionId
  * Return: none
  */
-function getSessionDetails() {
-	$.getJSON("./php/getDetails.php", function(result) {
+function populateSessionForm(sessionId) {
+	$.getJSON("./php/getDetails.php?sessionId=" + sessionId, function(result) {
 		document.getElementById("userSessionPage").getElementsByTagName("h1")[0].innerHTML = "Edit Session";
-		
+		document.getElementById("userSessionSubmit").innerHTML = "Submit";
+
 		//The form to fill in
-		form = document.getElementById("userSessionForm")
+		form = document.getElementById("userSessionForm");
 		
 		form.courseName.value = result.courseName;
+		//refreshes the select list and forces a rebuild. Required in order to show the 
+		//selected item from the database.
+		$("#courseName").selectmenu('refresh', true);
 		form.location.value = result.location;
 		form.startTime.value = result.startTime;
 		form.endTime.value = result.endTime;
@@ -275,7 +276,6 @@ function getSessionDetails() {
  * Return: none
  */
 function getSessions() {
-	$("#courseDest").html("Loading...");
 	$.getJSON("./php/getSessions.php", function(result) {
 		var content = "";
 
@@ -331,28 +331,20 @@ function updateLogin() {
 		info = $.parseJSON(data);
 		if (info.loggedIn) {
 			$("#mainWelcome").html("Welcome, " + info.studName);
-			$("#btnLogout").removeClass("invisible");
-			$("#btnRegister").addClass("invisible");
-			// if there is a session for that user, then...
-			if (info.sessionId > 0) {
-				//change page to show edit links
-				$("#menuLeft").attr("href", "http://studystorm.org/_rosanna/#userSessionPage");
-				$("#menuLeft").html("Edit Session");
-				$("#btnEditSession").removeClass("invisible");
-				$("#btnAddSession").addClass("invisible");
-			}
-			else {
-				//otherwise show add links
-				$("#btnEditSession").addClass("invisible");
-				$("#btnAddSession").removeClass("invisible");
-			}
+		}	else {
+				$("#mainWelcome").html("Not logged in.");
+		}
+		
+		// if there is a session for that user, then...
+		if (info.sessionId > 0) {
+			//change page to show edit links
+			$("#menuLeft").attr("onclick", "populateSessionForm(" + info.sessionId + ")");
+			$("#menuLeft").html("Edit Session");
+			$("#deleteSessionButton").removeClass("invisible");
 		} else {
-			//if not logged in show register button
-			$("#mainWelcome").html("Not logged in.");
-			$("#btnLogout").addClass("invisible");
-			$("#btnRegister").removeClass("invisible");
-			$("#btnAddSession").addClass("invisible");
-			$("#btnEditSession").addClass("invisible");
+				$("#menuLeft").removeAttr("onclick");
+				$("#menuLeft").html("Add Session");
+				$("#deleteSessionButton").addClass("invisible");
 		}
 	}
 
@@ -372,7 +364,6 @@ function updateLogin() {
  * Return: none
  */
 function getDetails(sessionId) {
-	$("#detailsContent").html("Loading...");
 	//use AJAX to ask getDetails.php for information.
 	//the returned data is in JSON format.
 	$.getJSON("../php/getDetails.php?sessionId=" + sessionId, function(result){
