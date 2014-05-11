@@ -1,3 +1,11 @@
+@font-face {
+	font-family: "BonvenoCF-Light";
+	src: url("../font/BonvenoCF-Light.otf");
+}
+@font-face {
+	font-family: "Walkway SemiBold";
+	src: url("../font/Walkway_SemiBold.ttf");
+}
 .badInput {
 	color: red;
 }
@@ -12,4 +20,30 @@
 }
 li {
 	list-style-type: none;
+}
+
+#logo {
+    text-align: center;
+		margin: 0;
+		padding: 0;
+}
+#logo img {
+    width: 300px;
+    margin: 0 auto;
+		padding: 0;
+}
+
+#loginPage h1 {
+	text-align: center;
+	font-size: 200%;
+	letter-spacing: 5px;
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
+	display: none;
+
+}
+#navBar a{
+	font-size: 150%;
+	padding-top: 25%;
 }
