@@ -2,6 +2,7 @@
  * Purpose: This function runs when the page loads 
 			and does a lot of setup tasks.
 			It also attaches onclick functions to several buttons:
+				-Delete button
 				-Registration button
 				-Login button
 				-Add Session button
@@ -14,6 +15,9 @@
  * Return: none
  */
 $(document).ready(function() {
+	// Add onclick event to the Delete Session button
+	$("#deleteSessionButton").click(delSession);
+
     // Add onclick event to the Add Session button
 	$("#userSessionSubmit").click(addSession);
 	
@@ -47,6 +51,28 @@ function getSizes() {
 	// Sets the size of the logo according to device width.
 	$("#logo > img").width( deviceWidth * .8);
 }
+
+/* 
+ * Function: delSession()
+ * Purpose: Send a request to delete the user's current session.
+ *          
+ *			User is redirected to the main page on completion.
+ *
+ * Params: none
+ * Return: none
+ */
+function delSession() {
+	$.ajax({
+		url: "./php/delSession.php",
+		cache: false,
+		success: function(data, status) {
+			location.hash = "mainPage";
+			updateLogin();
+		}
+	});
+	return false;
+}
+
 /* 
  * Function: addSession()
  * Purpose: validate the data in the form, 
