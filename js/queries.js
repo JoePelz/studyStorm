@@ -120,6 +120,7 @@ function addSessionSuccess(data, status) {
 	data = $.trim(data);
 	if (data == "Success!") {
 		location.hash = "mainPage";
+		updateLogin();
 	} else {
 		alert("Response data: " + data);
 	}
@@ -287,9 +288,20 @@ function logout() {
  * Return: none
  */
 function populateSessionForm(sessionId) {
-	$.getJSON("./php/getDetails.php?sessionId=" + sessionId, function(result) {
-		document.getElementById("userSessionPage").getElementsByTagName("h1")[0].innerHTML = "Edit Session";
-		document.getElementById("userSessionSubmit").innerHTML = "Submit";
+	if (sessionId == 0) {
+		//The form to fill in
+		form = document.getElementById("userSessionForm");
+		
+		form.courseName.value = "";
+		//refreshes the select list and forces a rebuild. Required in order to show the 
+		//selected item from the database.
+		$("#courseName").selectmenu('refresh', true);
+		form.location.value = "";
+		form.startTime.value = "";
+		form.endTime.value = "";
+		form.details.value = "";
+	} else {
+		$.getJSON("./php/getDetails.php?sessionId=" + sessionId, function(result) {
 
 		//The form to fill in
 		form = document.getElementById("userSessionForm");
@@ -303,6 +315,7 @@ function populateSessionForm(sessionId) {
 		form.endTime.value = result.endTime;
 		form.details.value = result.details;
 		});
+	}
 }
 
 /* 
@@ -395,8 +408,8 @@ function updateLogin() {
 		info = $.parseJSON(data);
 		if (info.loggedIn) {
 			$("#mainWelcome").html("Welcome, " + info.studName);
-		}	else {
-				$("#mainWelcome").html("Not logged in.");
+		} else {
+			$("#mainWelcome").html("Not logged in.");
 		}
 		
 		// if there is a session for that user, then...
@@ -405,10 +418,14 @@ function updateLogin() {
 			$("#menuLeft").attr("onclick", "populateSessionForm(" + info.sessionId + ")");
 			$("#menuLeft").html("Edit Session");
 			$("#deleteSessionButton").removeClass("invisible");
+			$("#userSessionSubmit").html("Submit");
+			$("#userSessionPage h1").html("Edit Session");
 		} else {
-				$("#menuLeft").removeAttr("onclick");
-				$("#menuLeft").html("Add Session");
-				$("#deleteSessionButton").addClass("invisible");
+			$("#menuLeft").attr("onclick", "populateSessionForm(0)");
+			$("#menuLeft").html("Add Session");
+			$("#deleteSessionButton").addClass("invisible");
+			$("#userSessionSubmit").html("Add");
+			$("#userSessionPage h1").html("Add Session");
 		}
 	}
 
