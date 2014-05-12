@@ -405,7 +405,41 @@ function getDetails(sessionId) {
 		content += "<li>Location: " + result.location   + "</li>";
 		content += "<li>Details: "  + result.details    + "</li>";
 		content += "</ul>";
+		content += "<div id='mapCanvas' style='height: 200px;'></div>";
 		$("#detailsHeader").html(header);
 		$("#detailsContent").html(content);
+		
+		var lat = 49.2482696;
+		var lng = -123.0010414;
+		var title = result.studName + ", " + result.courseName;
+		initialize(lat,lng,title);
 	});
+}
+
+/* 
+ * Function: initialize(lat, lng, title)
+ * Purpose: Get map coordinates and place them on a map.
+ * Params:
+ *		lat - latitude.
+ *		lng - longitude.
+ *		title - Student and course
+ * Return: none
+ */
+function initialize(lat, lng, title) {
+	// Coords for BCIT: 49.2482696, -123.0010414
+  var myLatlng = new google.maps.LatLng(lat,lng);
+  var mapOptions = {
+    zoom: 17,
+    center: myLatlng
+  }
+  var map = new google.maps.Map(document.getElementById('mapCanvas'), mapOptions);
+
+  var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: title
+  });
+	
+	//google.maps.event.addDomListener(window, 'load', initialize);
+
 }
