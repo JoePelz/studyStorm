@@ -324,7 +324,17 @@ function getSessions() {
 			content += "<h1>" + courses[i] + '<span class="ui-li-count" style="right: 50px;">'+sessions[i].length+'</span>' + "</h1>";
 			content += "<ul>";
 			for (var j = 0; j < sessions[i].length; j++) {
-                content += "<li>" + sessions[i][j].startTime + "&nbsp;&nbsp;&nbsp;&nbsp;";
+				var time = new Date(sessions[i][j].startTime2);
+				var hours = time.getHours();
+				var half = "am";
+				if (hours > 12) { 
+					hours -= 12;
+					half = "pm";
+				}
+				var minutes = time.getMinutes();
+				if (minutes < 10) { minutes = "0" + minutes; }
+
+                content += "<li>" + hours + ":" + minutes + half + "&nbsp;&nbsp;&nbsp;&nbsp;";
                 content += "<a href=\"#detailsPage\" onclick=\"getDetails(" + sessions[i][j].sessionId + ")\" data-rel=\"dialog\" data-transition=\"pop\">" + sessions[i][j].studName + "</a>&nbsp;&nbsp;&nbsp;&nbsp;";
                 content += sessions[i][j].courseName + "</li>";
 			}
