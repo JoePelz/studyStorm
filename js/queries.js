@@ -521,3 +521,17 @@ function initialize(lat, lng, title) {
 	//google.maps.event.addDomListener(window, 'load', initialize);
 
 }
+
+ $(function() {      
+      //Enable swiping...
+      $(document).swipe( {
+        //Generic swipe handler for all directions
+        swipe:function(event, direction, distance, duration, fingerCount) {
+          //$(this).text("You swiped " + direction );  
+		  alert("You swiped in " + direction);
+        },
+        //Default is 75px, set to 0 for demo so any distance triggers swipe
+         threshold:0
+      });
+    });
+
