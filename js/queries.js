@@ -65,7 +65,7 @@ function addSession() {
 		return false;
 	}
 
-	var formData = $("#addSessionForm").serialize();
+	var formData = $("#userSessionForm").serialize();
 	
 	$.ajax({
 		type: "POST",
