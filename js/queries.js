@@ -304,21 +304,32 @@ function getSessions() {
 			}
 		}
 		
+        sessions = [];
+        for (var i = 0; i < courses.length; i++) {
+            cluster = [];
+            for (var j = 0; j < result.length; j++) {
+                if (result[j].courseName == courses[i]) {
+                    cluster.push(result[j]);
+                }
+            }
+            sessions.push(cluster);
+        }
+
+
 		//For each course heading, insert a <ul> and all the 
 		// results that match that course name.
 		content += '<div data-role="collapsibleset" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">';
 		for (var i=0; i < courses.length; i++) {
 			content += '<div data-role="collapsible">';
-			content += "<h1>" + courses[i] + "</h1>";
+			content += "<h1>" + courses[i] + '<span class="ui-li-count" style="right: 50px;">'+sessions[i].length+'</span>' + "</h1>";
 			content += "<ul>";
-			for (var j = 0; j < result.length; j++) {
-				if (result[j].courseName == courses[i]) {
-					content += "<li>" + result[j].startTime + "&nbsp;&nbsp;&nbsp;&nbsp;";
-					content += "<a href=\"#detailsPage\" onclick=\"getDetails(" + result[j].sessionId + ")\" data-rel=\"dialog\" data-transition=\"pop\">" + result[j].studName + "</a>&nbsp;&nbsp;&nbsp;&nbsp;";
-					content += result[j].courseName + "</li>";
-				}
+			for (var j = 0; j < sessions[i].length; j++) {
+                content += "<li>" + sessions[i][j].startTime + "&nbsp;&nbsp;&nbsp;&nbsp;";
+                content += "<a href=\"#detailsPage\" onclick=\"getDetails(" + sessions[i][j].sessionId + ")\" data-rel=\"dialog\" data-transition=\"pop\">" + sessions[i][j].studName + "</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+                content += sessions[i][j].courseName + "</li>";
 			}
-			content += "</ul></div>";
+			content += "</ul>";
+            content += "</div>";
 		}
 		content += "</div>";
 
