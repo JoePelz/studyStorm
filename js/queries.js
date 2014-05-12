@@ -26,14 +26,27 @@ $(document).ready(function() {
     // Add onclick event to the Logout button
 	$("#btnLogout").click(logout);
 	
-	// Set div height for disclaimer writeup. 
-	// The div is short to accommodate older iPhone models.
-	$("#disclaimerDiv").height( $(window).height() * .55 );
-	
+	getSizes();
 	getSessions();
 	updateLogin();
 }); /*==== /$(document).ready() ====*/
 
+/* 
+ * Function: getSizes()
+ * Purpose: detects device's width and height, and adjusts various 
+ *			elements accordingly.
+ *
+ * Params: none
+ * Return: none
+ */
+function getSizes() {
+	var deviceWidth = $(window).width();
+	var deviceHeight = $(window).height();
+	// Sets the disclaimer writeup overflow according to device height.
+	$("#disclaimerDiv").height( deviceHeight * .55 );
+	// Sets the size of the logo according to device width.
+	$("#logo > img").width( deviceWidth * .8);
+}
 /* 
  * Function: addSession()
  * Purpose: validate the data in the form, 

@@ -21,18 +21,15 @@
 li {
 	list-style-type: none;
 }
-
 #logo {
     text-align: center;
-		margin: 0;
-		padding: 0;
+	margin: 0;
+	padding: 0;
 }
 #logo img {
-    width: 300px;
-    margin: 0 auto;
-		padding: 0;
+	margin: 0 auto;
+	padding: 0;
 }
-
 #loginPage h1 {
 	text-align: center;
 	font-size: 200%;
@@ -45,5 +42,5 @@ li {
 }
 #navBar a{
 	font-size: 150%;
-	padding-top: 25%;
+	padding-top: 50px;
 }

@@ -412,7 +412,10 @@ html body .ui-group-theme-b .ui-bar-inherit {
 	text-shadow: 0 /*{b-bar-shadow-x}*/ 1px /*{b-bar-shadow-y}*/ 0 /*{b-bar-shadow-radius}*/ #dbdb61 /*{b-bar-shadow-color}*/;
 	font-weight: bold;
 	
+	
 	text-shadow: none;
+	background: #ffe264;
+	background: -webkit-radial-gradient(100% 100%, circle farthest-side, #fff994, #ffe264);
 }
 .ui-bar-b {
 	border-width: 1px;
@@ -427,10 +430,10 @@ html body .ui-group-theme-b .ui-bar-inherit {
 	color: #000000 /*{b-page-color}*/;
 	text-shadow: 0 /*{b-page-shadow-x}*/ 1px /*{b-page-shadow-y}*/ 0 /*{b-page-shadow-radius}*/ #eeeeee /*{b-page-shadow-color}*/;
 	
-	background: -webkit-radial-gradient(50% 200px, circle farthest-side, #fffffe, #ffe264);
-	background: -moz-radial-gradient(50% 200px, circle farthest-side, #fffffe, #ffe264);
-	background: -o-radial-gradient(50% 200px, circle farthest-side, #fffffe, #ffe264);
-	background: radial-gradient(50% 200px, circle farthest-side, #fffffe, #ffe264);
+	background: -webkit-radial-gradient(50% 150px, circle farthest-side, #fffffe, #ffe264);
+	background: -moz-radial-gradient(50% 150px, circle farthest-side, #fffffe, #ffe264);
+	background: -o-radial-gradient(50% 150px, circle farthest-side, #fffffe, #ffe264);
+	background: radial-gradient(50% 150px, circle farthest-side, #fffffe, #ffe264);
 	text-shadow: none;
 }
 /* Body: Read-only lists, text inputs, collapsible content */
