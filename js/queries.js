@@ -433,11 +433,36 @@ function getDetails(sessionId) {
 	$.getJSON("../php/getDetails.php?sessionId=" + sessionId, function(result){
 		var header = "";
 		var content = "";
+
+		//get times:
+		var time = new Date(result.startTime2);
+		var hours = time.getHours();
+		var half = "am";
+		if (hours > 12) { 
+			hours -= 12;
+			half = "pm";
+		}
+		var minutes = time.getMinutes();
+		if (minutes < 10) { minutes = "0" + minutes; }
+		var start = hours + ":" + minutes + half;
+		
+		var time = new Date(result.endTime2);
+		var hours = time.getHours();
+		var half = "am";
+		if (hours > 12) { 
+			hours -= 12;
+			half = "pm";
+		}
+		var minutes = time.getMinutes();
+		if (minutes < 10) { minutes = "0" + minutes; }
+		var end = hours + ":" + minutes + half;
+
+
 		//Format the content into html.
 		header += result.studName + "'s Study Session";
 		content += "<ul>";
 		content += "<li>Subject: "  + result.courseName + "</li>";
-		content += "<li>Time: "     + result.startTime  + " to " + result.endTime + "</li>";
+		content += "<li>Time: "     + start  + " to " + end + "</li>";
 		content += "<li>Location: " + result.location   + "</li>";
 		content += "<li>Details: "  + result.details    + "</li>";
 		content += "</ul>";
