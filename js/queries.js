@@ -5,7 +5,6 @@
 				-Delete button
 				-Registration button
 				-Login button
-				-Add Session button
 				-Logout button
 
 			It calls getSessions to fill the main browsing page
@@ -18,16 +17,13 @@ $(document).ready(function() {
 	// Add onclick event to the Delete Session button
 	$("#deleteSessionButton").click(delSession);
 
-    // Add onclick event to the Add Session button
-	$("#userSessionSubmit").click(addSession);
-	
 	// Add onclick event to the Register button
-    $("#regSubmit").click(register);
+	$("#regSubmit").click(register);
 
-    // Add onclick event to the Login button
+	// Add onclick event to the Login button
 	$("#loginSubmit").click(login);
-    
-    // Add onclick event to the Logout button
+
+	// Add onclick event to the Logout button
 	$("#btnLogout").click(logout);
 	
 	getSizes();
@@ -138,6 +134,39 @@ function addSessionSuccess(data, status) {
 function addSessionError(data, status) {
 	alert("Something went wrong " + data);
 }
+
+/* 
+ * Function: editSession()
+ * Purpose: validate the data in the form, 
+ *          and if it's okay, send an ajax request 
+ *          to update the user's session.
+ *
+ *          (intentionally uses addSession's success/fail functions)
+ *          Calls addSessionSuccess(data, status) if ajax works
+ *          and addSessionError(data, status) if not.
+ * Params: 
+ *      data: empty object
+ *      status: string indicating success/error
+ * Return: none
+ */
+function editSession() {
+	if(!addSessionValidate()) {
+		return false;
+	}
+
+	var formData = $("#userSessionForm").serialize();
+	
+	$.ajax({
+		type: "POST",
+		url: "./php/editSession.php",
+		cache: false,
+		data: formData,
+		success: addSessionSuccess,
+		error: addSessionError
+	});
+	return false;
+}
+
 
 /* 
  * Function: register(data, status)
@@ -418,14 +447,16 @@ function updateLogin() {
 			$("#menuLeft").attr("onclick", "populateSessionForm(" + info.sessionId + ")");
 			$("#menuLeft").html("Edit Session");
 			$("#deleteSessionButton").removeClass("invisible");
-			$("#userSessionSubmit").html("Submit");
 			$("#userSessionPage h1").html("Edit Session");
+			$("#userSessionSubmit").html("Submit");
+			$("#userSessionSubmit").attr("onclick", "editSession()");
 		} else {
 			$("#menuLeft").attr("onclick", "populateSessionForm(0)");
 			$("#menuLeft").html("Add Session");
 			$("#deleteSessionButton").addClass("invisible");
-			$("#userSessionSubmit").html("Add");
 			$("#userSessionPage h1").html("Add Session");
+			$("#userSessionSubmit").html("Add");
+			$("#userSessionSubmit").attr("onclick", "addSession()");
 		}
 	}
 
