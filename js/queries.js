@@ -92,10 +92,10 @@ function addSession() {
  */
 function addSessionSuccess(data, status) {
 	data = $.trim(data);
-	if (data = "Success!") {
+	if (data == "Success!") {
 		location.hash = "mainPage";
 	} else {
-			alert("Response data: " + data);
+		alert("Response data: " + data);
 	}
 }
 /* 
