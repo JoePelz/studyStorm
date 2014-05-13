@@ -17,6 +17,7 @@ $studName = mysql_real_escape_string($_POST['regStudName']);
 $email = mysql_real_escape_string($_POST['regEmail']);
 $password = mysql_real_escape_string($_POST['regPassword']);
 $confirmPassword = mysql_real_escape_string($_POST['regConfirmPassword']);
+$secCode = rand();
 
 //-- Validation --
 //Placeholder for errors
@@ -64,9 +65,17 @@ if ($errflag == true) {
     }
     echo $output;
 } else {
-    $qry = "INSERT INTO students (studName, email, password) VALUES ('$studName', '$email', '$password')";
+    $qry = "INSERT INTO students (studName, email, password, secCode, hasConfirmed) VALUES ('$studName', '$email', '$password', '$secCode', 0)";
     $result = mysql_query($qry);
     if($result) {
+			// Write email
+			$msg = "<p>Here is your security code for Study Storm registration:</p>\n";
+			$msg .= "<h2>" . $secCode . "</h2>";
+			$msg .= "<p>Please enter this code in the required field.</p>";
+			$msg = wordwrap($msg, 70);
+			// Send email
+			mail($email, "Study Storm Security Code", $msg);
+						
     	echo 'Success!';
     } else {
     	echo 'ERROR, did not add student to database!';

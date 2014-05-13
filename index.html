@@ -35,10 +35,11 @@
 	<!-- developer div -->
 		<div data-role="footer" data-position="fixed">
 			<span id="mainWelcome">Not logged in.</span>
-			<a href="#mainPage" data-ajax="false" class="invisible" id="btnLogout">Log Out</a>
-			<a href="#userSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnAddSession">Add Session</a>
-			<a href="#userSessionPage" data-rel="dialog" data-transition="pop" class="invisible" id="btnEditSession">Edit Session</a>
-			<a href="#disclaimerPage" data-rel="dialog" id="btnRegister">Register</a>
+			<a href="#mainPage" class="invisible" id="btnLogout">Log Out</a>
+			<a href="#userSessionPage" id="btnAddSession">Add Session</a>
+			<a href="#userSessionPage" class="invisible" id="btnEditSession">Edit Session</a>
+			<a href="#disclaimerPage" id="btnRegister">Register</a>
+			<a href="#confirmEmailPage">Confirm Email Page</a>
 		</div><!-- /footer -->
 		<!-- /developer div -->
 		
@@ -149,11 +150,35 @@
 
 			<input type="submit" value="Register" id="regSubmit">
 		</form>
-        <div id="regResult"></div>
 	</div><!-- /data-role="main" -->
 </section><!-- /#regPage -->
 
  <!-- END OF REGISTER PAGE -->
+ 
+<!-- CONFIRM EMAIL PAGE - JENS 05/MAY/2014 -->
+<section data-role="page" id="confirmEmailPage" data-theme="b">
+	<div data-role="header">
+		<h1>Confirm Email</h1>
+	</div>
+	
+	<div data-role="main" class="ui-content">
+		<form id="confirmEmailForm">
+			<label for="confirmEmail">Re-enter your email:</label>
+			<input type="email" name="confirmEmail" id="confirmEmail">
+			
+			<p>A security code has been sent to your my.bcit.ca account.</p>
+			<p>Please retrieve your code and submit it below.</p>
+			<label for="secCode">Security Code:</label>
+			<input type="text" name="secCode" id="secCode">
+			
+			<input type="submit" id="secCodeSubmit" value="Submit Code">
+		</form>
+		<div id="confirmEmailMsg"></div>
+	</div>
+	
+</section>
+
+<!-- /CONFIRM EMAIL PAGE -->
  
  <!-- ADD SESSION PAGE - STUART 05/07/2014 5:43 -->
 

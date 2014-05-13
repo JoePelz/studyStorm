@@ -18,17 +18,20 @@ $(document).ready(function() {
 	// Add onclick event to the Delete Session button
 	$("#deleteSessionButton").click(delSession);
 
-    // Add onclick event to the Add Session button
+  // Add onclick event to the Add Session button
 	$("#userSessionSubmit").click(addSession);
 	
 	// Add onclick event to the Register button
-    $("#regSubmit").click(register);
+  $("#regSubmit").click(register);
 
-    // Add onclick event to the Login button
+  // Add onclick event to the Login button
 	$("#loginSubmit").click(login);
     
-    // Add onclick event to the Logout button
+  // Add onclick event to the Logout button
 	$("#btnLogout").click(logout);
+	
+	// Check security code on submit
+	$("#secCodeSubmit").click(checkSecCode);
 	
 	getSizes();
 	getSessions();
@@ -183,10 +186,9 @@ function register() {
 function regSuccess(data, status) {
 	data = $.trim(data);
 	if (data == "Success!") {
-		location.hash="loginPage";
-		$("#loginResult").html("You have been successfully registered!");
+		location.hash = "confirmEmailPage";
 	} else {
-		$("#regResult").html("Response data: " + data);
+			$("#regResult").html("Response data: " + data);
 	}
 }
 /* 
@@ -202,7 +204,55 @@ function regSuccess(data, status) {
 function regError(data, status) {
 	alert("something went wrong: " + status);
 }
-
+/* 
+ * Function: checkSecCode()
+ * Purpose: Checks the security code entered by the user. 
+ *					Sets hasConfirmed in the database to '1' if it is correct.
+ *          
+ * Params: 
+ *      none
+ * Return: none
+ */
+function checkSecCode() {
+	
+	var formData = $("#confirmEmailForm").serialize();
+	
+	$.ajax({
+		type: "POST",
+		cache: false,
+		url: "./php/checkSecCode.php",
+		data: formData,
+		success: secCodeSuccess,
+		error: function(data, status) {
+			alert("Something went wrong.\nStatus: " + status + "\nData: " + data);
+		}
+	});
+	return false;
+}
+/* 
+ * Function: secCodeSuccess(data, status)
+ * Purpose: Supplemental to checkSecCode(), above.
+ *          Runs if AJAX succeeded.
+ *          
+ *          If check Security Code worked, it indicates you succeeded 
+ *             and takes you to the login page.
+ *          Else if gives you the reason it failed.
+ * Params: 
+ *      data: empty object
+ *      status: string indicating success/error
+ * Return: none
+ */
+function secCodeSuccess(data, status) {
+		if (data == "Success!") {
+			location.hash = "loginPage";
+			$("#loginResult").html("You have been successfully registered!");
+		} else {
+				$("#confirmEmailMsg").fadeIn(250);
+				$("#confirmEmailMsg").addClass("badInput");
+				$("#confirmEmailMsg").html("Incorrect email or security code");
+				$("#confirmEmailMsg").delay(2000).fadeOut(250);
+		}
+	}
 /* 
  * Function: login()
  * Purpose: Send the login form data to login.php
@@ -244,7 +294,7 @@ function loginSuccess(data, status) {
 		updateLogin();
 		location.hash="mainPage";
 	} else {
-		$("#loginResult").html("Oh no! " + data);
+		$("#loginResult").html("Did not log in!\nData: " + data);
 	}
 }
 /* 
