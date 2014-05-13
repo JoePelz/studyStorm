@@ -3,6 +3,8 @@
 			and does a lot of setup tasks.
 			It also attaches onclick functions to several buttons:
 				-Delete button
+				-Add Session button
+				-Edit Session button
 				-Registration button
 				-Login button
 				-Logout button
@@ -17,15 +19,18 @@ $(document).ready(function() {
 	// Add onclick event to the Delete Session button
 	$("#deleteSessionButton").click(delSession);
 
-  // Add onclick event to the Add Session button
-	$("#userSessionSubmit").click(addSession);
-	
-	// Add onclick event to the Register button
-  $("#regSubmit").click(register);
+	// Add onclick event to the Add Session button
+	$("#addSessionSubmit").click(addSession);
 
-  // Add onclick event to the Login button
+	// Add onclick event to the Add Session button
+	$("#editSessionSubmit").click(editSession);
+
+	// Add onclick event to the Register button
+	$("#regSubmit").click(register);
+
+	// Add onclick event to the Login button
 	$("#loginSubmit").click(login);
-    
+
 	// Add onclick event to the Register button
 	$("#regSubmit").click(register);
 
@@ -39,7 +44,6 @@ $(document).ready(function() {
 	$("#secCodeSubmit").click(checkSecCode);
 	
 	getSizes();
-	getSessions();
 	updateLogin();
 }); /*==== /$(document).ready() ====*/
 
@@ -507,25 +511,27 @@ function updateLogin() {
 			//change page to show edit links
 			$("#menuLeft").attr("onclick", "populateSessionForm(" + info.sessionId + ")");
 			$("#menuLeft").html("Edit Session");
+			$("#addSessionSubmit").addClass("invisible");
+			$("#editSessionSubmit").removeClass("invisible");
 			$("#deleteSessionButton").removeClass("invisible");
 			$("#userSessionPage h1").html("Edit Session");
-			$("#userSessionSubmit").html("Submit");
-			$("#userSessionSubmit").attr("onclick", "editSession()");
 		} else {
 			$("#menuLeft").attr("onclick", "populateSessionForm(0)");
 			$("#menuLeft").html("Add Session");
+			$("#addSessionSubmit").removeClass("invisible");
+			$("#editSessionSubmit").addClass("invisible");
 			$("#deleteSessionButton").addClass("invisible");
 			$("#userSessionPage h1").html("Add Session");
-			$("#userSessionSubmit").html("Add");
-			$("#userSessionSubmit").attr("onclick", "addSession()");
 		}
 	}
 
 	$.ajax({
-            url: "./php/testLogin.php",
-            cache: false,
-            success: updateSuccess
+			url: "./php/testLogin.php",
+			cache: false,
+			success: updateSuccess
 	});
+	
+	getSessions();
 }
 
 /* 
