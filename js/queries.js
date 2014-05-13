@@ -635,6 +635,8 @@ function joinGroup(sessionId) {
 function joinSuccess(result, data) {
 	if (result == "Success!") {
 		$("#joinLeaveButton").html("Leave");
+		$("#menuLeft").html("Leave Session");
+		updateLogin();
 	}
 }
 /* 

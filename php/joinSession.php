@@ -11,6 +11,10 @@ $qry = "UPDATE students SET currentSession='$sessionId' WHERE studId=" . $_SESSI
 $result = mysql_query($qry);
 
 if ($result) {
+	// Deactivate any current sessions created by user, if any
+	$qry = "UPDATE sessions SET isActive=0 WHERE studId=" . $_SESSION['studId'];
+	$result = mysql_query($qry);
+	
 	echo "Success!";
 	exit();
 } else {
