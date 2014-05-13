@@ -18,7 +18,7 @@ $db = mysql_select_db(DB_DATABASE) or die("Unable to select database");
 
 //disable expired sessions on the server.
 //UPDATE `sessions` SET `endTime2` = CONVERT_TZ(NOW(), '+0:00', '-7:00') WHERE `sessions`.`sessionId` = 2;
-$qry = "UPDATE `sessions` SET `isActive`=0 WHERE `endTime` < CONVERT_TZ(NOW(), '+0:00', '-7:00')";
+$qry = "UPDATE `sessions` SET `isActive`=0 WHERE `endTime2` < CONVERT_TZ(NOW(), '+0:00', '-7:00')";
 mysql_query($qry);
 
 
