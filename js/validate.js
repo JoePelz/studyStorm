@@ -37,7 +37,7 @@ function addSessionValidate() {
 		locationValid = true;
 	}
 	
-	if (!testTimeValid('#startTime') || !testTimeValid('#endTime')) {
+	if (!testTimeValid('#startTime')) {
 		$('#errTime').removeClass("goodInput").addClass("badInput");
 		$('#errTime').html("Choose a time");
 		timeValid = false;
@@ -45,6 +45,16 @@ function addSessionValidate() {
 	else {
 		$('#errTime').removeClass("badInput").addClass("goodInput");
 		$('#errTime').html("Valid");
+		timeValid = true;
+	}
+	if (!testTimeValid2('#startTime', '#endTime')) {
+		$('#errTime2').removeClass("goodInput").addClass("badInput");
+		$('#errTime2').html("End time must be after start");
+		timeValid = false;
+	}
+	else {
+		$('#errTime2').removeClass("badInput").addClass("goodInput");
+		$('#errTime2').html("Valid");
 		timeValid = true;
 	}
 	
