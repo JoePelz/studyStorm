@@ -225,8 +225,8 @@
 			<label for="startTime">Start Time: <span id="errTime"></span></label>
 			<div id="itmTime">
 				<input type="time" name="startTime" id="startTime" onkeyup="testTimeValid('#startTime')">
-				<label for="endTime">End Time: </label>
-				<input type="time" name="endTime" id="endTime" onkeyup="testTimeValid('#endTime')">
+				<label for="endTime">End Time: <span id="errTime2"></span></label>
+				<input type="time" name="endTime" id="endTime" onkeyup="testTimeValid2('#startTime', '#endTime')">
 			</div><!-- /end itmTime div -->
 
 			<label for="details">Details: <span id="errDetails"></span></label>
