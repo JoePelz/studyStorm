@@ -399,6 +399,11 @@ function populateSessionForm(sessionId) {
 		form.startTime.value = "";
 		form.endTime.value = "";
 		form.details.value = "";
+		$('#errCourse').html("");
+		$('#errLocation').html("");
+		$('#errTime').html("");
+		$('#errTime2').html("");
+		$('#errDetails').html("");
 	} else {
 		$.getJSON("./php/getDetails.php?sessionId=" + sessionId, function(result) {
 
