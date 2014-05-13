@@ -31,18 +31,16 @@ date_default_timezone_set("America/Vancouver");
 //get current date and time
 $start = new DateTime();
 //replace hour/min/second
-$startHour = substr($startTime, 0, 2);
-$startMinute = substr($startTime, 3, 2);
-$start->setTime($startHour, $startMinute);
+$startHM = date_parse($startTime);
+$start->setTime($startHM['hour'], $startHM['minute']);
 //turn date + time into timestamp
 $startTS = $start->format('Y-m-d H:i:s');
 
 //get current date and time
 $end = new DateTime();
 //replace hour/min/second
-$endHour = substr($endTime, 0, 2);
-$endMinute = substr($endTime, 3, 2);
-$end->setTime($endHour, $endMinute);
+$endHM = date_parse($endTime);
+$end->setTime($endHM['hour'], $endHM['minute']);
 //turn date + time into timestamp
 $endTS = $end->format('Y-m-d H:i:s');
 

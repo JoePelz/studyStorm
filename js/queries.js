@@ -3,10 +3,17 @@
 			and does a lot of setup tasks.
 			It also attaches onclick functions to several buttons:
 				-Delete button
+				-Add Session button
+				-Edit Session button
 				-Registration button
 				-Login button
 				-Logout button
+<<<<<<< HEAD
 proper documentation for software usage
+=======
+				-security code submit
+
+>>>>>>> a1e822ab871867ec7a0c7dc609b781911586a232
 			It calls getSessions to fill the main browsing page
 			It calls updateLogin to display welcome messages and the correct buttons
 			It calls populateSessionForm to fill the edit session form
@@ -18,15 +25,12 @@ proper documentation for software usage
 	// Add onclick event to the Delete Session button
 	$("#deleteSessionButton").click(delSession);
 
-  // Add onclick event to the Add Session button
-	$("#userSessionSubmit").click(addSession);
-	
-	// Add onclick event to the Register button
-  $("#regSubmit").click(register);
+	// Add onclick event to the Add Session button
+	$("#addSessionSubmit").click(addSession);
 
-  // Add onclick event to the Login button
-	$("#loginSubmit").click(login);
-    
+	// Add onclick event to the Add Session button
+	$("#editSessionSubmit").click(editSession);
+
 	// Add onclick event to the Register button
 	$("#regSubmit").click(register);
 
@@ -40,7 +44,6 @@ proper documentation for software usage
 	$("#secCodeSubmit").click(checkSecCode);
 	
 	getSizes();
-	getSessions();
 	updateLogin();
 }); /*==== /$(document).ready() ====*/
 
@@ -399,9 +402,22 @@ function populateSessionForm(sessionId) {
 		//refreshes the select list and forces a rebuild. Required in order to show the 
 		//selected item from the database.
 		$("#courseName").selectmenu('refresh', true);
+		
+		//convert time from date-timestamp to h:mm
+		var t = result.startTime2.split(/[- :]/);
+		var sTime = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+		var start = sTime.getHours() + ":";
+		if (sTime.getMinutes() < 10) { start += "0"; }
+		start += sTime.getMinutes();
+		var t = result.endTime2.split(/[- :]/);
+		var eTime = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+		var end = eTime.getHours() + ":";
+		if (eTime.getMinutes() < 10) { end += "0"; }
+		end += eTime.getMinutes();
+
 		form.location.value = result.location;
-		form.startTime.value = result.startTime;
-		form.endTime.value = result.endTime;
+		form.startTime.value = start;
+		form.endTime.value = end;
 		form.details.value = result.details;
 		});
 	}
@@ -432,16 +448,16 @@ function getSessions() {
 			}
 		}
 		
-        sessions = [];
-        for (var i = 0; i < courses.length; i++) {
-            cluster = [];
-            for (var j = 0; j < result.length; j++) {
-                if (result[j].courseName == courses[i]) {
-                    cluster.push(result[j]);
-                }
-            }
-            sessions.push(cluster);
-        }
+		sessions = [];
+		for (var i = 0; i < courses.length; i++) {
+			cluster = [];
+			for (var j = 0; j < result.length; j++) {
+				if (result[j].courseName == courses[i]) {
+					cluster.push(result[j]);
+				}
+			}
+			sessions.push(cluster);
+		}
 
 
 		//For each course heading, insert a <ul> and all the 
@@ -452,10 +468,12 @@ function getSessions() {
 			content += "<h1>" + courses[i] + '<span class="ui-li-count" style="right: 50px;">'+sessions[i].length+'</span>' + "</h1>";
 			content += "<ul>";
 			for (var j = 0; j < sessions[i].length; j++) {
-				var time = new Date(sessions[i][j].startTime2);
+				var t = sessions[i][j].startTime2.split(/[- :]/);
+				var time = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+
 				var hours = time.getHours();
 				var half = "am";
-				if (hours > 12) { 
+				if (hours > 12) {
 					hours -= 12;
 					half = "pm";
 				}
@@ -506,25 +524,27 @@ function updateLogin() {
 			//change page to show edit links
 			$("#menuLeft").attr("onclick", "populateSessionForm(" + info.sessionId + ")");
 			$("#menuLeft").html("Edit Session");
+			$("#addSessionSubmit").addClass("invisible");
+			$("#editSessionSubmit").removeClass("invisible");
 			$("#deleteSessionButton").removeClass("invisible");
 			$("#userSessionPage h1").html("Edit Session");
-			$("#userSessionSubmit").html("Submit");
-			$("#userSessionSubmit").attr("onclick", "editSession()");
 		} else {
 			$("#menuLeft").attr("onclick", "populateSessionForm(0)");
 			$("#menuLeft").html("Add Session");
+			$("#addSessionSubmit").removeClass("invisible");
+			$("#editSessionSubmit").addClass("invisible");
 			$("#deleteSessionButton").addClass("invisible");
 			$("#userSessionPage h1").html("Add Session");
-			$("#userSessionSubmit").html("Add");
-			$("#userSessionSubmit").attr("onclick", "addSession()");
 		}
 	}
 
 	$.ajax({
-            url: "./php/testLogin.php",
-            cache: false,
-            success: updateSuccess
+			url: "./php/testLogin.php",
+			cache: false,
+			success: updateSuccess
 	});
+	
+	getSessions();
 }
 
 /* 
@@ -543,7 +563,8 @@ function getDetails(sessionId) {
 		var content = "";
 
 		//get times:
-		var time = new Date(result.startTime2);
+		var t = result.startTime2.split(/[- :]/);
+		var time = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
 		var hours = time.getHours();
 		var half = "am";
 		if (hours > 12) { 
@@ -554,7 +575,8 @@ function getDetails(sessionId) {
 		if (minutes < 10) { minutes = "0" + minutes; }
 		var start = hours + ":" + minutes + half;
 		
-		var time = new Date(result.endTime2);
+		var t = result.endTime2.split(/[- :]/);
+		var time = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
 		var hours = time.getHours();
 		var half = "am";
 		if (hours > 12) { 
