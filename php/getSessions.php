@@ -16,6 +16,12 @@ $con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD)
 $db = mysql_select_db(DB_DATABASE) or die("Unable to select database");
 
 
+//disable expired sessions on the server.
+//UPDATE `sessions` SET `endTime2` = CONVERT_TZ(NOW(), '+0:00', '-7:00') WHERE `sessions`.`sessionId` = 2;
+$qry = "UPDATE `sessions` SET `isActive`=0 WHERE `endTime` < CONVERT_TZ(NOW(), '+0:00', '-7:00')";
+mysql_query($qry);
+
+
 //data available: studName, sessionId, courseName, details, startTime, endTime, location, studId, isActive
 $qry = "SELECT u.studName, s.* FROM sessions s, students u WHERE u.studId=s.studId";
 $result = mysql_query($qry);
