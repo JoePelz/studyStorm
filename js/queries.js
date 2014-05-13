@@ -431,16 +431,16 @@ function getSessions() {
 			}
 		}
 		
-        sessions = [];
-        for (var i = 0; i < courses.length; i++) {
-            cluster = [];
-            for (var j = 0; j < result.length; j++) {
-                if (result[j].courseName == courses[i]) {
-                    cluster.push(result[j]);
-                }
-            }
-            sessions.push(cluster);
-        }
+		sessions = [];
+		for (var i = 0; i < courses.length; i++) {
+			cluster = [];
+			for (var j = 0; j < result.length; j++) {
+				if (result[j].courseName == courses[i]) {
+					cluster.push(result[j]);
+				}
+			}
+			sessions.push(cluster);
+		}
 
 
 		//For each course heading, insert a <ul> and all the 
@@ -451,10 +451,12 @@ function getSessions() {
 			content += "<h1>" + courses[i] + '<span class="ui-li-count" style="right: 50px;">'+sessions[i].length+'</span>' + "</h1>";
 			content += "<ul>";
 			for (var j = 0; j < sessions[i].length; j++) {
-				var time = new Date(sessions[i][j].startTime2);
+				var t = sessions[i][j].startTime2.split(/[- :]/);
+				var time = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+
 				var hours = time.getHours();
 				var half = "am";
-				if (hours > 12) { 
+				if (hours > 12) {
 					hours -= 12;
 					half = "pm";
 				}
@@ -542,7 +544,8 @@ function getDetails(sessionId) {
 		var content = "";
 
 		//get times:
-		var time = new Date(result.startTime2);
+		var t = result.startTime2.split(/[- :]/);
+		var time = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
 		var hours = time.getHours();
 		var half = "am";
 		if (hours > 12) { 
@@ -553,7 +556,8 @@ function getDetails(sessionId) {
 		if (minutes < 10) { minutes = "0" + minutes; }
 		var start = hours + ":" + minutes + half;
 		
-		var time = new Date(result.endTime2);
+		var t = result.endTime2.split(/[- :]/);
+		var time = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
 		var hours = time.getHours();
 		var half = "am";
 		if (hours > 12) { 
