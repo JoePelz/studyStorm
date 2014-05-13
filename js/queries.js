@@ -16,8 +16,8 @@
  * Params: none
  * Return: none
  */
-
-});
+$(document).ready(function() {
+ 
 	// Add onclick event to the Delete Session button
 	$("#deleteSessionButton").click(delSession);
 
@@ -648,7 +648,7 @@ function initialize(lat, lng, title) {
 			}
 		  if (direction == "down") {
 				updateLogin();
-				alert(worked!);
+				alert("worked!");
 			}
 		  //alert("You swiped in " + direction);
 
