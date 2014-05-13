@@ -17,7 +17,7 @@
  * Return: none
  */
 $(document).ready(function() {
- 
+
 	// Add onclick event to the Delete Session button
 	$("#deleteSessionButton").click(delSession);
 
@@ -41,7 +41,15 @@ $(document).ready(function() {
 	
 	getSizes();
 	updateLogin();
-}); /*==== /$(document).ready() ====*/
+}); /*==== /$(document).ready() ====*
+
+/*
+ *Purpose:
+ *
+ *Params: none
+ *Return: none
+*/
+
 
 /* 
  * Function: getSizes()
@@ -51,6 +59,7 @@ $(document).ready(function() {
  * Params: none
  * Return: none
  */
+
 function getSizes() {
 	var deviceWidth = $(window).width();
 	var deviceHeight = $(window).height();
@@ -541,6 +550,13 @@ function updateLogin() {
 	});
 	
 	getSessions();
+	
+	$.mobile.loading( 'show', {
+	text: 'loading',
+	textVisible: true,
+	theme: 'a',
+	html: ""
+});
 }
 
 /* 
@@ -642,7 +658,7 @@ function initialize(lat, lng, title) {
           //$(this).text("You swiped " + direction );  
 		  alert("You swiped in " + direction);
 		  //location.hash="userSessionPage";
-		  //Make swipe right take user to sample page.
+		  //Make swipe right take user to userSessionPage.
 		  if (direction == "right") {
 				location.hash = "userSessionPage";
 				alert(distance);
@@ -650,6 +666,12 @@ function initialize(lat, lng, title) {
 		  if (direction == "down") {
 				updateLogin();
 				alert("worked!");
+				$.mobile.loading( 'show', {
+					text: 'loading',
+					textVisible: true,
+					theme: 'a',
+					html: ""
+					});
 			}
 		  //alert("You swiped in " + direction);
 
