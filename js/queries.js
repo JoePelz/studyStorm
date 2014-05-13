@@ -44,7 +44,7 @@ $(document).ready(function() {
 }); /*==== /$(document).ready() ====*
 
 /*
- *Purpose:
+ *Purpose: Creates a loading icon and text when called.
  *
  *Params: none
  *Return: none
@@ -88,7 +88,7 @@ function delSession() {
 		url: "./php/delSession.php",
 		cache: false,
 		success: function(data, status) {
-			location.hash = "mainPage";
+			$.mobile.changePage("mainPage");
 			updateLogin();
 		}
 	});
@@ -141,7 +141,7 @@ function addSession() {
 function addSessionSuccess(data, status) {
 	data = $.trim(data);
 	if (data == "Success!") {
-		location.hash = "mainPage";
+		$.mobile.changePage("mainPage");
 		updateLogin();
 	} else {
 		alert("Response data: " + data);
@@ -239,7 +239,7 @@ function register() {
 function regSuccess(data, status) {
 	data = $.trim(data);
 	if (data == "Success!") {
-		location.hash = "confirmEmailPage";
+		$.mobile.changePage("confirmEmailPage");
 	} else {
 			$("#regResult").html("Response data: " + data);
 	}
@@ -294,7 +294,7 @@ function checkSecCode() {
  */
 function secCodeSuccess(data, status) {
 		if (data == "Success!") {
-			location.hash = "loginPage";
+			$.mobile.chnagePage("loginPage");
 			$("#loginResult").html("You have been successfully registered!");
 		} else {
 				$("#confirmEmailMsg").fadeIn(250);
@@ -342,7 +342,7 @@ function loginSuccess(data, status) {
 	data = $.trim(data);
 	if (data == "Success!") {
 		updateLogin();
-		location.hash="mainPage";
+		$.mobile.changePage("mainPage");
 	} else {
 		$("#loginResult").html("Did not log in!\nData: " + data);
 	}
@@ -679,13 +679,12 @@ function initialize(lat, lng, title) {
 		  //location.hash="userSessionPage";
 		  //Make swipe right take user to userSessionPage.
 		  if (direction == "right") {
-				location.hash = "userSessionPage";
+				$.mobile.changePage("userSessionPage");
 				alert(distance);
 			}
 		  if (direction == "down") {
 				updateLogin();
 				alert("worked!");
-				s
 			}
 		  //alert("You swiped in " + direction);
 
