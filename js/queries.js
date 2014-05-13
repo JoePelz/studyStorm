@@ -6,14 +6,15 @@
 				-Registration button
 				-Login button
 				-Logout button
-
+proper documentation for software usage
 			It calls getSessions to fill the main browsing page
 			It calls updateLogin to display welcome messages and the correct buttons
 			It calls populateSessionForm to fill the edit session form
  * Params: none
  * Return: none
  */
-$(document).ready(function() {
+
+});
 	// Add onclick event to the Delete Session button
 	$("#deleteSessionButton").click(delSession);
 
@@ -612,6 +613,8 @@ function initialize(lat, lng, title) {
 
 }
 
+
+
  $(function() {      
       //Enable swiping...
       $(document).swipe( {
@@ -619,6 +622,17 @@ function initialize(lat, lng, title) {
         swipe:function(event, direction, distance, duration, fingerCount) {
           //$(this).text("You swiped " + direction );  
 		  alert("You swiped in " + direction);
+		  //location.hash="userSessionPage";
+		  //Make swipe right take user to sample page.
+		  if (direction == "right") {
+				location.hash = "userSessionPage";
+				alert(distance);
+			}
+		  if (direction == "down") {
+				updateLogin();
+				alert(worked!);
+			}
+		  
         },
         //Default is 75px, set to 0 for demo so any distance triggers swipe
          threshold:0
