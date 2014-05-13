@@ -8,10 +8,10 @@
  * Purpose: Test all conditions in the form
  */
 function addSessionValidate() {
-var courseValid;
-var locationValid;
-var timeValid;
-var detailsValid;
+	var courseValid;
+	var locationValid;
+	var timeValid;
+	var detailsValid;
 
 	if (!testCourseValid('#courseName')) {
 		$('#errCourse').removeClass("goodInput").addClass("badInput");
@@ -37,7 +37,7 @@ var detailsValid;
 		locationValid = true;
 	}
 	
-	if (!testTimeValid('#startTime') || !testTimeValid('#endTime')) {
+	if (!testTimeValid('#startTime')) {
 		$('#errTime').removeClass("goodInput").addClass("badInput");
 		$('#errTime').html("Choose a time");
 		timeValid = false;
@@ -45,6 +45,16 @@ var detailsValid;
 	else {
 		$('#errTime').removeClass("badInput").addClass("goodInput");
 		$('#errTime').html("Valid");
+		timeValid = true;
+	}
+	if (!testTimeValid2('#startTime', '#endTime')) {
+		$('#errTime2').removeClass("goodInput").addClass("badInput");
+		$('#errTime2').html("End time must be after start");
+		timeValid = false;
+	}
+	else {
+		$('#errTime2').removeClass("badInput").addClass("goodInput");
+		$('#errTime2').html("Valid");
 		timeValid = true;
 	}
 	
@@ -118,7 +128,19 @@ function testLocationValid(id) {
  * Return true if the time is valid.
  */
 function testTimeValid(id) {
-	if ($(id).val() == "") {
+	var regexpHr = "([0-9]{1,2})[:aApP ]*";
+	var regexpMn = ":([0-9]{1,2})";
+	var t = $(id).val();
+
+	var hrs = -1;
+	var regHrs = t.match(new RegExp(regexpHr));
+	if (regHrs != null) { hrs = regHrs[1]; }
+	var mins = 0;
+	var regMins = t.match(new RegExp(regexpMn));
+	if (regMins != null) { mins = regMins[1]; }
+	
+	testTimeValid2(id, "#endTime");
+	if ($(id).val() == "" || (hrs == -1)) {
 		$('#errTime').removeClass("goodInput").addClass("badInput");
 		$('#errTime').html("Choose a time");
 		return false;
@@ -126,6 +148,52 @@ function testTimeValid(id) {
 	else {
 		$('#errTime').removeClass("badInput").addClass("goodInput");
 		$('#errTime').html("Valid");
+		return true;
+	}
+}
+
+/* 
+ * Function: testTimeValid2(idStart, idEnd)
+ * Purpose: Test if the user has entered a valid end time and 
+ *          the time is later than the start time.
+ * Params:
+ *      idStart - The id of the start time input.
+ *      idEnd   - The id of the  end  time input.
+ * Return true if the time is valid and later than the start.
+ */
+function testTimeValid2(idStart, idEnd) {
+	var regexpHr = "([0-9]{1,2})[:aApP ]*";
+	var regexpMn = ":([0-9]{1,2})";
+	var t = $(idStart).val();
+
+	var hrs = 0;
+	var regHrs = t.match(new RegExp(regexpHr));
+	if (regHrs != null) { hrs = regHrs[1]; }
+	var mins = 0;
+	var regMins = t.match(new RegExp(regexpMn));
+	if (regMins != null) { mins = regMins[1]; }
+	var start = parseInt(mins) + (60 * parseInt(hrs));
+	if ((t.indexOf("p") > -1) || (t.indexOf("P") > -1)) { start += 720;	}
+
+
+	var t = $(idEnd).val();
+	var hrs = 0;
+	var regHrs = t.match(new RegExp(regexpHr));
+	if (regHrs != null) { hrs = regHrs[1]; }
+	var mins = 0;
+	var regMins = t.match(new RegExp(regexpMn));
+	if (regMins != null) { mins = regMins[1]; }
+	var end = parseInt(mins) + (60 * parseInt(hrs));
+	if ((t.indexOf("p") > -1) || (t.indexOf("P") > -1)) { end += 720;	}
+
+	if ($(idEnd).val() == "" || end <= start) {
+		$('#errTime2').removeClass("goodInput").addClass("badInput");
+		$('#errTime2').html("End time must be after start");
+		return false;
+	}
+	else {
+		$('#errTime2').removeClass("badInput").addClass("goodInput");
+		$('#errTime2').html("Valid");
 		return true;
 	}
 }

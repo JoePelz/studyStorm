@@ -2,9 +2,9 @@
 
 ///////////////////////////////////////////////
 //
-//  This script is run when the webpage loads.
-//  It gets the active study sessions from MySQL 
-//  and returns them to the client as JSON data.
+//  This script is run when the user selects a session.
+//  It gets the active members from that study sessions from MySQL 
+//  and returns them to getDetails.php to be added into the JSON object.
 //
 ///////////////////////////////////////////////
 
@@ -16,22 +16,15 @@ $con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD)
 $db = mysql_select_db(DB_DATABASE) or die("Unable to select database");
 
 
-//disable expired sessions on the server.
-//UPDATE `sessions` SET `endTime2` = CONVERT_TZ(NOW(), '+0:00', '-7:00') WHERE `sessions`.`sessionId` = 2;
-$qry = "UPDATE `sessions` SET `isActive`=0 WHERE `endTime2` < CONVERT_TZ(NOW(), '+0:00', '-7:00')";
-mysql_query($qry);
-
-
 //data available: studName, sessionId, courseName, details, startTime, endTime, location, studId, isActive
-$qry = "SELECT u.studName, s.* FROM sessions s, students u WHERE u.studId=s.studId";
+$qry = "SELECT u.studName FROM students u WHERE u.currentSession=3";
 $result = mysql_query($qry);
-$courseArray = array();
+$studentsArray = array();
 
 if ($result) {
 	while ($row = mysql_fetch_assoc($result)) {
-		$courseArray[] = $row;
+		$studentsArray[] = $row;
 	}
-	print json_encode($courseArray);
 } else {
 	die("Query failed");
 	}
