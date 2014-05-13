@@ -58,10 +58,8 @@ WHERE  `sessions`.`sessionId` =58;
 $qry = "UPDATE sessions SET 
 `courseName`='$courseName', 
 `details`='$details', 
-`startTime`='$startTime', 
-`endTime`='$endTime', 
-`startTime2`='$startTS',
-`endTime2`='$endTS',
+`startTime`='$startTS', 
+`endTime`='$endTS', 
 `location`='$location'
 WHERE `studId`=" . $_SESSION['studId'] . " AND `isActive`=1";
 

@@ -45,7 +45,7 @@ $end->setTime($endHM['hour'], $endHM['minute']);
 $endTS = $end->format('Y-m-d H:i:s');
 
 
-$myrequ = "INSERT INTO sessions (courseName, startTime, endTime, startTime2, endTime2, location, details, studID, isActive) VALUES ('$courseName', '$startTime', '$endTime', '$startTS', '$endTS', '$location', '$details', '$studId', 1)";
+$myrequ = "INSERT INTO sessions (courseName, startTime, endTime, location, details, studID, isActive) VALUES ('$courseName', '$startTS', '$endTS', '$location', '$details', '$studId', 1)";
 $result = mysql_query($myrequ);
 
 if ($result) {

@@ -416,12 +416,12 @@ function populateSessionForm(sessionId) {
 		$("#courseName").selectmenu('refresh', true);
 		
 		//convert time from date-timestamp to h:mm
-		var t = result.startTime2.split(/[- :]/);
+		var t = result.startTime.split(/[- :]/);
 		var sTime = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
 		var start = sTime.getHours() + ":";
 		if (sTime.getMinutes() < 10) { start += "0"; }
 		start += sTime.getMinutes();
-		var t = result.endTime2.split(/[- :]/);
+		var t = result.endTime.split(/[- :]/);
 		var eTime = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
 		var end = eTime.getHours() + ":";
 		if (eTime.getMinutes() < 10) { end += "0"; }
@@ -480,7 +480,7 @@ function getSessions() {
 			content += "<h1>" + courses[i] + '<span class="ui-li-count" style="right: 50px;">'+sessions[i].length+'</span>' + "</h1>";
 			content += "<ul>";
 			for (var j = 0; j < sessions[i].length; j++) {
-				var t = sessions[i][j].startTime2.split(/[- :]/);
+				var t = sessions[i][j].startTime.split(/[- :]/);
 				var time = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
 
 				var hours = time.getHours();
@@ -577,7 +577,7 @@ function getDetails(sessionId) {
 		var content = "";
 
 		//get times:
-		var t = result.startTime2.split(/[- :]/);
+		var t = result.startTime.split(/[- :]/);
 		var time = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
 		var hours = time.getHours();
 		var half = "am";
@@ -589,7 +589,7 @@ function getDetails(sessionId) {
 		if (minutes < 10) { minutes = "0" + minutes; }
 		var start = hours + ":" + minutes + half;
 		
-		var t = result.endTime2.split(/[- :]/);
+		var t = result.endTime.split(/[- :]/);
 		var time = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
 		var hours = time.getHours();
 		var half = "am";
