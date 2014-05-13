@@ -397,9 +397,22 @@ function populateSessionForm(sessionId) {
 		//refreshes the select list and forces a rebuild. Required in order to show the 
 		//selected item from the database.
 		$("#courseName").selectmenu('refresh', true);
+		
+		//convert time from date-timestamp to h:mm
+		var t = result.startTime2.split(/[- :]/);
+		var sTime = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+		var start = sTime.getHours() + ":";
+		if (sTime.getMinutes() < 10) { start += "0"; }
+		start += sTime.getMinutes();
+		var t = result.endTime2.split(/[- :]/);
+		var eTime = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+		var end = eTime.getHours() + ":";
+		if (eTime.getMinutes() < 10) { end += "0"; }
+		end += eTime.getMinutes();
+
 		form.location.value = result.location;
-		form.startTime.value = result.startTime;
-		form.endTime.value = result.endTime;
+		form.startTime.value = start;
+		form.endTime.value = end;
 		form.details.value = result.details;
 		});
 	}
