@@ -16,6 +16,7 @@
  * Params: none
  * Return: none
  */
+ 
 $(document).ready(function() {
 	// Add onclick event to the Delete Session button
 	$("#deleteSessionButton").click(delSession);
@@ -48,7 +49,12 @@ $(document).ready(function() {
  *Params: none
  *Return: none
 */
-
+ $.mobile.loading( 'show', {
+					text: 'loading',
+					textVisible: true,
+					theme: 'a',
+					html: ""
+					});
 
 /* 
  * Function: getSizes()
@@ -547,12 +553,7 @@ function updateLogin() {
 	
 	getSessions();
 	
-	$.mobile.loading( 'show', {
-	text: 'loading',
-	textVisible: true,
-	theme: 'a',
-	html: ""
-});
+	$.mobile.loading();
 }
 
 /* 
@@ -677,12 +678,7 @@ function initialize(lat, lng, title) {
 		  if (direction == "down") {
 				updateLogin();
 				alert("worked!");
-				$.mobile.loading( 'show', {
-					text: 'loading',
-					textVisible: true,
-					theme: 'a',
-					html: ""
-					});
+				s
 			}
 		  //alert("You swiped in " + direction);
 
