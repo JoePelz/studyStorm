@@ -8,6 +8,7 @@
 				-Registration button
 				-Login button
 				-Logout button
+				-security code submit
 
 			It calls getSessions to fill the main browsing page
 			It calls updateLogin to display welcome messages and the correct buttons
@@ -24,12 +25,6 @@ $(document).ready(function() {
 
 	// Add onclick event to the Add Session button
 	$("#editSessionSubmit").click(editSession);
-
-	// Add onclick event to the Register button
-	$("#regSubmit").click(register);
-
-	// Add onclick event to the Login button
-	$("#loginSubmit").click(login);
 
 	// Add onclick event to the Register button
 	$("#regSubmit").click(register);
