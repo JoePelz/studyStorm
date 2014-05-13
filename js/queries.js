@@ -8,12 +8,8 @@
 				-Registration button
 				-Login button
 				-Logout button
-<<<<<<< HEAD
-proper documentation for software usage
-=======
 				-security code submit
 
->>>>>>> a1e822ab871867ec7a0c7dc609b781911586a232
 			It calls getSessions to fill the main browsing page
 			It calls updateLogin to display welcome messages and the correct buttons
 			It calls populateSessionForm to fill the edit session form
