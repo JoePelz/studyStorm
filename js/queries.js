@@ -554,7 +554,7 @@ function updateLogin() {
 function getDetails(sessionId) {
 	//use AJAX to ask getDetails.php for information.
 	//the returned data is in JSON format.
-	$.getJSON("../php/getDetails.php?sessionId=" + sessionId, function(result){
+	$.getJSON("./php/getDetails.php?sessionId=" + sessionId, function(result){
 		var header = "";
 		var content = "";
 
@@ -596,8 +596,8 @@ function getDetails(sessionId) {
 		$("#detailsHeader").html(header);
 		$("#detailsContent").html(content);
 		
-		var lat = 49.2482696;
-		var lng = -123.0010414;
+		var lat = result.latitude;
+		var lng = result.longitude;
 		var title = result.studName + ", " + result.courseName;
 		initialize(lat,lng,title);
 	});
@@ -650,7 +650,8 @@ function initialize(lat, lng, title) {
 				updateLogin();
 				alert(worked!);
 			}
-		  
+		  //alert("You swiped in " + direction);
+
         },
         //Default is 75px, set to 0 for demo so any distance triggers swipe
          threshold:0
