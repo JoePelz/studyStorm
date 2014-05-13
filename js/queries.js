@@ -17,7 +17,7 @@
  * Return: none
  */
 
-});
+$(document).ready(function() {
 	// Add onclick event to the Delete Session button
 	$("#deleteSessionButton").click(delSession);
 
@@ -38,7 +38,7 @@
 	
 	// Check security code on submit
 	$("#secCodeSubmit").click(checkSecCode);
-	
+		
 	getSizes();
 	updateLogin();
 }); /*==== /$(document).ready() ====*/
@@ -205,7 +205,7 @@ function register() {
 		cache: false,
 		data: formData,
 		success: regSuccess,
-		error: regError
+		error: error
 	});
 	return false;
 }
@@ -231,17 +231,16 @@ function regSuccess(data, status) {
 	}
 }
 /* 
- * Function: regError(data, status)
- * Purpose: Supplemental to register(), above.
- *          Runs if AJAX failed.
- *          Pops up an alert box to display the status code.
+ * Function: errorMsg(data, status)
+ * Purpose: Generic error message that can be reused throughout various scripts
+ *
  * Params: 
  *      data: empty object
  *      status: string indicating success/error
  * Return: none
  */
-function regError(data, status) {
-	alert("something went wrong: " + status);
+function errorMsg(data, status) {
+	alert("something went wrong:\nData: " + data + "\nStatus: " + status);
 }
 /* 
  * Function: checkSecCode()
@@ -262,9 +261,7 @@ function checkSecCode() {
 		url: "./php/checkSecCode.php",
 		data: formData,
 		success: secCodeSuccess,
-		error: function(data, status) {
-			alert("Something went wrong.\nStatus: " + status + "\nData: " + data);
-		}
+		error: errorMsg
 	});
 	return false;
 }
@@ -592,9 +589,11 @@ function getDetails(sessionId) {
 		content += "<li>Location: " + result.location   + "</li>";
 		content += "<li>Details: "  + result.details    + "</li>";
 		content += "</ul>";
+		content += "<div data-role='button' name='joinLeaveButton' id='joinLeaveButton' onclick='joinGroup(" + result.sessionId + ")'>Join</div>";
 		content += "<div id='mapCanvas' style='height: 200px;'></div>";
 		$("#detailsHeader").html(header);
 		$("#detailsContent").html(content);
+		$("#joinLeaveButton").button();
 		
 		var lat = result.latitude;
 		var lng = result.longitude;
@@ -602,7 +601,20 @@ function getDetails(sessionId) {
 		initialize(lat,lng,title);
 	});
 }
-
+function joinGroup(sessionId) {
+	$.ajax({
+		url:"./php/joinSession.php?sessionId=" + sessionId,
+		cache: false,
+		success: joinSuccess,
+		error: errorMsg
+	});
+	return false;
+}
+function joinSuccess(result, data) {
+	if (result == "Success!") {
+		$("#joinLeaveButton").html("Leave");
+	}
+}
 /* 
  * Function: initialize(lat, lng, title)
  * Purpose: Get map coordinates and place them on a map.
@@ -639,7 +651,7 @@ function initialize(lat, lng, title) {
         //Generic swipe handler for all directions
         swipe:function(event, direction, distance, duration, fingerCount) {
           //$(this).text("You swiped " + direction );  
-		  alert("You swiped in " + direction);
+		  //alert("You swiped in " + direction);
 		  //location.hash="userSessionPage";
 		  //Make swipe right take user to sample page.
 		  if (direction == "right") {
@@ -648,7 +660,7 @@ function initialize(lat, lng, title) {
 			}
 		  if (direction == "down") {
 				updateLogin();
-				alert(worked!);
+				alert("worked!");
 			}
 		  //alert("You swiped in " + direction);
 
