@@ -9,6 +9,8 @@
 //////////////////////////////////////////////
 
 require_once('./config.php');
+include('./getMembers.php');
+$membersCount = sizeof($studentsArray);
 
 $con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD)
 	or die('Failed to connect to server: ' . mysql_error());
@@ -23,6 +25,7 @@ $result = mysql_query($qry);
 
 if ($result) {
 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
+	$row['membersCount'] = "".$membersCount."";
 	print json_encode($row);
 } else {
 	die("Query failed");

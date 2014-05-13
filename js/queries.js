@@ -591,6 +591,7 @@ function getDetails(sessionId) {
 		content += "<li>Time: "     + start  + " to " + end + "</li>";
 		content += "<li>Location: " + result.location   + "</li>";
 		content += "<li>Details: "  + result.details    + "</li>";
+		content += "<li>Members: "  + result.membersCount    + "</li>";
 		content += "</ul>";
 		content += "<div id='mapCanvas' style='height: 200px;'></div>";
 		$("#detailsHeader").html(header);
