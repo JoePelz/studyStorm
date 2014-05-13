@@ -5,7 +5,6 @@
 				-Delete button
 				-Registration button
 				-Login button
-				-Add Session button
 				-Logout button
 
 			It calls getSessions to fill the main browsing page
@@ -27,7 +26,13 @@ $(document).ready(function() {
   // Add onclick event to the Login button
 	$("#loginSubmit").click(login);
     
-  // Add onclick event to the Logout button
+	// Add onclick event to the Register button
+	$("#regSubmit").click(register);
+
+	// Add onclick event to the Login button
+	$("#loginSubmit").click(login);
+
+	// Add onclick event to the Logout button
 	$("#btnLogout").click(logout);
 	
 	// Check security code on submit
@@ -123,6 +128,7 @@ function addSessionSuccess(data, status) {
 	data = $.trim(data);
 	if (data == "Success!") {
 		location.hash = "mainPage";
+		updateLogin();
 	} else {
 		alert("Response data: " + data);
 	}
@@ -140,6 +146,39 @@ function addSessionSuccess(data, status) {
 function addSessionError(data, status) {
 	alert("Something went wrong " + data);
 }
+
+/* 
+ * Function: editSession()
+ * Purpose: validate the data in the form, 
+ *          and if it's okay, send an ajax request 
+ *          to update the user's session.
+ *
+ *          (intentionally uses addSession's success/fail functions)
+ *          Calls addSessionSuccess(data, status) if ajax works
+ *          and addSessionError(data, status) if not.
+ * Params: 
+ *      data: empty object
+ *      status: string indicating success/error
+ * Return: none
+ */
+function editSession() {
+	if(!addSessionValidate()) {
+		return false;
+	}
+
+	var formData = $("#userSessionForm").serialize();
+	
+	$.ajax({
+		type: "POST",
+		url: "./php/editSession.php",
+		cache: false,
+		data: formData,
+		success: addSessionSuccess,
+		error: addSessionError
+	});
+	return false;
+}
+
 
 /* 
  * Function: register(data, status)
@@ -337,9 +376,20 @@ function logout() {
  * Return: none
  */
 function populateSessionForm(sessionId) {
-	$.getJSON("./php/getDetails.php?sessionId=" + sessionId, function(result) {
-		document.getElementById("userSessionPage").getElementsByTagName("h1")[0].innerHTML = "Edit Session";
-		document.getElementById("userSessionSubmit").innerHTML = "Submit";
+	if (sessionId == 0) {
+		//The form to fill in
+		form = document.getElementById("userSessionForm");
+		
+		form.courseName.value = "";
+		//refreshes the select list and forces a rebuild. Required in order to show the 
+		//selected item from the database.
+		$("#courseName").selectmenu('refresh', true);
+		form.location.value = "";
+		form.startTime.value = "";
+		form.endTime.value = "";
+		form.details.value = "";
+	} else {
+		$.getJSON("./php/getDetails.php?sessionId=" + sessionId, function(result) {
 
 		//The form to fill in
 		form = document.getElementById("userSessionForm");
@@ -353,6 +403,7 @@ function populateSessionForm(sessionId) {
 		form.endTime.value = result.endTime;
 		form.details.value = result.details;
 		});
+	}
 }
 
 /* 
@@ -445,8 +496,8 @@ function updateLogin() {
 		info = $.parseJSON(data);
 		if (info.loggedIn) {
 			$("#mainWelcome").html("Welcome, " + info.studName);
-		}	else {
-				$("#mainWelcome").html("Not logged in.");
+		} else {
+			$("#mainWelcome").html("Not logged in.");
 		}
 		
 		// if there is a session for that user, then...
@@ -455,10 +506,16 @@ function updateLogin() {
 			$("#menuLeft").attr("onclick", "populateSessionForm(" + info.sessionId + ")");
 			$("#menuLeft").html("Edit Session");
 			$("#deleteSessionButton").removeClass("invisible");
+			$("#userSessionPage h1").html("Edit Session");
+			$("#userSessionSubmit").html("Submit");
+			$("#userSessionSubmit").attr("onclick", "editSession()");
 		} else {
-				$("#menuLeft").removeAttr("onclick");
-				$("#menuLeft").html("Add Session");
-				$("#deleteSessionButton").addClass("invisible");
+			$("#menuLeft").attr("onclick", "populateSessionForm(0)");
+			$("#menuLeft").html("Add Session");
+			$("#deleteSessionButton").addClass("invisible");
+			$("#userSessionPage h1").html("Add Session");
+			$("#userSessionSubmit").html("Add");
+			$("#userSessionSubmit").attr("onclick", "addSession()");
 		}
 	}
 
@@ -483,11 +540,36 @@ function getDetails(sessionId) {
 	$.getJSON("../php/getDetails.php?sessionId=" + sessionId, function(result){
 		var header = "";
 		var content = "";
+
+		//get times:
+		var time = new Date(result.startTime2);
+		var hours = time.getHours();
+		var half = "am";
+		if (hours > 12) { 
+			hours -= 12;
+			half = "pm";
+		}
+		var minutes = time.getMinutes();
+		if (minutes < 10) { minutes = "0" + minutes; }
+		var start = hours + ":" + minutes + half;
+		
+		var time = new Date(result.endTime2);
+		var hours = time.getHours();
+		var half = "am";
+		if (hours > 12) { 
+			hours -= 12;
+			half = "pm";
+		}
+		var minutes = time.getMinutes();
+		if (minutes < 10) { minutes = "0" + minutes; }
+		var end = hours + ":" + minutes + half;
+
+
 		//Format the content into html.
 		header += result.studName + "'s Study Session";
 		content += "<ul>";
 		content += "<li>Subject: "  + result.courseName + "</li>";
-		content += "<li>Time: "     + result.startTime  + " to " + result.endTime + "</li>";
+		content += "<li>Time: "     + start  + " to " + end + "</li>";
 		content += "<li>Location: " + result.location   + "</li>";
 		content += "<li>Details: "  + result.details    + "</li>";
 		content += "</ul>";
@@ -529,3 +611,17 @@ function initialize(lat, lng, title) {
 	//google.maps.event.addDomListener(window, 'load', initialize);
 
 }
+
+ $(function() {      
+      //Enable swiping...
+      $(document).swipe( {
+        //Generic swipe handler for all directions
+        swipe:function(event, direction, distance, duration, fingerCount) {
+          //$(this).text("You swiped " + direction );  
+		  alert("You swiped in " + direction);
+        },
+        //Default is 75px, set to 0 for demo so any distance triggers swipe
+         threshold:0
+      });
+    });
+
