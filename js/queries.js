@@ -55,7 +55,7 @@ $(document).ready(function() {
  $.mobile.loading( 'show', {
 					text: 'loading',
 					textVisible: true,
-					theme: 'c',
+					theme: 'b',
 					html: ""
 					});
 
@@ -594,11 +594,13 @@ function updateLogin() {
 			$("#userSessionPage h1").html("Edit Session");
 		} else {
 			$("#menuLeft").attr("onclick", "populateSessionForm(0)");
+			$("#menuLeft").attr("href", "#userSessionPage");
 			$("#menuLeft").html("Add Session");
 			$("#addSessionSubmit").removeClass("invisible");
 			$("#editSessionSubmit").addClass("invisible");
 			$("#deleteSessionButton").addClass("invisible");
 			$("#userSessionPage h1").html("Add Session");
+			
 		}
 		
 		// Check if user has joined a session
@@ -718,11 +720,35 @@ function joinSuccess(result, data) {
 	if (result == "Success!") {
 		$("#joinLeaveButton").html("Leave");
 		updateLogin();
+	} else {
+			alert("Error: did not join group.\nresult: " + result + "\ndata: " + data);
 	}
 }
+/* 
+ * Function: leaveSession(sessionId)
+ * Purpose: Leaves the session that the user is currently viewing.
+ *
+ * Params:
+ *		sessionId - The id of the session to leave.
+ * Return: none
+ */
 function leaveSession() {
-
+	$.ajax({
+		url: "./php/leaveSession.php",
+		cache: false,
+		success: function() {
+			$.mobile.changePage("#mainPage");
+			updateLogin();
+		},
+		error: errorMsg
+	});
+	return false;
 }
+/*
+function leaveSuccess(result, data) {
+	$("#menuLeft").html("Add Session").attr("onclick",
+}
+*/
 /* 
  * Function: initialize(lat, lng, title)
  * Purpose: Get map coordinates and place them on a map.
