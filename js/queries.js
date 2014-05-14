@@ -636,7 +636,6 @@ function getDetails(sessionId) {
 	$.getJSON("./php/getDetails.php?sessionId=" + sessionId, function(result){
 		var header = "";
 		var content = "";
-
 		//get times:
 		var t = result.startTime.split(/[- :]/);
 		var time = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
@@ -788,13 +787,9 @@ function initialize(lat, lng, title) {
  * Return: none
  */
 function sendEmail(email, subject, message, onSuccess) {
-	email = [];
-	email['message'] = message;
-	email['email']   = email;
-	email['subject'] = subject;
 	$.ajax({
 		url: "http://joepolygon.com/sendMail.php",
-		data: email,
+		data: {'message':message, 'email':email, 'subject':subject},
 		type: "POST",
 		cache: false,
 		success: onSuccess
