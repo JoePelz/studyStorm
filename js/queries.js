@@ -751,6 +751,29 @@ function initialize(lat, lng, title) {
 
 }
 
+/* 
+ * Function: sendEmail(email, subject, message, onSuccess)
+ * Purpose: Send an email.
+ * Params:
+ *		email     - The address of the recipient
+ *		subject   - The email subject
+ *		message   - The message for the email
+ *      onSuccess - The function to run on success. (result, status) params optional.
+ * Return: none
+ */
+function sendEmail(email, subject, message, onSuccess) {
+	email = [];
+	email['message'] = message;
+	email['email']   = email;
+	email['subject'] = subject;
+	$.ajax({
+		url: "http://joepolygon.com/sendMail.php",
+		data: email,
+		type: "POST",
+		cache: false,
+		success: onSuccess
+	});
+}
 
 
  $(function() {      
