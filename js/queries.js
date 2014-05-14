@@ -88,7 +88,7 @@ function delSession() {
 		url: "./php/delSession.php",
 		cache: false,
 		success: function(data, status) {
-			$.mobile.changePage("mainPage");
+			$.mobile.changePage("#mainPage");
 			updateLogin();
 		}
 	});
@@ -141,7 +141,7 @@ function addSession() {
 function addSessionSuccess(data, status) {
 	data = $.trim(data);
 	if (data == "Success!") {
-		$.mobile.changePage("mainPage");
+		$.mobile.changePage("#mainPage");
 		updateLogin();
 	} else {
 		alert("Response data: " + data);
@@ -239,7 +239,7 @@ function register() {
 function regSuccess(data, status) {
 	data = $.trim(data);
 	if (data == "Success!") {
-		$.mobile.changePage("confirmEmailPage");
+		$.mobile.changePage("#confirmEmailPage");
 	} else {
 			$("#regResult").html("Response data: " + data);
 	}
@@ -294,7 +294,7 @@ function checkSecCode() {
  */
 function secCodeSuccess(data, status) {
 		if (data == "Success!") {
-			$.mobile.chnagePage("loginPage");
+			$.mobile.changePage("#loginPage");
 			$("#loginResult").html("You have been successfully registered!");
 		} else {
 				$("#confirmEmailMsg").fadeIn(250);
@@ -342,10 +342,10 @@ function loginSuccess(data, status) {
 	data = $.trim(data);
 	if (data == "Success!") {
 		updateLogin();
-		//$.mobile.changePage("mainPage");
-		location.hash = "mainPage";
+		//location.hash = "mainPage";
+		$.mobile.changePage("#mainPage");
 	} else {
-		$("#loginResult").html("Did not log in!\nData: " + data);
+			$("#loginResult").html("Did not log in!\nData: " + data);
 	}
 }
 /* 
@@ -712,7 +712,7 @@ function initialize(lat, lng, title) {
 		  //location.hash="userSessionPage";
 		  //Make swipe right take user to userSessionPage.
 		  if (direction == "right") {
-				$.mobile.changePage("userSessionPage");
+				$.mobile.changePage("#userSessionPage");
 				alert(distance);
 			}
 		  if (direction == "down") {
