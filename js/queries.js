@@ -38,7 +38,10 @@ $(document).ready(function() {
 	
 	// Check security code on submit
 	$("#secCodeSubmit").click(checkSecCode);
-		
+	
+	//add onclick event to come up with confirmation
+	$("#forgotPassSubmit").click(forgotPass);
+	
 	getSizes();
 	updateLogin();
 }); /*==== /$(document).ready() ====*
@@ -377,6 +380,54 @@ function logout() {
 	});
 	return false;
 }
+
+/*
+ * Function: forgotPass()
+ * Purpose: Send the forgotPassForm data to forgotPass.php
+ *          to log the user in.
+ *
+ *          calls forgotPassConfirm fade in(data, status) if successful
+ *          else  loginError(data, status) if ajax fails (can't find forgotPass.php)
+ * Params: none
+ * Return: false
+ */
+function forgotPass(){
+	var formData = $("#forgotPassForm").serialize();
+		
+	$.ajax({
+		type: "POST",
+		url: "./php/forgotPass.php",
+		cache: false,
+		data: formData,
+		success: forgotPassConfirm,
+		error: loginError
+	});
+	return false;
+}
+
+/*
+ * Function: forgotPassConfirm(data, status)
+ * Purpose: Supplemental to forgotPass(), above.
+ *          Runs if AJAX succeeded.
+ *
+ *          If email info is correct: continue to confirmation and password update
+ *          If email does not exist -isn't successful: print an error message on the forgotPass page (login page.
+ * Params: 
+ *      data: the returned data from the php file
+ *      status: string indicating success/error
+ * Return: none
+ */
+function forgotPassConfirm(data, status) {
+	data = $.trim(data);
+	if (data == "Success!") {
+		$("#continueConfirm").fadeIn('fast');
+		$("#forgotPassEmail").prop('disabled', true);
+		$("#errForgotPassEmail").html("");
+	} else {
+		$("#errForgotPassEmail").html("Did not find account!\nData: " + data);
+	}
+}
+
 
 
 /* 

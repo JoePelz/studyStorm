@@ -89,6 +89,52 @@
 
 <!-- END OF LOGIN PAGE -->
 
+<!--FORGOT PASSWORD PAGE --Nadia May 13, 2014-->
+<section data-role="page" id="forgotPassPage" data-theme="b">
+
+	<div data-role="main" class="ui-content">
+		<h1>Forgot Password</h1>
+		
+		<form id="forgotPassForm">
+			<label for="forgotPassEmail">Enter your e-mail: </label>
+			<input type="email" name="forgotPassEmail" id="forgotPassEmail" onkeyup="validateEmail('#forgotPassEmail', '#errRegEmail');">
+			<div id="errRegEmail" class="errMsg invisible">Your email must be from my.bcit.ca</div>			
+			<input type="button" value="Submit" id="forgotPassSubmit";>
+			<div id="errForgotPassEmail"></div>
+			
+			<div id="continueConfirm" style="display:none">
+				<p>A security code has been sent to your my.bcit.ca account.</p>
+				<p>Please retrieve your code and submit it below.</p>
+				<label for="secCode">Security Code:</label>
+				<input type="text" name="secCode" id="secCode">
+				<label for="regPassword">Choose a password:</label>
+				<input type="password" name="regPassword" id="regPassword" onkeyup="validatePass('#regPassword', '#errRegPass');">
+				<div id="errRegPass" class="errMsg invisible">Your password must be at least 4 letters.</div>
+
+				<label for="regConfirmPassword">Confirm your password:</label>
+				<input type="password" name="regConfirmPassword" id="regConfirmPassword" onkeyup="validateMatching('#regPassword', '#regConfirmPassword', '#errRegConfirmPass')">
+				<div id="errRegConfirmPass" class="errMsg invisible">Your passwords don't match right now.</div>
+			
+				<input type="submit" id="secCodeSubmit" value="Reset">
+			</div>
+		</form>
+		
+
+
+	</div><!-- /data-role="main" -->
+</section>
+
+
+<!--END of FORGOT PASSWORD Page-->
+
+
+
+
+
+
+
+
+
 <!-- DETAILS PAGE -->
 
 <section data-role="page" id="detailsPage" data-theme="b">
