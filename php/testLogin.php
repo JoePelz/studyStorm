@@ -13,6 +13,7 @@ session_start();
 //      "studName", 
 //      "email", 
 //      "sessionId"
+//			"currentSession"
 //
 ////////////////////////////////////////////////
 if (isset($_SESSION['studId']) 
@@ -23,9 +24,12 @@ if (isset($_SESSION['studId'])
 	include 'config.php';
 	$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or die(mysql_error());
 	mysql_select_db(DB_DATABASE) or die("No database, foo'!");
-	//send query
+	
+	
+	
+	
+//------ CHECK IF USER HAS CREATED AN ACTIVE SESSION ----//
 	$myrequ = "SELECT * FROM sessions WHERE isActive=1";
-	//read results
 	$result = mysql_query($myrequ);
 
 	$session = -1;
@@ -39,20 +43,33 @@ if (isset($_SESSION['studId'])
 			//no 'else' is needed
 		}
 	}
+	
+	//---- CHECK IF USER HAS JOINED A GROUP ----//
+	$_SESSION["currentSession"] = 0;
+	$myrequ = "SELECT currentSession FROM students WHERE studId=" . $_SESSION['studId'] . " AND currentSession!=0";
+	if ($result = mysql_query($myrequ)) {
+		$currentSessionArray = mysql_fetch_assoc($result);
+		$_SESSION["currentSession"] = $currentSessionArray["currentSession"];
+	}
 
-	mysql_close($con);
+
+
 
 	$results = array();
-	$results["loggedIn"] = TRUE;
-	$results["studId"]   = $_SESSION['studId'];
-	$results["studName"] = $_SESSION['studName'];
-	$results["email"]    = $_SESSION['email'];
-	$results["sessionId"] = $session;
+	$results["loggedIn"] 				= TRUE;
+	$results["studId"]   				= $_SESSION['studId'];
+	$results["studName"] 				= $_SESSION['studName'];
+	$results["email"]    				= $_SESSION['email'];
+	$results["sessionId"] 			= $session;	
+	$results["currentSession"] 	= $_SESSION['currentSession'];
+	
 	echo json_encode($results);
 } else {
 	$results = array();
 	$results["loggedIn"] = FALSE;
 	echo json_encode($results);
 }
+
+	mysql_close($con);
 
 ?>

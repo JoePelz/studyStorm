@@ -7,7 +7,7 @@
 //  Returns JSON encoded row information.
 //
 //////////////////////////////////////////////
-
+session_start();
 require_once('./config.php');
 include('./getMembers.php');
 $membersCount = sizeof($studentsArray);
@@ -26,6 +26,15 @@ $result = mysql_query($qry);
 if ($result) {
 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
 	$row['membersCount'] = "".$membersCount."";
+	
+	// Check if user has already joined this group
+	$row['hasJoined'] = FALSE;
+	if ($row['sessionId'] == $_SESSION['currentSession']) {
+		$row['hasJoined'] = TRUE;
+	}
+	
+	
+	
 	print json_encode($row);
 } else {
 	die("Query failed");

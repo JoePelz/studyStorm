@@ -52,7 +52,7 @@ $(document).ready(function() {
  $.mobile.loading( 'show', {
 					text: 'loading',
 					textVisible: true,
-					theme: 'a',
+					theme: 'c',
 					html: ""
 					});
 
@@ -342,7 +342,8 @@ function loginSuccess(data, status) {
 	data = $.trim(data);
 	if (data == "Success!") {
 		updateLogin();
-		$.mobile.changePage("mainPage");
+		//$.mobile.changePage("mainPage");
+		location.hash = "mainPage";
 	} else {
 		$("#loginResult").html("Did not log in!\nData: " + data);
 	}
@@ -531,7 +532,7 @@ function updateLogin() {
 			$("#mainWelcome").html("Not logged in.");
 		}
 		
-		// if there is a session for that user, then...
+		// if there is an active session that user has created, then...
 		if (info.sessionId > 0) {
 			//change page to show edit links
 			$("#menuLeft").attr("onclick", "populateSessionForm(" + info.sessionId + ")");
@@ -548,6 +549,13 @@ function updateLogin() {
 			$("#deleteSessionButton").addClass("invisible");
 			$("#userSessionPage h1").html("Add Session");
 		}
+		
+		// Check if user has joined a session
+		if (info.currentSession > 0) {
+			$("#menuLeft").html("View Joined Session");
+			$("#menuLeft").attr("href", "#detailsPage");
+			$("#menuLeft").attr("onclick", "getDetails(" + info.currentSession + ")");
+		}
 	}
 
 	$.ajax({
@@ -555,7 +563,7 @@ function updateLogin() {
 			cache: false,
 			success: updateSuccess
 	});
-	
+		
 	getSessions();
 	
 	$.mobile.loading();
@@ -611,11 +619,16 @@ function getDetails(sessionId) {
 		content += "<li>Details: "  + result.details    + "</li>";
 		content += "<li>Members: "  + result.membersCount    + "</li>";
 		content += "</ul>";
-		content += "<div data-role='button' name='joinLeaveButton' id='joinLeaveButton' onclick='joinGroup(" + result.sessionId + ")'>Join</div>";
+		content += "<div data-role='button' name='joinLeaveButton' id='joinLeaveButton' onclick='joinSession(" + result.sessionId + ")'>Join</div>";
 		content += "<div id='mapCanvas' style='height: 200px;'></div>";
 		$("#detailsHeader").html(header);
 		$("#detailsContent").html(content);
 		$("#joinLeaveButton").button();
+		
+		// Check if user has already joined group, and changed 'Join' button accordingly
+		if (result.hasJoined) {
+			$("#joinLeaveButton").html("Leave Session").attr("onclick", "leaveSession()");
+		}
 		
 		var lat = result.latitude;
 		var lng = result.longitude;
@@ -623,7 +636,15 @@ function getDetails(sessionId) {
 		initialize(lat,lng,title);
 	});
 }
-function joinGroup(sessionId) {
+/* 
+ * Function: joinSession(sessionId)
+ * Purpose: Joins the session that the user is currently viewing.
+ *
+ * Params:
+ *		sessionId - The id of the session to join.
+ * Return: none
+ */
+function joinSession(sessionId) {
 	$.ajax({
 		url:"./php/joinSession.php?sessionId=" + sessionId,
 		cache: false,
@@ -632,12 +653,24 @@ function joinGroup(sessionId) {
 	});
 	return false;
 }
+/* 
+ * Function: joinSuccess(data, status)
+ * Purpose: Supplemental to joinSession(), above.
+ *          Runs if AJAX succeeded.
+ *
+ * Params: 
+ *      data: the returned data from the php file
+ *      status: string indicating success/error
+ * Return: none
+ */
 function joinSuccess(result, data) {
 	if (result == "Success!") {
 		$("#joinLeaveButton").html("Leave");
-		$("#menuLeft").html("Leave Session");
 		updateLogin();
 	}
+}
+function leaveSession() {
+
 }
 /* 
  * Function: initialize(lat, lng, title)
