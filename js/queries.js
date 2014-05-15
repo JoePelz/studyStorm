@@ -905,9 +905,6 @@ function getLocations() {
 	});
 }
 
-<<<<<<< HEAD
-=======
-
 /*/function goBackParent(){
   //   history.back();
 //}
@@ -925,7 +922,7 @@ function getLocations() {
 		  if (direction == "right") {
 				$.mobile.back();
 		  }
->>>>>>> 176723051701b4b894bd4ea325d6085ce442a45e
+
 $(function() {
 	//Enable swiping...
 	$(document).swipe({
