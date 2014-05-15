@@ -193,19 +193,19 @@
 		
 			<label for="regEmail">Email (must be a valid bcit email account):</label>
 			<input type="email" name="regEmail" id="regEmail" onkeyup="validateEmail('#regEmail', '#errRegEmail');">
-			<div id="errRegEmail" class="errMsg">Your email must be from my.bcit.ca</div>
+			<div id="errRegEmail" class="errMsg invisible">Your email must be from my.bcit.ca</div>
 			
 			<label for="regStudName">Choose a name (one that people might recognize!):</label>
 			<input type="text" name="regStudName" id="regStudName" onkeyup="validateName('#regStudName', '#errRegName');">
-			<div id="errRegName" class="errMsg">Your name must be at least 2 letters.</div>
+			<div id="errRegName" class="errMsg invisible">Your name must be at least 2 letters.</div>
 
 			<label for="regPassword">Choose a password:</label>
 			<input type="password" name="regPassword" id="regPassword" onkeyup="validatePass('#regPassword', '#errRegPass');">
-			<div id="errRegPass" class="errMsg">Your password must be at least 4 letters.</div>
+			<div id="errRegPass" class="errMsg invisible">Your password must be at least 4 letters.</div>
 
 			<label for="regConfirmPassword">Confirm your password:</label>
 			<input type="password" name="regConfirmPassword" id="regConfirmPassword" onkeyup="validateMatching('#regPassword', '#regConfirmPassword', '#errRegConfirmPass')">
-			<div id="errRegConfirmPass" class="errMsg">Your passwords don't match right now.</div>
+			<div id="errRegConfirmPass" class="errMsg invisible">Your passwords don't match right now.</div>
 
 			<input type="submit" value="Register" id="regSubmit">
 		</form>
