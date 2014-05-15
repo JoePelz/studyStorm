@@ -306,7 +306,7 @@ function checkSecCode(id) {
 		error: errorMsg
 	});
 	
-	else {
+	} else {
 		$.ajax({
 		type: "POST",
 		cache: false,
