@@ -43,7 +43,9 @@ $(document).ready(function() {
 	$("#forgotPassSubmit").click(forgotPass);
 	
 	getSizes();
+	//$.mobile.loading('show');
 	updateLogin();
+	
 }); /*==== /$(document).ready() ====*
 
 /*
@@ -87,12 +89,14 @@ function getSizes() {
  * Return: none
  */
 function delSession() {
+	$.mobile.loading('show');
 	$.ajax({
 		url: "./php/delSession.php",
 		cache: false,
 		success: function(data, status) {
 			$.mobile.changePage("#mainPage");
 			updateLogin();
+			$.mobile.loading('hide');
 		}
 	});
 	return false;
@@ -115,7 +119,7 @@ function addSession() {
 	if(!addSessionValidate()) {
 		return false;
 	}
-
+	$.mobile.loading('show');
 	var formData = $("#userSessionForm").serialize();
 	
 	$.ajax({
@@ -149,6 +153,7 @@ function addSessionSuccess(data, status) {
 	} else {
 		alert("Response data: " + data);
 	}
+	$.mobile.loading('hide');
 }
 /* 
  * Function: addSessionError(data, status)
@@ -182,7 +187,7 @@ function editSession() {
 	if(!addSessionValidate()) {
 		return false;
 	}
-
+	$.mobile.loading('show');
 	var formData = $("#userSessionForm").serialize();
 	
 	$.ajax({
@@ -214,7 +219,7 @@ function register() {
 	if(!validateForm()) {
 		return false;
 	}
-
+	$.mobile.loading('show');
 	var formData = $("#regForm").serialize();
 	
 	$.ajax({
@@ -257,8 +262,9 @@ function regSuccess(data, status) {
 				$.mobile.changePage("#confirmEmailPage");
 			}); 
 	} else {
-		$("#regResult").html("Response data: " + data);
+		$("#regResult").html("Response data: " + data);	
 	}
+	$.mobile.loading('hide');
 }
 /* 
  * Function: errorMsg(data, status)
@@ -282,6 +288,7 @@ function errorMsg(data, status) {
  * Return: none
  */
 function checkSecCode() {
+	$.mobile.loading('show');
 	var formData = $("#confirmEmailForm").serialize();
 	
 	$.ajax({
@@ -317,6 +324,7 @@ function secCodeSuccess(data, status) {
 				$("#confirmEmailMsg").html("Incorrect email or security code");
 				$("#confirmEmailMsg").delay(2000).fadeOut(250);
 		}
+		$.mobile.loading('hide');
 	}
 /* 
  * Function: login()
@@ -329,6 +337,7 @@ function secCodeSuccess(data, status) {
  * Return: false
  */
 function login(){
+	$.mobile.loading('show');
 	var formData = $("#loginForm").serialize();
 		
 	$.ajax({
@@ -359,12 +368,12 @@ function loginSuccess(data, status) {
 	if (data.hasValidEmail && data.hasValidPassword && data.hasConfirmed) {
 		updateLogin();
 		$.mobile.changePage("#mainPage");
-	}	else if (data.hasValidEmail && !data.hasConfirmed) {
-			$.mobile.changePage("#confirmEmailPage");
-		}	else {
-				$("#loginResult").html("Invalid email or password!");
-			}
-	
+	} else if (data.hasValidEmail && !data.hasConfirmed) {
+		$.mobile.changePage("#confirmEmailPage");
+	} else {
+		$("#loginResult").html("Invalid email or password!");
+	}
+	$.mobile.loading('hide');
 	/* old code to be erased when consensus is achieved
 	data = $.trim(data);
 	if (data == "Success!") {
@@ -397,6 +406,7 @@ function loginError(data, status) {
  * Return: false
  */
 function logout() {
+	$.mobile.loading('show');
 	$.ajax({
 		url: "./php/logout.php",
 		cache: false,
@@ -418,7 +428,8 @@ function logout() {
  */
 function forgotPass(){
 	var formData = $("#forgotPassForm").serialize();
-		
+	$.mobile.loading('show');
+	
 	$.ajax({
 		type: "POST",
 		url: "./php/forgotPass.php",
@@ -455,6 +466,7 @@ function forgotPassConfirm(data, status) {
 	} else {
 		$("#errForgotPassEmail").html("Did not find account!\nData: " + data);
 	}
+	$.mobile.loading('hide');
 }
 
 
@@ -468,6 +480,7 @@ function forgotPassConfirm(data, status) {
  * Return: none
  */
 function populateSessionForm(sessionId) {
+
 	if (sessionId == 0) {
 		//The form to fill in
 		form = document.getElementById("userSessionForm");
@@ -486,6 +499,7 @@ function populateSessionForm(sessionId) {
 		$('#errTime2').html("");
 		$('#errDetails').html("");
 	} else {
+		$.mobile.loading('show');
 		$.getJSON("./php/getDetails.php?sessionId=" + sessionId, function(result) {
 
 		//The form to fill in
@@ -512,6 +526,7 @@ function populateSessionForm(sessionId) {
 		form.startTime.value = start;
 		form.endTime.value = end;
 		form.details.value = result.details;
+		$.mobile.loading('hide');
 		});
 	}
 }
@@ -530,6 +545,7 @@ function populateSessionForm(sessionId) {
  * Return: none
  */
 function getSessions() {
+	$.mobile.loading('show');
 	$.getJSON("./php/getSessions.php", function(result) {
 		var content = "";
 
@@ -587,6 +603,7 @@ function getSessions() {
 		//and implement the collapsible data-role
 		$('div[data-role=collapsible]').collapsible();
 		$('div[data-role=collapsibleset]').collapsibleset();
+		$.mobile.loading('hide');
 	});
 }
 
@@ -603,7 +620,7 @@ function getSessions() {
  * Return: none
  */
 function updateLogin() {
-	//query server
+	$.mobile.loading('show');
 	function updateSuccess(data, status) {
 		try {
 			//if code below here runs, means json is valid
@@ -644,6 +661,7 @@ function updateLogin() {
 			$("#menuLeft").attr("href", "#detailsPage");
 			$("#menuLeft").attr("onclick", "getDetails(" + info.currentSession + ")");
 		}
+		$.mobile.loading('hide');
 	}
 
 	$.ajax({
@@ -669,6 +687,7 @@ function updateLogin() {
 function getDetails(sessionId) {
 	//use AJAX to ask getDetails.php for information.
 	//the returned data is in JSON format.
+	$.mobile.loading('show');
 	$.getJSON("./php/getDetails.php?sessionId=" + sessionId, function(result){
 		var header = "";
 		var content = "";
@@ -722,6 +741,7 @@ function getDetails(sessionId) {
 		var lng = result.longitude;
 		var title = result.studName + ", " + result.courseName;
 		initialize(lat,lng,title);
+		$.mobile.loading('hide');
 	});
 }
 /* 
@@ -733,6 +753,7 @@ function getDetails(sessionId) {
  * Return: none
  */
 function joinSession(sessionId) {
+	$.mobile.loading('show');
 	$.ajax({
 		url:"./php/joinSession.php?sessionId=" + sessionId,
 		cache: false,
@@ -758,6 +779,7 @@ function joinSuccess(result, data) {
 	} else {
 			alert("Error: did not join group.\nresult: " + result + "\ndata: " + data);
 	}
+	$.mobile.loading('hide');
 }
 /* 
  * Function: leaveSession(sessionId)
@@ -768,12 +790,15 @@ function joinSuccess(result, data) {
  * Return: none
  */
 function leaveSession() {
+	$.mobile.loading('show');
+	
 	$.ajax({
 		url: "./php/leaveSession.php",
 		cache: false,
 		success: function() {
 			$.mobile.changePage("#mainPage");
 			updateLogin();
+			$.mobile.loading('hide');
 		},
 		error: errorMsg
 	});
@@ -822,7 +847,7 @@ function initialize(lat, lng, title) {
  *      onSuccess - The function to run on success. (result, status) params optional.
  * Return: none
  */
-function sendEmail(email, subject, message, onSuccess) {
+function sendEmail(email, subject, message, onSuccess) {	
 	$.ajax({
 		url: "http://joepolygon.com/sendMail.php",
 		data: {'message':message, 'email':email, 'subject':subject},
