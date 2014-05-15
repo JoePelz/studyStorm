@@ -36,6 +36,9 @@ $(document).ready(function() {
 	// Add onclick event to the Logout button
 	$("#btnLogout").click(logout);
 	
+	// Resend security code to user-entered email address
+	$("#resendCodeButton").click(resendCode);
+	
 	// Check security code on submit
 	$("#regSecCodeSubmit").click(checkSecCode);
 	
@@ -50,8 +53,38 @@ $(document).ready(function() {
 	//$.mobile.loading('show');
 	updateLogin();
 	
-}); /*==== /$(document).ready() ====*
+}); /*==== /$(document).ready() ====*/
+function resendCode() {
+	var formData = $("#confirmEmailForm").serialize();
+	$.ajax({
+		url: "./php/resendEmail.php",
+		type: "POST",
+		data: formData,
+		success: resendSuccess,
+		error: errorMsg
+	});
+	
+	function resendSuccess(data, status) {
+		data = $.parseJSON(data);
 
+		if (data.isAllGravy) {
+			var msg = "Your confirmation code is:\r\n\r\n" + data.secCode + "\r\n";
+			msg += "To get back to the email confirmation page, enter your email at the login page.";
+			
+			sendEmail(
+				data.email, 
+				"Study Storm email confirmation code", 
+				msg, 
+				function() {
+					$("#forgotPassConfirmEmail").html(data.info);	
+				}
+			); 
+		}	else {
+				$("#forgotPassConfirmEmail").html("Email not sent: " + data.info);	
+			}
+		$.mobile.loading('hide');
+	}
+}
 /*
  *Purpose: Creates a loading icon and text when called.
  *
@@ -293,17 +326,15 @@ function errorMsg(data, status) {
  */
 function checkSecCode() {
 	$.mobile.loading('show');
-	var formData = $("#confirmEmailForm").serialize();
-	
-	
-	$.ajax({
-		type: "POST",
-		cache: false,
-		url: "./php/checkSecCode.php",
-		data: formData,
-		success: secCodeSuccess,
-		error: errorMsg
-	});
+	var formData = $("#confirmEmailForm").serialize();		
+		$.ajax({
+			type: "POST",
+			cache: false,
+			url: "./php/checkSecCode.php",
+			data: formData,
+			success: secCodeSuccess,
+			error: errorMsg
+		});
 	
 	return false;
 }
@@ -328,6 +359,7 @@ function checkChangePass() {
 		error: errorMsg
 	});
 	
+>>>>>>> 9dd023df91688eb528f001d1bd7083f8b409c9be
 	return false;
 }
 
