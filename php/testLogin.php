@@ -13,7 +13,7 @@ session_start();
 //      "studName", 
 //      "email", 
 //      "sessionId"
-//			"currentSession"
+//      "currentSession"
 //
 ////////////////////////////////////////////////
 if (isset($_SESSION['studId']) 
@@ -24,39 +24,37 @@ if (isset($_SESSION['studId'])
 	include 'config.php';
 	$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or die(mysql_error());
 	mysql_select_db(DB_DATABASE) or die("No database, foo'!");
-	$results = array();
 	
 	
-	
-	//------ CHECK IF USER HAS CREATED AN ACTIVE SESSION ----//
-	$myrequ = "SELECT * FROM sessions WHERE isActive=1";
-	$result = mysql_query($myrequ);
-
-	$session = -1;
-	//while there's still rows to check in the result array,
-	while($rowActive=mysql_fetch_array($result)){
-		$studId = $_SESSION['studId'];
-		//check if student h3as an active session
-		if ($rowActive['studId'] == $studId) {
-			//if user has a active session, let a variable be created with that session num (> 0)
-			$session = $rowActive['sessionId'];
-			//no 'else' is needed
+	//If the user has an active session,
+	//  Set session to that
+	//Else
+	//  Set session to -1
+	$session = 0;
+	$qry = "SELECT sessionId FROM sessions WHERE isActive = 1 AND studId = " . $_SESSION['studId'];
+	$result = mysql_query($qry);
+	if($result) {
+		if(mysql_num_rows($result)) {
+			$row = mysql_fetch_array($result);
+			$session = $row['sessionId'];
 		}
 	}
 	
-	//---- CHECK IF USER HAS JOINED A GROUP ----//
+	//---- check/update the current session value ----//
 	$_SESSION["currentSession"] = 0;
-	$myrequ = "SELECT currentSession FROM students WHERE studId=" . $_SESSION['studId'] . " AND currentSession!=0";
-	if ($result = mysql_query($myrequ)) {
-		$currentSessionArray = mysql_fetch_assoc($result);
-		$_SESSION["currentSession"] = $currentSessionArray["currentSession"];
+	$qry = "SELECT u.currentSession FROM students u JOIN sessions s ON u.currentSession=s.sessionId WHERE s.isActive = 1 AND u.studId=" . $_SESSION['studId'];
+	if ($result = mysql_query($qry)) {
+		if(mysql_num_rows($result)) {
+			$currentSessionArray = mysql_fetch_assoc($result);
+			$_SESSION["currentSession"] = $currentSessionArray["currentSession"];
+		}
 	}
 
-
-	$results["loggedIn"] = "yes";
-	$results["studId"] = $_SESSION['studId'];
-	$results["studName"] = $_SESSION['studName'];
-	$results["email"] = $_SESSION['email'];
+	$results = array();
+	$results["loggedIn"]  = TRUE;
+	$results["studId"]    = $_SESSION['studId'];
+	$results["studName"]  = $_SESSION['studName'];
+	$results["email"]     = $_SESSION['email'];
 	$results["currentSession"] = $_SESSION['currentSession'];
 	$results["sessionId"] = $session;
 	
@@ -66,7 +64,7 @@ if (isset($_SESSION['studId'])
 	mysql_close($con);
 } else {
 	$results = array();
-	$results["loggedIn"] = "no";
+	$results["loggedIn"] = FALSE;
 	echo json_encode($results);
 }
 

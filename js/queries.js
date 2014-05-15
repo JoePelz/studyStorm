@@ -651,44 +651,40 @@ function getSessions() {
 function updateLogin() {
 	$.mobile.loading('show');
 	function updateSuccess(data, status) {
-		try {
-			//if code below here runs, means json is valid
-			var info = $.parseJSON(data);
-		} catch(e){
-			//if code below here runs, means json is invalid
-			alert("didn't work, " + e);
-		}
-		if (info.loggedIn == "yes") {
+		alert(data);
+		var info = $.parseJSON(data);
+
+		if (info.loggedIn) {
 			$("#mainWelcome").html("Welcome, " + info.studName);
+			alert("logged in!\nsessionId: " + info.sessionId + "\ncurrentSession: " + info.currentSession);
+			if (info.sessionId > 0 && info.currentSession == info.sessionId) {
+				//the user has a session and is joined to it.
+				$("#menuLeft").attr("onclick", "populateSessionForm(" + info.sessionId + ")");
+				$("#menuLeft").html("Edit Session");
+				$("#addSessionSubmit").addClass("invisible");
+				$("#editSessionSubmit").removeClass("invisible");
+				$("#deleteSessionButton").removeClass("invisible");
+				$("#userSessionPage h1").html("Edit Session");
+			
+			} else if (info.sessionId <= 0 && info.currentSession > 0) {
+				//the user has joined a session
+				$("#menuLeft").html("View Joined Session");
+				$("#menuLeft").attr("href", "#detailsPage");
+				$("#menuLeft").attr("onclick", "getDetails(" + info.currentSession + ")");
+			
+			} else {
+				//the user has no session and hasn't joined
+				$("#menuLeft").attr("onclick", "populateSessionForm(0)");
+				$("#menuLeft").attr("href", "#userSessionPage");
+				$("#menuLeft").html("Add Session");
+				$("#addSessionSubmit").removeClass("invisible");
+				$("#editSessionSubmit").addClass("invisible");
+				$("#deleteSessionButton").addClass("invisible");
+				$("#userSessionPage h1").html("Add Session");
+			}
 		} else {
+			//the user is not logged in.
 			$("#mainWelcome").html("Not logged in.");
-		}
-			
-		// if there is an active session that user has created, then...
-		if (info.sessionId > 0) {
-			//change page to show edit links
-			$("#menuLeft").attr("onclick", "populateSessionForm(" + info.sessionId + ")");
-			$("#menuLeft").html("Edit Session");
-			$("#addSessionSubmit").addClass("invisible");
-			$("#editSessionSubmit").removeClass("invisible");
-			$("#deleteSessionButton").removeClass("invisible");
-			$("#userSessionPage h1").html("Edit Session");
-		} else {
-			$("#menuLeft").attr("onclick", "populateSessionForm(0)");
-			$("#menuLeft").attr("href", "#userSessionPage");
-			$("#menuLeft").html("Add Session");
-			$("#addSessionSubmit").removeClass("invisible");
-			$("#editSessionSubmit").addClass("invisible");
-			$("#deleteSessionButton").addClass("invisible");
-			$("#userSessionPage h1").html("Add Session");
-			
-		}
-		
-		// Check if user has joined a session
-		if (info.currentSession > 0) {
-			$("#menuLeft").html("View Joined Session");
-			$("#menuLeft").attr("href", "#detailsPage");
-			$("#menuLeft").attr("onclick", "getDetails(" + info.currentSession + ")");
 		}
 		$.mobile.loading('hide');
 	}
@@ -783,6 +779,7 @@ function getDetails(sessionId) {
  */
 function joinSession(sessionId) {
 	$.mobile.loading('show');
+	alert("joining...");
 	$.ajax({
 		url:"./php/joinSession.php?sessionId=" + sessionId,
 		cache: false,
@@ -803,7 +800,8 @@ function joinSession(sessionId) {
  */
 function joinSuccess(result, data) {
 	if (result == "Success!") {
-		$("#joinLeaveButton").html("Leave");
+		$("#joinLeaveButton").html("Leave Session");
+		alert("join was a success?");
 		updateLogin();
 	} else {
 			alert("Error: did not join group.\nresult: " + result + "\ndata: " + data);
