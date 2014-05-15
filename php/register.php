@@ -50,38 +50,40 @@ if (strcmp($password, $confirmPassword) != 0) {
 }
 
 //Check that user doesn't already exist
-$qry = "SELECT `studName` FROM `students` WHERE `email`=\"" . $email . "\"";
+$qry = "SELECT studName FROM students WHERE email=\"" . $email . "\"";
 $result = mysql_query($qry);
 if(mysql_num_rows($result) != 0) {
     $errflag = true;
     $errmsg_arr[] = "<p>A user with that email already exists!</p>";
 }
 
-//Insert into the table!
+
+$JSON = array();
 if ($errflag == true) {
     $output = "";
     foreach ($errmsg_arr as $err) {
         $output .= $err;
     }
-    echo $output;
+	$JSON['hasErrors'] = TRUE;
+	$JSON['error'] = $output;
 } else {
+	//Insert into the table!
     $qry = "INSERT INTO students (studName, email, password, secCode, hasConfirmed) VALUES ('$studName', '$email', '$password', '$secCode', 0)";
     $result = mysql_query($qry);
+	$result = true;
     if($result) {
-			// Write email
-			$msg = "<p>Here is your security code for Study Storm registration:</p>\n";
-			$msg .= "<h2>" . $secCode . "</h2>";
-			$msg .= "<p>Please enter this code in the required field.</p>";
-			$msg = wordwrap($msg, 70);
-			// Send email
-			mail($email, "Study Storm Security Code", $msg);
-						
-    	echo 'Success!';
+    	$JSON['hasErrors'] = FALSE;
+		$JSON['secCode'] = $secCode;
+		$JSON['email'] = $email;
     } else {
-    	echo 'ERROR, did not add student to database!';
+		$JSON['hasErrors'] = TRUE;
+		$JSON['error'] = mysql_error();
     }
 }
 
 mysql_close($con);
+
+//return the JSON data...
+echo json_encode($JSON);
 
 ?>

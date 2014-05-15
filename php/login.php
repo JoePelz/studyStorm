@@ -34,6 +34,7 @@ if($result) {
 		$_SESSION['studName'] = $studArray['studName'];
 		$_SESSION['email'] = $studArray['email'];
 		$_SESSION['studId'] = $studArray['studId'];
+		$_SESSION['currentSession'] = $studArray['currentSession'];
 		session_write_close();
 		//header("location: ../index.php");
 		echo "Success!";

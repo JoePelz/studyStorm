@@ -37,7 +37,7 @@ $(document).ready(function() {
 	$("#btnLogout").click(logout);
 	
 	// Check security code on submit
-	$("#secCodeSubmit").click(checkSecCode);
+	$("#regSecCodeSubmit").click(checkSecCode);
 	
 	//add onclick event to come up with confirmation
 	$("#forgotPassSubmit").click(forgotPass);
@@ -52,13 +52,13 @@ $(document).ready(function() {
  *Params: none
  *Return: none
 */
- $.mobile.loading( 'show', {
+/*$.mobile.loading( 'show', {
 					text: 'loading',
 					textVisible: true,
 					theme: 'b',
 					html: ""
 					});
-
+*/
 /* 
  * Function: getSizes()
  * Purpose: detects device's width and height, and adjusts various 
@@ -214,6 +214,7 @@ function register() {
 	if(!validateForm()) {
 		return false;
 	}
+
 	var formData = $("#regForm").serialize();
 	
 	$.ajax({
@@ -241,10 +242,20 @@ function register() {
  */
 function regSuccess(data, status) {
 	data = $.trim(data);
-	if (data == "Success!") {
-		$.mobile.changePage("#confirmEmailPage");
+	data = $.parseJSON(data);
+	
+
+	if (data.hasErrors == false) {
+		//data should have hasErrors, secCode, email
+		sendEmail(
+			data.email, 
+			"Study Storm registration", 
+			"Your confirmation code is:\r\n\r\n" + data.secCode, 
+			function() {
+				$.mobile.changePage("#confirmEmailPage");
+			}); 
 	} else {
-			$("#regResult").html("Response data: " + data);
+		$("#regResult").html("Response data: " + data);
 	}
 }
 /* 
@@ -269,7 +280,6 @@ function errorMsg(data, status) {
  * Return: none
  */
 function checkSecCode() {
-	
 	var formData = $("#confirmEmailForm").serialize();
 	
 	$.ajax({
@@ -376,7 +386,8 @@ function logout() {
 	$.ajax({
 		url: "./php/logout.php",
 		cache: false,
-		success: updateLogin
+		success: updateLogin,
+		error: errorMsg
 	});
 	return false;
 }
@@ -576,13 +587,19 @@ function getSessions() {
 function updateLogin() {
 	//query server
 	function updateSuccess(data, status) {
-		info = $.parseJSON(data);
-		if (info.loggedIn) {
+		try {
+			//if code below here runs, means json is valid
+			var info = $.parseJSON(data);
+		} catch(e){
+			//if code below here runs, means json is invalid
+			alert("didn't work, " + e);
+		}
+		if (info.loggedIn == "yes") {
 			$("#mainWelcome").html("Welcome, " + info.studName);
 		} else {
 			$("#mainWelcome").html("Not logged in.");
 		}
-		
+			
 		// if there is an active session that user has created, then...
 		if (info.sessionId > 0) {
 			//change page to show edit links
@@ -614,12 +631,13 @@ function updateLogin() {
 	$.ajax({
 			url: "./php/testLogin.php",
 			cache: false,
-			success: updateSuccess
+			success: updateSuccess,
+			error: errorMsg
 	});
 		
 	getSessions();
 	
-	$.mobile.loading();
+	//$.mobile.loading();
 }
 
 /* 
@@ -797,7 +815,7 @@ function sendEmail(email, subject, message, onSuccess) {
 }
 
 
- $(function() {      
+ $(function() {
       //Enable swiping...
       $(document).swipe( {
         //Generic swipe handler for all directions

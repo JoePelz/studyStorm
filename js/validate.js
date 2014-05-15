@@ -235,12 +235,12 @@ function testDetailsValid(id) {
  *      err - The id of the div that holds the error message.
  */
 function validateEmail(id, err){
-    if (testValidEmail(id)) {
-        $(id).addClass('goodInput').removeClass('badInput');
-        $(err).addClass('invisible');
-    } else {
-        $(id).addClass('badInput').removeClass('goodInput');
-        $(err).removeClass('invisible');
+	if (testValidEmail(id)) {
+		$(id).addClass('goodInput').removeClass('badInput');
+		$(err).addClass('invisible');
+	} else {
+		$(id).addClass('badInput').removeClass('goodInput');
+		$(err).removeClass('invisible');
     }
 }
 

@@ -24,11 +24,11 @@ if (isset($_SESSION['studId'])
 	include 'config.php';
 	$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or die(mysql_error());
 	mysql_select_db(DB_DATABASE) or die("No database, foo'!");
+	$results = array();
 	
 	
 	
-	
-//------ CHECK IF USER HAS CREATED AN ACTIVE SESSION ----//
+	//------ CHECK IF USER HAS CREATED AN ACTIVE SESSION ----//
 	$myrequ = "SELECT * FROM sessions WHERE isActive=1";
 	$result = mysql_query($myrequ);
 
@@ -53,23 +53,21 @@ if (isset($_SESSION['studId'])
 	}
 
 
-
-
-	$results = array();
-	$results["loggedIn"] 				= TRUE;
-	$results["studId"]   				= $_SESSION['studId'];
-	$results["studName"] 				= $_SESSION['studName'];
-	$results["email"]    				= $_SESSION['email'];
-	$results["sessionId"] 			= $session;	
-	$results["currentSession"] 	= $_SESSION['currentSession'];
+	$results["loggedIn"] = "yes";
+	$results["studId"] = $_SESSION['studId'];
+	$results["studName"] = $_SESSION['studName'];
+	$results["email"] = $_SESSION['email'];
+	$results["currentSession"] = $_SESSION['currentSession'];
+	$results["sessionId"] = $session;
 	
 	echo json_encode($results);
+	
+	//connection was only opened if the user was logged in.
+	mysql_close($con);
 } else {
 	$results = array();
-	$results["loggedIn"] = FALSE;
+	$results["loggedIn"] = "no";
 	echo json_encode($results);
 }
-
-	mysql_close($con);
 
 ?>
