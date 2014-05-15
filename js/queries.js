@@ -461,7 +461,8 @@ function forgotPassConfirm(data, status) {
 		$("#errForgotPassSubmit").html("");
 	} else if (data == "Confirm Registration"){
 		
-		$("#errForgotPassSubmit").html("Must confirm registration:");
+		$.mobile.changePage("#confirmEmailPage");
+		$("#forgotPassConfirmEmail").html("Must confirm registration before changing Password!!!");
 	
 	} else {
 		$("#errForgotPassSubmit").html("Did not find account!\nData: " + data);
