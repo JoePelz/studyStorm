@@ -37,13 +37,13 @@ $(document).ready(function() {
 	$("#btnLogout").click(logout);
 	
 	// Check security code on submit
-	$("#regSecCodeSubmit").click(checkSecCode("#confirmEmailForm"));
+	$("#regSecCodeSubmit").attr("onclick", "checkSecCode('#confirmEmailForm')");
 	
 	//add onclick event to come up with confirmation
 	$("#forgotPassSubmit").click(forgotPass);
 	
 	//add onclick event to come up with confirmation
-	$("#FPSecCodeSubmit").click(checkSecCode("#forgotPassForm"));
+	$("#FPSecCodeSubmit").attr("onclick", "checkSecCode('#forgotPassForm')");
 	
 	getLocations();
 	getSizes();
