@@ -458,13 +458,13 @@ function forgotPassConfirm(data, status) {
 	if (data == "Success!") {
 		$("#continueConfirm").fadeIn('fast');
 		$("#forgotPassEmail").prop('disabled', true);
-		$("#errForgotPassEmail").html("");
+		$("#errForgotPassSubmit").html("");
 	} else if (data == "Confirm Registration"){
 		
-		$("#errForgotPassEmail").html("Must confirm registration:");
+		$("#errForgotPassSubmit").html("Must confirm registration:");
 	
 	} else {
-		$("#errForgotPassEmail").html("Did not find account!\nData: " + data);
+		$("#errForgotPassSubmit").html("Did not find account!\nData: " + data);
 	}
 	$.mobile.loading('hide');
 }
