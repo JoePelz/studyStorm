@@ -59,6 +59,7 @@ if ($result) {
 	} else {
 		echo 'ERROR, auto-add to session failed! ' . mysql_error();
 	}
+	exit();
 } else {
 	echo 'ERROR, did not add to database! ' . mysql_error();
 }

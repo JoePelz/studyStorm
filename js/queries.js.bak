@@ -37,13 +37,10 @@ $(document).ready(function() {
 	$("#btnLogout").click(logout);
 	
 	// Check security code on submit
-	$("#regSecCodeSubmit").attr("onclick", "checkSecCode('#confirmEmailForm')");
+	$("#regSecCodeSubmit").click(checkSecCode);
 	
 	//add onclick event to come up with confirmation
 	$("#forgotPassSubmit").click(forgotPass);
-	
-	//add onclick event to come up with confirmation
-	$("#FPSecCodeSubmit").attr("onclick", "checkSecCode('#forgotPassForm')");
 	
 	getLocations();
 	getSizes();
@@ -291,11 +288,9 @@ function errorMsg(data, status) {
  *      none
  * Return: none
  */
-function checkSecCode(id) {
+function checkSecCode() {
 	$.mobile.loading('show');
-	var formData = $(id).serialize();
-	
-	if (id=="#confirmEmailForm") {
+	var formData = $("#confirmEmailForm").serialize();
 	
 	$.ajax({
 		type: "POST",
@@ -305,17 +300,6 @@ function checkSecCode(id) {
 		success: secCodeSuccess,
 		error: errorMsg
 	});
-	
-	} else {
-		$.ajax({
-		type: "POST",
-		cache: false,
-		url: "./php/passReset.php",
-		data: formData,
-		success: secCodeSuccess,
-		error: errorMsg
-	});
-	}
 	return false;
 }
 /* 
@@ -471,28 +455,18 @@ function forgotPass(){
  * Return: none
  */
 function forgotPassConfirm(data, status) {
-	var info = $.parseJSON(data);
-	
-	if (info.success) {
-		var msg = "Here is your password reset security code:\r\n";
-		msg += info.secCode;
-		sendEmail(
-			info.email,
-			"Study Storm Password Reset Code",
-			msg,
-			function () {
-				$("#continueConfirm").fadeIn('fast');
-				$("#forgotPassEmail").prop('disabled', true);
-				$("#errForgotPassSubmit").html("");
-			}
-		);
+	data = $.trim(data);
+	if (data == "Success!") {
+		$("#continueConfirm").fadeIn('fast');
+		$("#forgotPassEmail").prop('disabled', true);
+		$("#errForgotPassSubmit").html("");
+	} else if (data == "Confirm Registration"){
 		
-	} else if (!info.success && info.errorMessage == "Not confirmed"){
-			$.mobile.changePage("#confirmEmailPage");
-			$("#forgotPassConfirmEmail").html("Must confirm registration before changing Password!!!");
+		$.mobile.changePage("#confirmEmailPage");
+		$("#forgotPassConfirmEmail").html("Must confirm registration before changing Password!!!");
 	
 	} else {
-		$("#errForgotPassSubmit").html("Did not find account!\n" + info.errorMessage);
+		$("#errForgotPassSubmit").html("Did not find account!\nData: " + data);
 	}
 	$.mobile.loading('hide');
 }
@@ -906,25 +880,6 @@ function getLocations() {
 		error: errorMsg
 	});
 }
-
-
-//function goBackParent(){
-  //   history.back();
-//}
-
-
- $(function() {
-    //Enable swiping...
-    $(document).swipe({
-        //Generic swipe handler for all directions
-        swipe:function(event, direction, distance, duration, fingerCount) {
-          //$(this).text("You swiped " + direction );  
-		  //alert("You swiped in " + direction);
-		  //location.hash="userSessionPage";
-		  //Make swipe right take user to userSessionPage.
-		  if (direction == "right") {
-				$.mobile.back();
-		  }
 $(function() {
 	//Enable swiping...
 	$(document).swipe({
@@ -935,7 +890,7 @@ $(function() {
 			//location.hash="userSessionPage";
 			//Make swipe right take user to userSessionPage.
 			if (direction == "right") {
-			$.mobile.back();
+			$.mobile.changePage("#userSessionPage");
 			}
 			if (direction == "down") {
 			updateLogin();
