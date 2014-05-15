@@ -18,6 +18,10 @@
  */
  
 $(document).ready(function() {
+
+	// Logs user out
+	$("#menuRight").click(logout);
+	
 	// Add onclick event to the Delete Session button
 	$("#deleteSessionButton").click(delSession);
 
@@ -757,6 +761,7 @@ function updateLogin() {
 			}
 		} else {
 			//the user is not logged in.
+			$.mobile.changePage("#loginPage");
 			$("#mainWelcome").html("Not logged in.");
 		}
 		$.mobile.loading('hide');
