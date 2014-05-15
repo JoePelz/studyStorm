@@ -890,7 +890,7 @@ function getLocations() {
 		  //location.hash="userSessionPage";
 		  //Make swipe right take user to userSessionPage.
 		  if (direction == "right") {
-				$.mobile.changePage("#userSessionPage");
+				$.mobile.back();
 			}
 		  if (direction == "down") {
 				updateLogin();
