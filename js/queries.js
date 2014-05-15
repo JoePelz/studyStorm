@@ -37,13 +37,13 @@ $(document).ready(function() {
 	$("#btnLogout").click(logout);
 	
 	// Check security code on submit
-	$("#regSecCodeSubmit").attr("onclick", "checkSecCode('#confirmEmailForm')");
+	$("#regSecCodeSubmit").click(checkSecCode);
 	
 	//add onclick event to come up with confirmation
 	$("#forgotPassSubmit").click(forgotPass);
 	
 	//add onclick event to come up with confirmation
-	$("#FPSecCodeSubmit").attr("onclick", "checkSecCode('#forgotPassForm')");
+	$("#FPSecCodeSubmit").click(checkChangePass);
 	
 	getLocations();
 	getSizes();
@@ -291,11 +291,10 @@ function errorMsg(data, status) {
  *      none
  * Return: none
  */
-function checkSecCode(id) {
+function checkSecCode() {
 	$.mobile.loading('show');
-	var formData = $(id).serialize();
+	var formData = $("#confirmEmailForm").serialize();
 	
-	if (id=="#confirmEmailForm") {
 	
 	$.ajax({
 		type: "POST",
@@ -306,18 +305,58 @@ function checkSecCode(id) {
 		error: errorMsg
 	});
 	
-	} else {
-		$.ajax({
+	return false;
+}
+/* 
+ * Function: checkChangePass()
+ * Purpose: Checks the security code entered by the user. 
+ *					Checks password and updates it in the database.
+ *          
+ * Params: 
+ *      none
+ * Return: none
+ */
+function checkChangePass() {
+	$.mobile.loading('show');
+	var formData = $("#forgotPassForm").serialize();
+	$.ajax({
 		type: "POST",
 		cache: false,
 		url: "./php/passReset.php",
 		data: formData,
-		success: secCodeSuccess,
+		success: passChangeSuccess,
 		error: errorMsg
 	});
-	}
+	
 	return false;
 }
+
+/* 
+ * Function: passChangeSuccess(data, status)
+ * Purpose: Supplemental to checkChangePass(), above.
+ *          Runs if AJAX succeeded.
+ *          
+ *          If check Security Code worked, it indicates you succeeded 
+ *             and takes you to the login page.
+ *          Else if gives you the reason it failed.
+ * Params: 
+ *      data: empty object
+ *      status: string indicating success/error
+ * Return: none
+ */
+function passChangeSuccess(data, status) {
+		if (data == "Success!") {
+			$.mobile.changePage("#loginPage");
+			$("#loginResult").html("Your password has been changed!");
+		} else {
+				$("#confirmPassMsg").fadeIn(250);
+				$("#confirmPassMsg").addClass("badInput");
+				$("#confirmPassMsg").html("Incorrect password or security code:" + data);
+				$("#confirmPassMsg").delay(2000).fadeOut(250);
+		}
+		$.mobile.loading('hide');
+	}
+	
 /* 
  * Function: secCodeSuccess(data, status)
  * Purpose: Supplemental to checkSecCode(), above.

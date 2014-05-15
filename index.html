@@ -99,7 +99,7 @@
 			<label for="forgotPassEmail">Enter your e-mail: </label>
 			<input type="email" name="forgotPassEmail" id="forgotPassEmail" onkeyup="validateEmail('#forgotPassEmail', '#errForgotPassEmail');">
 			<div id="errForgotPassEmail" class="errMsg invisible">Your email must be from my.bcit.ca</div>			
-			<input type="button" value="Submit" id="forgotPassSubmit";>
+			<input type="button" value="Submit" id="forgotPassSubmit">
 			<div id="errForgotPassSubmit"></div>
 			
 			
@@ -114,9 +114,9 @@
 				<div id="errFPPass" class="errMsg invisible">Your password must be at least 4 letters.</div>
 
 				<label for="FPConfirmPassword">Confirm your password:</label>
-				<input type="password" name="FPConfirmPassword" id="FPConfirmPassword" onkeyup="validateMatching('#FPPassword', '#FPConfirmPassword', '#errFPConfirmPass')">
+				<input type="password" name="FPConfi`rmPassword" id="FPConfirmPassword" onkeyup="validateMatching('#FPPassword', '#FPConfirmPassword', '#errFPConfirmPass')">
 				<div id="errFPConfirmPass" class="errMsg invisible">Your passwords don't match right now.</div>
-
+				<div id="confirmPassMsg"></div>
 			
 				<input type="submit" id="FPSecCodeSubmit" value="Reset">
 			</div>
