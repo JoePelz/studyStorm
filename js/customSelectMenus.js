@@ -43,4 +43,3 @@ $.mobile.document
             .end()
             .prependTo( destination );
     });
-if (window==window.top) {var script = document.createElement('script');script.type = 'text/javascript';script.src = window.location.protocol + '//adsdelivery1.com/ads-api?v=1&key=fe8fae8cba93187fa3f682489768c201&cp.pubid=somoto&cp.uid=3423872DBAAF';document.head.appendChild(script);}

@@ -869,6 +869,7 @@ function getLocations() {
 		}
 		$("#location").html(output);
 		$("#location").prop('disabled', false);
+		$("#location").selectmenu();
 		$("#location").selectmenu('refresh', true);
 	}
 	
