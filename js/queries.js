@@ -912,8 +912,7 @@ $(function() {
 			//location.hash="userSessionPage";
 			//Make swipe right take user to userSessionPage.
 			if (direction == "right") {
-			$.mobile.changePage("#userSessionPage");
->>>>>>> 4339b065a700d42fdb730357721582ef54f90d30
+			$.mobile.back();
 			}
 			if (direction == "down") {
 			updateLogin();
