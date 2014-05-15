@@ -52,7 +52,7 @@ if ($result) {
 	//set the student's current session to n, where n is the id of the session they just created.
 	$qry = "UPDATE students u JOIN sessions s ON (u.studId = s.studId)
 			SET u.currentSession = s.sessionId
-			WHERE u.studId = 23 AND s.isActive = 1";
+			WHERE u.studId = " . $_SESSION['studId'] . " AND s.isActive = 1";
 	$result = mysql_query($qry);
 	if ($result) {
 		echo 'Success!';

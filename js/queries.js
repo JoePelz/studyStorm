@@ -699,7 +699,7 @@ function getSessions() {
 
                 content += "<li>" + hours + ":" + minutes + half + "&nbsp;&nbsp;&nbsp;&nbsp;";
                 content += "<a href=\"#detailsPage\" onclick=\"getDetails(" + sessions[i][j].sessionId + ")\" data-rel=\"dialog\" data-transition=\"pop\">" + sessions[i][j].studName + "</a>&nbsp;&nbsp;&nbsp;&nbsp;";
-                content += sessions[i][j].courseName + "</li>";
+                content += sessions[i][j].location + "</li>";
 			}
 			content += "</ul>";
             content += "</div>";
@@ -988,7 +988,7 @@ $(function() {
 		swipe:function(event, direction, distance, duration, fingerCount) {
 			//Make swipe right take user to previous page.
 			if (direction == "right") {
-			$.mobile.back();
+			//$.mobile.back();
 			}
 			if (direction == "down") {
 			updateLogin();
