@@ -295,7 +295,7 @@ function checkSecCode(id) {
 	$.mobile.loading('show');
 	var formData = $(id).serialize();
 	
-	if (id=="#confirmEmailPass") {
+	if (id=="#confirmEmailForm") {
 	
 	$.ajax({
 		type: "POST",
@@ -907,8 +907,8 @@ function getLocations() {
 	});
 }
  $(function() {
-      //Enable swiping...
-      $(document).swipe( {
+    //Enable swiping...
+    $(document).swipe({
         //Generic swipe handler for all directions
         swipe:function(event, direction, distance, duration, fingerCount) {
           //$(this).text("You swiped " + direction );  
@@ -918,6 +918,9 @@ function getLocations() {
 		  if (direction == "right") {
 				$.mobile.back();
 		  }
+		}
+	});
+});
 $(function() {
 	//Enable swiping...
 	$(document).swipe({
