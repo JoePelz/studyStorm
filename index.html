@@ -24,6 +24,39 @@
 </head>
 <body>
 
+<!-- Login PAGE - Stuart Budd 05/07/2014 5:38 -->
+
+
+
+<section data-role="page" id="loginPage" data-theme="b">
+
+	<div data-role="main" class="ui-content">
+		<h1>Study Storm</h1>
+		
+		<div id="logo" style="margin: 0; padding: 0;">
+			<img src="./img/logo1.png">
+		</div>
+		
+		<form id="loginForm">
+			<label for="loginEmail">Email</label>
+			<input type="email" name="loginEmail" id="loginEmail">
+			<label for="loginPassword">Password</label>
+			<input type="password" name="loginPassword" id="loginPassword">
+			<a href="#forgotPassPage">Forgot password?</a>
+			<input type="submit" value="Log In" id="loginSubmit">
+		</form>
+		
+		<a href="#disclaimerPage" data-role="button" data-transition="slideup">Register</a>
+		<div id="loginResult"></div>
+		<a href="#mainPage" data-role="button">Back</a>
+
+	</div><!-- /data-role="main" -->
+</section><!-- /#loginPage -->
+
+<!-- END OF LOGIN PAGE -->
+
+
+
 	
 	
 <section data-role="page" id="mainPage" data-theme="b">
@@ -58,36 +91,6 @@
 		
 </section><!-- /#mainPage -->
 
-<!-- Login PAGE - Stuart Budd 05/07/2014 5:38 -->
-
-
-
-<section data-role="page" id="loginPage" data-theme="b">
-
-	<div data-role="main" class="ui-content">
-		<h1>Study Storm</h1>
-		
-		<div id="logo" style="margin: 0; padding: 0;">
-			<img src="./img/logo1.png">
-		</div>
-		
-		<form id="loginForm">
-			<label for="loginEmail">Email</label>
-			<input type="email" name="loginEmail" id="loginEmail">
-			<label for="loginPassword">Password</label>
-			<input type="password" name="loginPassword" id="loginPassword">
-			<a href="#forgotPassPage">Forgot password?</a>
-			<input type="submit" value="Log In" id="loginSubmit">
-		</form>
-		
-		<a href="#disclaimerPage" data-role="button" data-transition="slideup">Register</a>
-		<div id="loginResult"></div>
-		<a href="#mainPage" data-role="button">Back</a>
-
-	</div><!-- /data-role="main" -->
-</section><!-- /#loginPage -->
-
-<!-- END OF LOGIN PAGE -->
 
 <!--FORGOT PASSWORD PAGE --Nadia May 13, 2014-->
 <section data-role="page" id="forgotPassPage" data-theme="b">
