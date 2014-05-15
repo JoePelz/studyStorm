@@ -235,12 +235,12 @@ function testDetailsValid(id) {
  *      err - The id of the div that holds the error message.
  */
 function validateEmail(id, err){
-    if (testValidEmail(id)) {
-        $(id).addClass('goodInput').removeClass('badInput');
-        $(err).addClass('invisible');
-    } else {
-        $(id).addClass('badInput').removeClass('goodInput');
-        $(err).removeClass('invisible');
+	if (testValidEmail(id)) {
+		$(id).addClass('goodInput').removeClass('badInput');
+		$(err).addClass('invisible');
+	} else {
+		$(id).addClass('badInput').removeClass('goodInput');
+		$(err).removeClass('invisible');
     }
 }
 
@@ -259,6 +259,7 @@ String.prototype.endsWith = function(suffix) {
 function testValidEmail(id){
     var elem = $(id);
     var value = elem.val();
+	// I believe this should be $.trim(value);
     value = value.trim();
     return (value.endsWith("my.bcit.ca"));
 }
@@ -290,6 +291,7 @@ function validateName(id, err){
 function testValidName(id){
     var elem = $(id);
     var value = elem.val();
+	// I believe this should be $.trim(value);
     value = value.trim();
     return (value.length >= 2);
 }

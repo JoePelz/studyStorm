@@ -97,26 +97,28 @@
 		<!--updates: secCodePassword -->
 		<form id="forgotPassForm">
 			<label for="forgotPassEmail">Enter your e-mail: </label>
-			<input type="email" name="forgotPassEmail" id="forgotPassEmail" onkeyup="validateEmail('#forgotPassEmail', '#errRegEmail');">
-			<div id="errRegEmail" class="errMsg invisible">Your email must be from my.bcit.ca</div>			
+			<input type="email" name="forgotPassEmail" id="forgotPassEmail" onkeyup="validateEmail('#forgotPassEmail', '#errForgotPassEmail');">
+			<div id="errForgotPassEmail" class="errMsg invisible">Your email must be from my.bcit.ca</div>			
 			<input type="button" value="Submit" id="forgotPassSubmit";>
-			<div id="errForgotPassEmail"></div>
+			<div id="errForgotPassSubmit"></div>
 			
 			
 			<div id="continueConfirm" style="display:none">
 				<p>A security code has been sent to your my.bcit.ca account.</p>
 				<p>Please retrieve your code and submit it below.</p>
-				<label for="secCodePassword">Security Code:</label>
-				<input type="text" name="secCodePassword" id="secCodePassword">
-				<label for="forgotPassNew">Choose a password:</label>
-				<input type="password" name="forgotPassNew" id="forgotPassNew" onkeyup="validatePass('#forgotPassNew', '#errRegPass');">
-				<div id="errRegPass" class="errMsg invisible">Your password must be at least 4 letters.</div>
 
-				<label for="regConfirmPassword">Confirm your password:</label>
-				<input type="password" name="regConfirmPassword" id="regConfirmPassword" onkeyup="validateMatching('#forgotPassNew', '#regConfirmPassword', '#errRegConfirmPass')">
-				<div id="errRegConfirmPass" class="errMsg invisible">Your passwords don't match right now.</div>
+				<label for="secCode">Security Code:</label>
+				<input type="text" name="secCode" id="secCode">
+				<label for="FPPassword">Choose a password:</label>
+				<input type="password" name="FPPassword" id="FPPassword" onkeyup="validatePass('#FPPassword', '#errFPPass');">
+				<div id="errFPPass" class="errMsg invisible">Your password must be at least 4 letters.</div>
+
+				<label for="FPConfirmPassword">Confirm your password:</label>
+				<input type="password" name="FPConfirmPassword" id="FPConfirmPassword" onkeyup="validateMatching('#FPPassword', '#FPConfirmPassword', '#errFPConfirmPass')">
+				<div id="errFPConfirmPass" class="errMsg invisible">Your passwords don't match right now.</div>
+
 			
-				<input type="submit" id="secCodeSubmit" value="Reset">
+				<input type="submit" id="FPSecCodeSubmit" value="Reset">
 			</div>
 		</form>
 		
@@ -218,6 +220,7 @@
 <!-- CONFIRM EMAIL PAGE - JENS 05/MAY/2014 -->
 <section data-role="page" id="confirmEmailPage" data-theme="b">
 	<div data-role="header">
+		<a href="#loginPage" data-role="back" data-icon="delete" data-iconpos="notext">Back</a>
 		<h1>Confirm Email</h1>
 	</div>
 	
@@ -231,7 +234,7 @@
 			<label for="secCode">Security Code:</label>
 			<input type="text" name="secCode" id="secCode">
 			
-			<input type="submit" id="secCodeSubmit" value="Submit Code">
+			<input type="submit" value="Submit Code" id="regSecCodeSubmit">
 		</form>
 		<div id="confirmEmailMsg"></div>
 	</div>

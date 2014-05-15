@@ -37,7 +37,7 @@ $(document).ready(function() {
 	$("#btnLogout").click(logout);
 	
 	// Check security code on submit
-	$("#secCodeSubmit").click(checkSecCode);
+	$("#regSecCodeSubmit").click(checkSecCode);
 	
 	//add onclick event to come up with confirmation
 	$("#forgotPassSubmit").click(forgotPass);
@@ -52,13 +52,13 @@ $(document).ready(function() {
  *Params: none
  *Return: none
 */
- $.mobile.loading( 'show', {
+/*$.mobile.loading( 'show', {
 					text: 'loading',
 					textVisible: true,
 					theme: 'b',
 					html: ""
 					});
-
+*/
 /* 
  * Function: getSizes()
  * Purpose: detects device's width and height, and adjusts various 
@@ -214,6 +214,7 @@ function register() {
 	if(!validateForm()) {
 		return false;
 	}
+
 	var formData = $("#regForm").serialize();
 	
 	$.ajax({
@@ -222,7 +223,7 @@ function register() {
 		cache: false,
 		data: formData,
 		success: regSuccess,
-		error: error
+		error: errorMsg
 	});
 	return false;
 }
@@ -241,10 +242,22 @@ function register() {
  */
 function regSuccess(data, status) {
 	data = $.trim(data);
-	if (data == "Success!") {
-		$.mobile.changePage("#confirmEmailPage");
+	data = $.parseJSON(data);
+	
+
+	if (data.hasErrors == false) {
+		//data should have hasErrors, secCode, email
+		var msg = "Your confirmation code is:\r\n\r\n" + data.secCode + "\r\n";
+		msg += "To get back to the email confirmation page, enter your email at the login page.";
+		sendEmail(
+			data.email, 
+			"Study Storm email confirmation code", 
+			msg, 
+			function() {
+				$.mobile.changePage("#confirmEmailPage");
+			}); 
 	} else {
-			$("#regResult").html("Response data: " + data);
+		$("#regResult").html("Response data: " + data);
 	}
 }
 /* 
@@ -269,7 +282,6 @@ function errorMsg(data, status) {
  * Return: none
  */
 function checkSecCode() {
-	
 	var formData = $("#confirmEmailForm").serialize();
 	
 	$.ajax({
@@ -342,14 +354,26 @@ function login(){
  * Return: none
  */
 function loginSuccess(data, status) {
+	var data = $.parseJSON(data);
+	
+	if (data.hasValidEmail && data.hasValidPassword && data.hasConfirmed) {
+		updateLogin();
+		$.mobile.changePage("#mainPage");
+	}	else if (data.hasValidEmail && !data.hasConfirmed) {
+			$.mobile.changePage("#confirmEmailPage");
+		}	else {
+				$("#loginResult").html("Invalid email or password!");
+			}
+	
+	/* old code to be erased when consensus is achieved
 	data = $.trim(data);
 	if (data == "Success!") {
 		updateLogin();
-		//location.hash = "mainPage";
 		$.mobile.changePage("#mainPage");
 	} else {
 			$("#loginResult").html("Did not log in!\nData: " + data);
 	}
+	*/
 }
 /* 
  * Function: loginError(data, status)
@@ -376,7 +400,8 @@ function logout() {
 	$.ajax({
 		url: "./php/logout.php",
 		cache: false,
-		success: updateLogin
+		success: updateLogin,
+		error: errorMsg
 	});
 	return false;
 }
@@ -580,13 +605,19 @@ function getSessions() {
 function updateLogin() {
 	//query server
 	function updateSuccess(data, status) {
-		info = $.parseJSON(data);
-		if (info.loggedIn) {
+		try {
+			//if code below here runs, means json is valid
+			var info = $.parseJSON(data);
+		} catch(e){
+			//if code below here runs, means json is invalid
+			alert("didn't work, " + e);
+		}
+		if (info.loggedIn == "yes") {
 			$("#mainWelcome").html("Welcome, " + info.studName);
 		} else {
 			$("#mainWelcome").html("Not logged in.");
 		}
-		
+			
 		// if there is an active session that user has created, then...
 		if (info.sessionId > 0) {
 			//change page to show edit links
@@ -618,12 +649,13 @@ function updateLogin() {
 	$.ajax({
 			url: "./php/testLogin.php",
 			cache: false,
-			success: updateSuccess
+			success: updateSuccess,
+			error: errorMsg
 	});
 		
 	getSessions();
 	
-	$.mobile.loading();
+	//$.mobile.loading();
 }
 
 /* 
@@ -640,7 +672,6 @@ function getDetails(sessionId) {
 	$.getJSON("./php/getDetails.php?sessionId=" + sessionId, function(result){
 		var header = "";
 		var content = "";
-
 		//get times:
 		var t = result.startTime.split(/[- :]/);
 		var time = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
@@ -792,13 +823,9 @@ function initialize(lat, lng, title) {
  * Return: none
  */
 function sendEmail(email, subject, message, onSuccess) {
-	email = [];
-	email['message'] = message;
-	email['email']   = email;
-	email['subject'] = subject;
 	$.ajax({
 		url: "http://joepolygon.com/sendMail.php",
-		data: email,
+		data: {'message':message, 'email':email, 'subject':subject},
 		type: "POST",
 		cache: false,
 		success: onSuccess
@@ -806,7 +833,7 @@ function sendEmail(email, subject, message, onSuccess) {
 }
 
 
- $(function() {      
+ $(function() {
       //Enable swiping...
       $(document).swipe( {
         //Generic swipe handler for all directions
@@ -817,11 +844,9 @@ function sendEmail(email, subject, message, onSuccess) {
 		  //Make swipe right take user to userSessionPage.
 		  if (direction == "right") {
 				$.mobile.changePage("#userSessionPage");
-				alert(distance);
 			}
 		  if (direction == "down") {
 				updateLogin();
-				alert("worked!");
 			}
 		  //alert("You swiped in " + direction);
 

@@ -16,6 +16,8 @@ if (mysql_num_rows($result)) {
 	if ($result) {
 		echo "Success!";
 		exit();
+	} else {
+		echo "incorrect code?";
 	}
 } else {
 		echo mysql_error();
