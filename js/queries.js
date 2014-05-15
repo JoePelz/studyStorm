@@ -222,7 +222,7 @@ function register() {
 		cache: false,
 		data: formData,
 		success: regSuccess,
-		error: error
+		error: errorMsg
 	});
 	return false;
 }
