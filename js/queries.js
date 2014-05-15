@@ -45,6 +45,10 @@ $(document).ready(function() {
 	//add onclick event to come up with confirmation
 	$("#FPSecCodeSubmit").click(checkChangePass);
 	
+	// Resend security code to user-entered email address
+	$("#resendCodeButton").click(resendCode);
+
+	
 	getLocations();
 	getSizes();
 	//$.mobile.loading('show');
@@ -330,6 +334,38 @@ function checkChangePass() {
 	
 	return false;
 }
+function resendCode() {
+	var formData = $("#confirmEmailForm").serialize();
+	$.ajax({
+		url: "./php/resendEmail.php",
+		type: "POST",
+		data: formData,
+		success: resendSuccess,
+		error: errorMsg
+	});
+		
+	function resendSuccess(data, status) {
+			data = $.parseJSON(data);
+
+		if (data.isAllGravy) {
+			var msg = "Your confirmation code is:\r\n\r\n" + data.secCode + "\r\n";
+			msg += "To get back to the email confirmation page, enter your email at the login page.";
+			
+			sendEmail(
+				data.email, 
+				"Study Storm email confirmation code", 
+				msg, 
+				function() {
+					$("#forgotPassConfirmEmail").html(data.info);	
+				}
+			); 
+		}	else {
+				$("#forgotPassConfirmEmail").html("Email not sent: " + data.info);	
+			}
+		$.mobile.loading('hide');
+	}
+}
+
 
 /* 
  * Function: passChangeSuccess(data, status)
