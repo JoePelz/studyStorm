@@ -36,22 +36,55 @@ $(document).ready(function() {
 	// Add onclick event to the Logout button
 	$("#btnLogout").click(logout);
 	
+	// Resend security code to user-entered email address
+	$("#resendCodeButton").click(resendCode);
+	
 	// Check security code on submit
-	$("#regSecCodeSubmit").attr("onclick", "checkSecCode('#confirmEmailForm')");
+	$("#regSecCodeSubmit").click(checkSecCode);
 	
 	//add onclick event to come up with confirmation
 	$("#forgotPassSubmit").click(forgotPass);
 	
 	//add onclick event to come up with confirmation
-	$("#FPSecCodeSubmit").attr("onclick", "checkSecCode('#forgotPassForm')");
+	$("#FPSecCodeSubmit").click();
 	
 	getLocations();
 	getSizes();
 	//$.mobile.loading('show');
 	updateLogin();
 	
-}); /*==== /$(document).ready() ====*
+}); /*==== /$(document).ready() ====*/
+function resendCode() {
+	var formData = $("#confirmEmailForm").serialize();
+	$.ajax({
+		url: "./php/resendEmail.php",
+		type: "POST",
+		data: formData,
+		success: resendSuccess,
+		error: errorMsg
+	});
+	
+	function resendSuccess(data, status) {
+		data = $.parseJSON(data);
 
+		if (data.isAllGravy) {
+			var msg = "Your confirmation code is:\r\n\r\n" + data.secCode + "\r\n";
+			msg += "To get back to the email confirmation page, enter your email at the login page.";
+			
+			sendEmail(
+				data.email, 
+				"Study Storm email confirmation code", 
+				msg, 
+				function() {
+					$("#forgotPassConfirmEmail").html(data.info);	
+				}
+			); 
+		}	else {
+				$("#forgotPassConfirmEmail").html("Email not sent: " + data.info);	
+			}
+		$.mobile.loading('hide');
+	}
+}
 /*
  *Purpose: Creates a loading icon and text when called.
  *
@@ -291,31 +324,18 @@ function errorMsg(data, status) {
  *      none
  * Return: none
  */
-function checkSecCode(id) {
+function checkSecCode() {
 	$.mobile.loading('show');
-	var formData = $(id).serialize();
-	
-	if (id=="#confirmEmailPass") {
-	
-	$.ajax({
-		type: "POST",
-		cache: false,
-		url: "./php/checkSecCode.php",
-		data: formData,
-		success: secCodeSuccess,
-		error: errorMsg
-	});
-	
-	else {
+	var formData = $("#confirmEmailForm").serialize();
+		
 		$.ajax({
-		type: "POST",
-		cache: false,
-		url: "./php/passReset.php",
-		data: formData,
-		success: secCodeSuccess,
-		error: errorMsg
-	});
-	}
+			type: "POST",
+			cache: false,
+			url: "./php/checkSecCode.php",
+			data: formData,
+			success: secCodeSuccess,
+			error: errorMsg
+		});
 	return false;
 }
 /* 
@@ -906,37 +926,3 @@ function getLocations() {
 		error: errorMsg
 	});
 }
- $(function() {
-      //Enable swiping...
-      $(document).swipe( {
-        //Generic swipe handler for all directions
-        swipe:function(event, direction, distance, duration, fingerCount) {
-          //$(this).text("You swiped " + direction );  
-		  //alert("You swiped in " + direction);
-		  //location.hash="userSessionPage";
-		  //Make swipe right take user to userSessionPage.
-		  if (direction == "right") {
-				$.mobile.back();
-
-$(function() {
-	//Enable swiping...
-	$(document).swipe({
-		//Generic swipe handler for all directions
-		swipe:function(event, direction, distance, duration, fingerCount) {
-			//$(this).text("You swiped " + direction );  
-			//alert("You swiped in " + direction);
-			//location.hash="userSessionPage";
-			//Make swipe right take user to userSessionPage.
-			if (direction == "right") {
-			$.mobile.back();
-			}
-			if (direction == "down") {
-			updateLogin();
-			}
-			//alert("You swiped in " + direction);
-		},
-		//Default is 75px, set to 0 for demo so any distance triggers swipe
-		threshold:0
-	});
-});
-
