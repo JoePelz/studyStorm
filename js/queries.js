@@ -907,24 +907,6 @@ function getLocations() {
 	});
 }
 
-
-//function goBackParent(){
-  //   history.back();
-//}
-
-
- $(function() {
-    //Enable swiping...
-    $(document).swipe({
-        //Generic swipe handler for all directions
-        swipe:function(event, direction, distance, duration, fingerCount) {
-          //$(this).text("You swiped " + direction );  
-		  //alert("You swiped in " + direction);
-		  //location.hash="userSessionPage";
-		  //Make swipe right take user to userSessionPage.
-		  if (direction == "right") {
-				$.mobile.back();
-		  }
 $(function() {
 	//Enable swiping...
 	$(document).swipe({
