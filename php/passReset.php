@@ -3,7 +3,7 @@ session_start();
 
 /////////////////////////////////////////
 //
-//  This script is run from the Forgot form.
+//  This script checks secCode and email and updates the password in database
 //  It accepts an email POST data 
 //  and searches the students table for matches
 //
@@ -21,39 +21,34 @@ $con = mysql_connect(DB_HOST,DB_USER,DB_PASSWORD) or die(mysql_error());
 mysql_select_db(DB_DATABASE) or die('database not found');
 
 $email = $_POST['forgotPassEmail'];
-$secCode = $_POST['secCodePassword'];
-$password = $_POST['forgotPassNew'];
-$qry = "SELECT * FROM students WHERE email = '$email'";
+$secCode = $_POST['secCode'];
+$password = $_POST['FPPassword'];
 
-//secCode = '$secCode' AND password = '$password'";
+$qry = "SELECT * FROM students WHERE email='$email' AND secCode='$secCode'";
 $result = mysql_query($qry);
 
-//-- Validation --
-//Placeholder for errors
-$errmsg_arr = array();
-$errflag = false;
 
-if($result) {
-//Check that password is 4+ non-space characters.
-if (strlen($password) < 4 || strstr($password, " ") != FALSE) {
-    $errmsg_arr[] = "<p>Password must be at least 4 characters, and not contain whitespace</p>";
-    $errflag = true;
-}
-
-//Check that passwords match
-if (strcmp($password, $confirmPassword) != 0) {
-    $errflag = true;
-    $errmsg_arr[] = "<p>Passwords do not match.</p>";
-}
-
-$qry = "INSERT INTO students (studName, email, password, secCode, hasConfirmed) VALUES ('$studName', '$email', '$password', '$secCode', 0)";
+if (mysql_num_rows($result)) {
+	$qry = "UPDATE students SET password='$password' WHERE email='$email'";
+	$result = mysql_query($qry);
 	
-	
-	
-	
+	if ($result) {
+		echo "Success!";
+		exit();
+	} else {
+		echo "incorrect code?";
+	}
 } else {
-	die("query failed. " . mysql_error());
+		echo mysql_error();
 }
+
+
+
+
+
+
+	
+
 
 
 mysql_close($con);

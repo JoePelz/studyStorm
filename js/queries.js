@@ -37,10 +37,13 @@ $(document).ready(function() {
 	$("#btnLogout").click(logout);
 	
 	// Check security code on submit
-	$("#regSecCodeSubmit").click(checkSecCode);
+	$("#regSecCodeSubmit").attr("onclick", "checkSecCode('#confirmEmailForm')");
 	
 	//add onclick event to come up with confirmation
 	$("#forgotPassSubmit").click(forgotPass);
+	
+	//add onclick event to come up with confirmation
+	$("#FPSecCodeSubmit").attr("onclick", "checkSecCode('#forgotPassForm')");
 	
 	getLocations();
 	getSizes();
@@ -288,9 +291,11 @@ function errorMsg(data, status) {
  *      none
  * Return: none
  */
-function checkSecCode() {
+function checkSecCode(id) {
 	$.mobile.loading('show');
-	var formData = $("#confirmEmailForm").serialize();
+	var formData = $(id).serialize();
+	
+	if (id=="#confirmEmailPass") {
 	
 	$.ajax({
 		type: "POST",
@@ -300,6 +305,17 @@ function checkSecCode() {
 		success: secCodeSuccess,
 		error: errorMsg
 	});
+	
+	} else {
+		$.ajax({
+		type: "POST",
+		cache: false,
+		url: "./php/passReset.php",
+		data: formData,
+		success: secCodeSuccess,
+		error: errorMsg
+	});
+	}
 	return false;
 }
 /* 
@@ -890,11 +906,26 @@ function getLocations() {
 		error: errorMsg
 	});
 }
+<<<<<<< HEAD
 
 //function goBackParent(){
   //   history.back();
 //}
 
+=======
+ $(function() {
+      //Enable swiping...
+      $(document).swipe( {
+        //Generic swipe handler for all directions
+        swipe:function(event, direction, distance, duration, fingerCount) {
+          //$(this).text("You swiped " + direction );  
+		  //alert("You swiped in " + direction);
+		  //location.hash="userSessionPage";
+		  //Make swipe right take user to userSessionPage.
+		  if (direction == "right") {
+				$.mobile.back();
+		  }
+>>>>>>> 36c4a80f0139b8a38d7ae1355356884bcdda8100
 $(function() {
 	//Enable swiping...
 	$(document).swipe({
