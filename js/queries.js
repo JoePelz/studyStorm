@@ -455,18 +455,28 @@ function forgotPass(){
  * Return: none
  */
 function forgotPassConfirm(data, status) {
-	data = $.trim(data);
-	if (data == "Success!") {
-		$("#continueConfirm").fadeIn('fast');
-		$("#forgotPassEmail").prop('disabled', true);
-		$("#errForgotPassSubmit").html("");
-	} else if (data == "Confirm Registration"){
+	var info = $.parseJSON(data);
+	
+	if (info.success) {
+		var msg = "Here is your password reset security code:\r\n";
+		msg += info.secCode;
+		sendEmail(
+			info.email,
+			"Study Storm Password Reset Code",
+			msg,
+			function () {
+				$("#continueConfirm").fadeIn('fast');
+				$("#forgotPassEmail").prop('disabled', true);
+				$("#errForgotPassSubmit").html("");
+			}
+		);
 		
-		$.mobile.changePage("#confirmEmailPage");
-		$("#forgotPassConfirmEmail").html("Must confirm registration before changing Password!!!");
+	} else if (!info.success && info.errorMessage == "Not confirmed"){
+			$.mobile.changePage("#confirmEmailPage");
+			$("#forgotPassConfirmEmail").html("Must confirm registration before changing Password!!!");
 	
 	} else {
-		$("#errForgotPassSubmit").html("Did not find account!\nData: " + data);
+		$("#errForgotPassSubmit").html("Did not find account!\n" + info.errorMessage);
 	}
 	$.mobile.loading('hide');
 }

@@ -25,27 +25,36 @@ $email = $_POST['forgotPassEmail'];
 
 $qry = "SELECT * FROM students WHERE email = '$email'";
 $result = mysql_query($qry);
-
+$json = array();
 if($result) {
 	if(mysql_num_rows($result)) {
 		$studArray = mysql_fetch_assoc($result); //Fetch a result row as an associative array
 		if ($studArray['hasConfirmed'] == 1) {
-			echo "Success!";
 			$secCode = rand();
-			exit();
+			$qry = "UPDATE students SET secCode='$secCode' WHERE email='$email'";
+			if ($result = mysql_query($qry)) {
+				$json['email'] = $email;
+				$json['secCode'] = $secCode;
+				$json['success'] = TRUE;
+			} else {
+					$json['success'] = FALSE;
+					$json['errorMessage'] = "Did not update code. " . mysql_error();
+			}
 		}
 		else {
-			echo "Confirm Registration";
-			exit();
+			$json['success'] = FALSE;
+			$json['errorMessage'] = "Not confirmed";
 		}
 	} else {
-		echo "Invalid email" . mysql_error();
-		exit();
+			$json['success'] = FALSE;
+			$json['errorMessage'] = "No match found";
 	}
 } else {
-	die("query failed. " . mysql_error());
+		$json['success'] = FALSE;
+		$json['errorMessage'] = "Query failed. " . mysql_error();
 }
 
+echo json_encode($json);
 
 mysql_close($con);
 
