@@ -30,7 +30,7 @@ $result = mysql_query($qry);
 
 
 if (mysql_num_rows($result)) {
-	$qry = "UPDATE students SET password='$password' WHERE email='$confirmEmail'";
+	$qry = "UPDATE students SET password='$password' WHERE email='$email'";
 	$result = mysql_query($qry);
 	
 	if ($result) {
