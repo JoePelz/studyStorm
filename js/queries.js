@@ -905,27 +905,6 @@ function getLocations() {
 	});
 }
 
-<<<<<<< HEAD
-=======
-
-/*/function goBackParent(){
-  //   history.back();
-//}
-
-
- $(function() {
-    //Enable swiping...
-    $(document).swipe({
-        //Generic swipe handler for all directions
-        swipe:function(event, direction, distance, duration, fingerCount) {
-          //$(this).text("You swiped " + direction );  
-		  //alert("You swiped in " + direction);
-		  //location.hash="userSessionPage";
-		  //Make swipe right take user to userSessionPage.
-		  if (direction == "right") {
-				$.mobile.back();
-		  }
->>>>>>> 176723051701b4b894bd4ea325d6085ce442a45e
 $(function() {
 	//Enable swiping...
 	$(document).swipe({
@@ -943,4 +922,3 @@ $(function() {
 		threshold:0
 	});
 });
-*/
