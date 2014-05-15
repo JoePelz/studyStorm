@@ -908,7 +908,7 @@ function getLocations() {
 }
 
 
-//function goBackParent(){
+/*/function goBackParent(){
   //   history.back();
 //}
 
@@ -942,4 +942,4 @@ $(function() {
 		threshold:0
 	});
 });
-
+*/
