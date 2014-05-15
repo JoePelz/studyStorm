@@ -455,18 +455,28 @@ function forgotPass(){
  * Return: none
  */
 function forgotPassConfirm(data, status) {
-	data = $.trim(data);
-	if (data == "Success!") {
-		$("#continueConfirm").fadeIn('fast');
-		$("#forgotPassEmail").prop('disabled', true);
-		$("#errForgotPassSubmit").html("");
-	} else if (data == "Confirm Registration"){
+	var info = $.parseJSON(data);
+	
+	if (info.success) {
+		var msg = "Here is your password reset security code:\r\n";
+		msg += info.secCode;
+		sendEmail(
+			info.email,
+			"Study Storm Password Reset Code",
+			msg,
+			function () {
+				$("#continueConfirm").fadeIn('fast');
+				$("#forgotPassEmail").prop('disabled', true);
+				$("#errForgotPassSubmit").html("");
+			}
+		);
 		
-		$.mobile.changePage("#confirmEmailPage");
-		$("#forgotPassConfirmEmail").html("Must confirm registration before changing Password!!!");
+	} else if (!info.success && info.errorMessage == "Not confirmed"){
+			$.mobile.changePage("#confirmEmailPage");
+			$("#forgotPassConfirmEmail").html("Must confirm registration before changing Password!!!");
 	
 	} else {
-		$("#errForgotPassSubmit").html("Did not find account!\nData: " + data);
+		$("#errForgotPassSubmit").html("Did not find account!\n" + info.errorMessage);
 	}
 	$.mobile.loading('hide');
 }
@@ -850,7 +860,7 @@ function initialize(lat, lng, title) {
  *      onSuccess - The function to run on success. (result, status) params optional.
  * Return: none
  */
-function sendEmail(email, subject, message, onSuccess) {	
+function sendEmail(email, subject, message, onSuccess) {
 	$.ajax({
 		url: "http://joepolygon.com/sendMail.php",
 		data: {'message':message, 'email':email, 'subject':subject},
@@ -880,6 +890,7 @@ function getLocations() {
 		error: errorMsg
 	});
 }
+<<<<<<< HEAD
  $(function() {
       //Enable swiping...
       $(document).swipe( {
@@ -891,15 +902,28 @@ function getLocations() {
 		  //Make swipe right take user to userSessionPage.
 		  if (direction == "right") {
 				$.mobile.back();
-			}
-		  if (direction == "down") {
-				updateLogin();
-			}
-		  //alert("You swiped in " + direction);
+=======
 
-        },
-        //Default is 75px, set to 0 for demo so any distance triggers swipe
-         threshold:0
-      });
-    });
+$(function() {
+	//Enable swiping...
+	$(document).swipe({
+		//Generic swipe handler for all directions
+		swipe:function(event, direction, distance, duration, fingerCount) {
+			//$(this).text("You swiped " + direction );  
+			//alert("You swiped in " + direction);
+			//location.hash="userSessionPage";
+			//Make swipe right take user to userSessionPage.
+			if (direction == "right") {
+			$.mobile.changePage("#userSessionPage");
+>>>>>>> 4339b065a700d42fdb730357721582ef54f90d30
+			}
+			if (direction == "down") {
+			updateLogin();
+			}
+			//alert("You swiped in " + direction);
+		},
+		//Default is 75px, set to 0 for demo so any distance triggers swipe
+		threshold:0
+	});
+});
 
