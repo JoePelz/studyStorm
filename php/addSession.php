@@ -45,14 +45,22 @@ $end->setTime($endHM['hour'], $endHM['minute']);
 $endTS = $end->format('Y-m-d H:i:s');
 
 
-$myrequ = "INSERT INTO sessions (courseName, startTime, endTime, location, details, studID, isActive) VALUES ('$courseName', '$startTS', '$endTS', '$location', '$details', '$studId', 1)";
-$result = mysql_query($myrequ);
+$qry = "INSERT INTO sessions (courseName, startTime, endTime, location, details, studID, isActive) VALUES ('$courseName', '$startTS', '$endTS', '$location', '$details', '$studId', 1)";
+$result = mysql_query($qry);
 
 if ($result) {
-	echo 'Success!';
-	exit();
+	//set the student's current session to n, where n is the id of the session they just created.
+	$qry = "UPDATE students u JOIN sessions s ON (u.studId = s.studId)
+			SET u.currentSession = s.sessionId
+			WHERE u.studId = 23 AND s.isActive = 1";
+	$result = mysql_query($qry);
+	if ($result) {
+		echo 'Success!';
+	} else {
+		echo 'ERROR, auto-add to session failed! ' . mysql_error();
+	}
 } else {
-	echo 'ERROR, did not add to database!' . mysql_error();
+	echo 'ERROR, did not add to database! ' . mysql_error();
 }
 
 mysql_close($con);

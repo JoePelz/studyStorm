@@ -46,7 +46,7 @@ $(document).ready(function() {
 	$("#forgotPassSubmit").click(forgotPass);
 	
 	//add onclick event to come up with confirmation
-	$("#FPSecCodeSubmit").click();
+	$("#FPSecCodeSubmit").click(checkChangePass);
 	
 	getLocations();
 	getSizes();
@@ -326,8 +326,7 @@ function errorMsg(data, status) {
  */
 function checkSecCode() {
 	$.mobile.loading('show');
-	var formData = $("#confirmEmailForm").serialize();
-		
+	var formData = $("#confirmEmailForm").serialize();		
 		$.ajax({
 			type: "POST",
 			cache: false,
@@ -336,8 +335,60 @@ function checkSecCode() {
 			success: secCodeSuccess,
 			error: errorMsg
 		});
+	
 	return false;
 }
+/* 
+ * Function: checkChangePass()
+ * Purpose: Checks the security code entered by the user. 
+ *					Checks password and updates it in the database.
+ *          
+ * Params: 
+ *      none
+ * Return: none
+ */
+function checkChangePass() {
+	$.mobile.loading('show');
+	var formData = $("#forgotPassForm").serialize();
+	$.ajax({
+		type: "POST",
+		cache: false,
+		url: "./php/passReset.php",
+		data: formData,
+		success: passChangeSuccess,
+		error: errorMsg
+	});
+	
+>>>>>>> 9dd023df91688eb528f001d1bd7083f8b409c9be
+	return false;
+}
+
+/* 
+ * Function: passChangeSuccess(data, status)
+ * Purpose: Supplemental to checkChangePass(), above.
+ *          Runs if AJAX succeeded.
+ *          
+ *          If check Security Code worked, it indicates you succeeded 
+ *             and takes you to the login page.
+ *          Else if gives you the reason it failed.
+ * Params: 
+ *      data: empty object
+ *      status: string indicating success/error
+ * Return: none
+ */
+function passChangeSuccess(data, status) {
+		if (data == "Success!") {
+			$.mobile.changePage("#loginPage");
+			$("#loginResult").html("Your password has been changed!");
+		} else {
+				$("#confirmPassMsg").fadeIn(250);
+				$("#confirmPassMsg").addClass("badInput");
+				$("#confirmPassMsg").html("Incorrect password or security code:" + data);
+				$("#confirmPassMsg").delay(2000).fadeOut(250);
+		}
+		$.mobile.loading('hide');
+	}
+	
 /* 
  * Function: secCodeSuccess(data, status)
  * Purpose: Supplemental to checkSecCode(), above.
@@ -671,44 +722,38 @@ function getSessions() {
 function updateLogin() {
 	$.mobile.loading('show');
 	function updateSuccess(data, status) {
-		try {
-			//if code below here runs, means json is valid
-			var info = $.parseJSON(data);
-		} catch(e){
-			//if code below here runs, means json is invalid
-			alert("didn't work, " + e);
-		}
-		if (info.loggedIn == "yes") {
+		var info = $.parseJSON(data);
+
+		if (info.loggedIn) {
 			$("#mainWelcome").html("Welcome, " + info.studName);
+			if (info.sessionId > 0 && info.currentSession == info.sessionId) {
+				//the user has a session and is joined to it.
+				$("#menuLeft").attr("onclick", "populateSessionForm(" + info.sessionId + ")");
+				$("#menuLeft").html("Edit Session");
+				$("#addSessionSubmit").addClass("invisible");
+				$("#editSessionSubmit").removeClass("invisible");
+				$("#deleteSessionButton").removeClass("invisible");
+				$("#userSessionPage h1").html("Edit Session");
+			
+			} else if (info.sessionId <= 0 && info.currentSession > 0) {
+				//the user has joined a session
+				$("#menuLeft").html("View Joined Session");
+				$("#menuLeft").attr("href", "#detailsPage");
+				$("#menuLeft").attr("onclick", "getDetails(" + info.currentSession + ")");
+			
+			} else {
+				//the user has no session and hasn't joined
+				$("#menuLeft").attr("onclick", "populateSessionForm(0)");
+				$("#menuLeft").attr("href", "#userSessionPage");
+				$("#menuLeft").html("Add Session");
+				$("#addSessionSubmit").removeClass("invisible");
+				$("#editSessionSubmit").addClass("invisible");
+				$("#deleteSessionButton").addClass("invisible");
+				$("#userSessionPage h1").html("Add Session");
+			}
 		} else {
+			//the user is not logged in.
 			$("#mainWelcome").html("Not logged in.");
-		}
-			
-		// if there is an active session that user has created, then...
-		if (info.sessionId > 0) {
-			//change page to show edit links
-			$("#menuLeft").attr("onclick", "populateSessionForm(" + info.sessionId + ")");
-			$("#menuLeft").html("Edit Session");
-			$("#addSessionSubmit").addClass("invisible");
-			$("#editSessionSubmit").removeClass("invisible");
-			$("#deleteSessionButton").removeClass("invisible");
-			$("#userSessionPage h1").html("Edit Session");
-		} else {
-			$("#menuLeft").attr("onclick", "populateSessionForm(0)");
-			$("#menuLeft").attr("href", "#userSessionPage");
-			$("#menuLeft").html("Add Session");
-			$("#addSessionSubmit").removeClass("invisible");
-			$("#editSessionSubmit").addClass("invisible");
-			$("#deleteSessionButton").addClass("invisible");
-			$("#userSessionPage h1").html("Add Session");
-			
-		}
-		
-		// Check if user has joined a session
-		if (info.currentSession > 0) {
-			$("#menuLeft").html("View Joined Session");
-			$("#menuLeft").attr("href", "#detailsPage");
-			$("#menuLeft").attr("onclick", "getDetails(" + info.currentSession + ")");
 		}
 		$.mobile.loading('hide');
 	}
@@ -823,7 +868,7 @@ function joinSession(sessionId) {
  */
 function joinSuccess(result, data) {
 	if (result == "Success!") {
-		$("#joinLeaveButton").html("Leave");
+		$("#joinLeaveButton").html("Leave Session");
 		updateLogin();
 	} else {
 			alert("Error: did not join group.\nresult: " + result + "\ndata: " + data);
@@ -926,3 +971,21 @@ function getLocations() {
 		error: errorMsg
 	});
 }
+
+$(function() {
+	//Enable swiping...
+	$(document).swipe({
+		//Generic swipe handler for all directions
+		swipe:function(event, direction, distance, duration, fingerCount) {
+			//Make swipe right take user to previous page.
+			if (direction == "right") {
+			$.mobile.back();
+			}
+			if (direction == "down") {
+			updateLogin();
+			}
+		},
+		//Default is 75px, set to 0 for demo so any distance triggers swipe
+		threshold:0
+	});
+});

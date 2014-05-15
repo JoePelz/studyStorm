@@ -23,14 +23,13 @@ mysql_select_db(DB_DATABASE) or die('database not found');
 $email = $_POST['forgotPassEmail'];
 $secCode = $_POST['secCode'];
 $password = $_POST['FPPassword'];
-$confirmPassword = $_POST['FPConfirmPassword'];
 
 $qry = "SELECT * FROM students WHERE email='$email' AND secCode='$secCode'";
 $result = mysql_query($qry);
 
 
 if (mysql_num_rows($result)) {
-	$qry = "UPDATE students SET password='$password' WHERE email='$confirmEmail'";
+	$qry = "UPDATE students SET password='$password' WHERE email='$email'";
 	$result = mysql_query($qry);
 	
 	if ($result) {

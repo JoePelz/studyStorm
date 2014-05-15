@@ -23,7 +23,7 @@ mysql_query($qry);
 
 
 //data available: studName, sessionId, courseName, details, startTime, endTime, location, studId, isActive
-$qry = "SELECT u.studName, s.* FROM sessions s, students u WHERE u.studId=s.studId";
+$qry = "SELECT u.studName, s.* FROM sessions s, students u WHERE u.studId=s.studId AND s.isActive=1";
 $result = mysql_query($qry);
 $courseArray = array();
 

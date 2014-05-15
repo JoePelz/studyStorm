@@ -7,7 +7,7 @@ mysql_select_db(DB_DATABASE) or die('database not found');
 
 $sessionId = $_GET['sessionId'];
 
-$qry = "UPDATE students SET currentSession='$sessionId' WHERE studId=" . $_SESSION['studId'];
+$qry = "UPDATE students SET currentSession=$sessionId WHERE studId=" . $_SESSION['studId'];
 $result = mysql_query($qry);
 
 if ($result) {
@@ -18,7 +18,7 @@ if ($result) {
 	echo "Success!";
 	exit();
 } else {
-		echo "Error: did not join group.";
+	echo "Error: did not join group.";
 }
 mysql_close($con);
 ?>
