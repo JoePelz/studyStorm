@@ -930,17 +930,13 @@ $(function() {
 	$(document).swipe({
 		//Generic swipe handler for all directions
 		swipe:function(event, direction, distance, duration, fingerCount) {
-			//$(this).text("You swiped " + direction );  
-			//alert("You swiped in " + direction);
-			//location.hash="userSessionPage";
-			//Make swipe right take user to userSessionPage.
+			//Make swipe right take user to previous page.
 			if (direction == "right") {
 			$.mobile.back();
 			}
 			if (direction == "down") {
 			updateLogin();
 			}
-			//alert("You swiped in " + direction);
 		},
 		//Default is 75px, set to 0 for demo so any distance triggers swipe
 		threshold:0
