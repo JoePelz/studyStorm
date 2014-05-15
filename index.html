@@ -95,7 +95,7 @@
 
 	<div data-role="main" class="ui-content">
 		<h1>Forgot Password</h1>
-		
+		<!--updates: secCodePassword -->
 		<form id="forgotPassForm">
 			<label for="forgotPassEmail">Enter your e-mail: </label>
 			<input type="email" name="forgotPassEmail" id="forgotPassEmail" onkeyup="validateEmail('#forgotPassEmail', '#errForgotPassEmail');">
@@ -103,9 +103,11 @@
 			<input type="button" value="Submit" id="forgotPassSubmit";>
 			<div id="errForgotPassSubmit"></div>
 			
+			
 			<div id="continueConfirm" style="display:none">
 				<p>A security code has been sent to your my.bcit.ca account.</p>
 				<p>Please retrieve your code and submit it below.</p>
+
 				<label for="secCode">Security Code:</label>
 				<input type="text" name="secCode" id="secCode">
 				<label for="FPPassword">Choose a password:</label>
@@ -115,6 +117,7 @@
 				<label for="FPConfirmPassword">Confirm your password:</label>
 				<input type="password" name="FPConfirmPassword" id="FPConfirmPassword" onkeyup="validateMatching('#FPPassword', '#FPConfirmPassword', '#errFPConfirmPass')">
 				<div id="errFPConfirmPass" class="errMsg invisible">Your passwords don't match right now.</div>
+
 			
 				<input type="submit" id="FPSecCodeSubmit" value="Reset">
 			</div>
@@ -224,7 +227,8 @@
 	
 	<div data-role="main" class="ui-content">
 		<form id="confirmEmailForm">
-			<label for="confirmEmail">Re-enter your email:</label>
+		
+			<span id="forgotPassConfirmEmail"></span><label for="confirmEmail">Re-enter your email:</label>
 			<input type="email" name="confirmEmail" id="confirmEmail">
 			
 			<p>A security code has been sent to your my.bcit.ca account.</p>

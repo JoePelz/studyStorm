@@ -17,7 +17,7 @@ $db = mysql_select_db(DB_DATABASE) or die("Unable to select database");
 
 
 //data available: studName, sessionId, courseName, details, startTime, endTime, location, studId, isActive
-$qry = "SELECT u.studName FROM students u WHERE u.currentSession=3";
+$qry = "SELECT u.studName FROM students u WHERE u.currentSession=".$_GET['sessionId']."";
 $result = mysql_query($qry);
 $studentsArray = array();
 
