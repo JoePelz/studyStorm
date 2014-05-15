@@ -651,12 +651,10 @@ function getSessions() {
 function updateLogin() {
 	$.mobile.loading('show');
 	function updateSuccess(data, status) {
-		alert(data);
 		var info = $.parseJSON(data);
 
 		if (info.loggedIn) {
 			$("#mainWelcome").html("Welcome, " + info.studName);
-			alert("logged in!\nsessionId: " + info.sessionId + "\ncurrentSession: " + info.currentSession);
 			if (info.sessionId > 0 && info.currentSession == info.sessionId) {
 				//the user has a session and is joined to it.
 				$("#menuLeft").attr("onclick", "populateSessionForm(" + info.sessionId + ")");
@@ -779,7 +777,6 @@ function getDetails(sessionId) {
  */
 function joinSession(sessionId) {
 	$.mobile.loading('show');
-	alert("joining...");
 	$.ajax({
 		url:"./php/joinSession.php?sessionId=" + sessionId,
 		cache: false,
@@ -801,7 +798,6 @@ function joinSession(sessionId) {
 function joinSuccess(result, data) {
 	if (result == "Success!") {
 		$("#joinLeaveButton").html("Leave Session");
-		alert("join was a success?");
 		updateLogin();
 	} else {
 			alert("Error: did not join group.\nresult: " + result + "\ndata: " + data);
@@ -905,24 +901,6 @@ function getLocations() {
 	});
 }
 
-/*/function goBackParent(){
-  //   history.back();
-//}
-
-
- $(function() {
-    //Enable swiping...
-    $(document).swipe({
-        //Generic swipe handler for all directions
-        swipe:function(event, direction, distance, duration, fingerCount) {
-          //$(this).text("You swiped " + direction );  
-		  //alert("You swiped in " + direction);
-		  //location.hash="userSessionPage";
-		  //Make swipe right take user to userSessionPage.
-		  if (direction == "right") {
-				$.mobile.back();
-		  }
-
 $(function() {
 	//Enable swiping...
 	$(document).swipe({
@@ -940,4 +918,3 @@ $(function() {
 		threshold:0
 	});
 });
-*/
