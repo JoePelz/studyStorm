@@ -917,7 +917,7 @@ function getLocations() {
 		  //Make swipe right take user to userSessionPage.
 		  if (direction == "right") {
 				$.mobile.back();
-
+		  }
 $(function() {
 	//Enable swiping...
 	$(document).swipe({
