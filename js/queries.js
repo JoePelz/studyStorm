@@ -247,10 +247,12 @@ function regSuccess(data, status) {
 
 	if (data.hasErrors == false) {
 		//data should have hasErrors, secCode, email
+		var msg = "Your confirmation code is:\r\n\r\n" + data.secCode + "\r\n";
+		msg += "To get back to the email confirmation page, enter your email at the login page.";
 		sendEmail(
 			data.email, 
-			"Study Storm registration", 
-			"Your confirmation code is:\r\n\r\n" + data.secCode, 
+			"Study Storm email confirmation code", 
+			msg, 
 			function() {
 				$.mobile.changePage("#confirmEmailPage");
 			}); 
@@ -363,7 +365,7 @@ function loginSuccess(data, status) {
 				$("#loginResult").html("Invalid email or password!");
 			}
 	
-	/* old code to be erased when confident
+	/* old code to be erased when consensus is achieved
 	data = $.trim(data);
 	if (data == "Success!") {
 		updateLogin();
