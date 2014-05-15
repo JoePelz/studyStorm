@@ -23,8 +23,9 @@ mysql_select_db(DB_DATABASE) or die('database not found');
 
 $email = $_POST['loginEmail'];
 $password = $_POST['loginPassword'];
+$JSON = array();
 
-$qry = "SELECT * FROM students WHERE email = '$email' AND password = '$password'";
+$qry = "SELECT * FROM students WHERE email = '$email'";
 $result = mysql_query($qry);
 
 if($result) {
@@ -35,12 +36,27 @@ if($result) {
 		$_SESSION['email'] = $studArray['email'];
 		$_SESSION['studId'] = $studArray['studId'];
 		$_SESSION['currentSession'] = $studArray['currentSession'];
-		session_write_close();
-		//header("location: ../index.php");
-		echo "Success!";
+		session_write_close();	
+		//JSON TIME!!
+		$JSON['hasValidEmail'] = TRUE;
+		
+		if ($studArray['password'] == $password) {
+			$JSON['hasValidPassword'] = TRUE;
+		}	else {
+				$JSON['hasValidPassword'] = FALSE;
+			}
+		
+		if ($studArray['hasConfirmed'] == 1) {
+			$JSON['hasConfirmed'] = TRUE;
+		}	else {
+				$JSON['hasConfirmed'] = FALSE;
+			}
+
+		echo json_encode($JSON);
 		exit();
 	} else {
-		echo "Invalid name or password!" . mysql_error();
+		$JSON['hasValidEmail'] = FALSE;
+		echo json_encode($JSON);
 		exit();
 	}
 } else {

@@ -352,14 +352,26 @@ function login(){
  * Return: none
  */
 function loginSuccess(data, status) {
+	var data = $.parseJSON(data);
+	
+	if (data.hasValidEmail && data.hasValidPassword && data.hasConfirmed) {
+		updateLogin();
+		$.mobile.changePage("#mainPage");
+	}	else if (data.hasValidEmail && !data.hasConfirmed) {
+			$.mobile.changePage("#confirmEmailPage");
+		}	else {
+				$("#loginResult").html("Invalid email or password!");
+			}
+	
+	/* old code to be erased when confident
 	data = $.trim(data);
 	if (data == "Success!") {
 		updateLogin();
-		//location.hash = "mainPage";
 		$.mobile.changePage("#mainPage");
 	} else {
 			$("#loginResult").html("Did not log in!\nData: " + data);
 	}
+	*/
 }
 /* 
  * Function: loginError(data, status)
@@ -826,11 +838,9 @@ function sendEmail(email, subject, message, onSuccess) {
 		  //Make swipe right take user to userSessionPage.
 		  if (direction == "right") {
 				$.mobile.changePage("#userSessionPage");
-				alert(distance);
 			}
 		  if (direction == "down") {
 				updateLogin();
-				alert("worked!");
 			}
 		  //alert("You swiped in " + direction);
 
