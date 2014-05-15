@@ -106,10 +106,10 @@ function testCourseValid(id) {
  * Return true if location is valid
  */
 function testLocationValid(id) {
-	if ($(id).val() == "") {
+	if ($(id).prop("selectedIndex") == 0) {
 		$('#errLocation').removeClass("goodInput");
 		$('#errLocation').addClass("badInput");
-		$('#errLocation').html("Enter a location");
+		$('#errLocation').html("Choose a location");
 		return false;
 	}
 	else {

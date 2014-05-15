@@ -42,6 +42,7 @@ $(document).ready(function() {
 	//add onclick event to come up with confirmation
 	$("#forgotPassSubmit").click(forgotPass);
 	
+	getLocations();
 	getSizes();
 	updateLogin();
 }); /*==== /$(document).ready() ====*
@@ -464,6 +465,8 @@ function forgotPassConfirm(data, status) {
  * Return: none
  */
 function populateSessionForm(sessionId) {
+
+
 	if (sessionId == 0) {
 		//The form to fill in
 		form = document.getElementById("userSessionForm");
@@ -471,6 +474,7 @@ function populateSessionForm(sessionId) {
 		form.courseName.value = "";
 		//refreshes the select list and forces a rebuild. Required in order to show the 
 		//selected item from the database.
+		$("#courseName").selectmenu();
 		$("#courseName").selectmenu('refresh', true);
 		form.location.value = "";
 		form.startTime.value = "";
@@ -828,7 +832,25 @@ function sendEmail(email, subject, message, onSuccess) {
 	});
 }
 
-
+function getLocations() {
+	function locationsSuccess(data, result) {
+		var info = $.parseJSON(data);
+		var output = "<option value=''>Select One</option>";
+		for (var i = 0; i < info.length; i++) {
+			output += '<option value="' + info[i].locationName + '">' + info[i].locationName + '</option>';
+		}
+		$("#location").html(output);
+		$("#location").prop('disabled', false);
+		$("#location").selectmenu('refresh', true);
+	}
+	
+	$.ajax({
+		url: "./php/getLocations.php",
+		cache: false,
+		success: locationsSuccess,
+		error: errorMsg
+	});
+}
  $(function() {
       //Enable swiping...
       $(document).swipe( {

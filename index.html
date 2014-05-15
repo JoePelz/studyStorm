@@ -8,7 +8,7 @@
 <!-- Link CSS ThemeRoller -->
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
 <link rel="stylesheet" href="themes/studyStormThemeJens.css">
-
+<link rel="stylesheet" href="css/customSelectMenus.css">
 <link rel="stylesheet" href="css/style.css">
 <!-- jQuery and jQuery Mobile -->
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -19,6 +19,7 @@
 <script src="./js/jquery.touchSwipe.js"></script>
 <script src="./js/queries.js"></script>
 <script src="./js/validate.js"></script>
+<script src="./js/customSelectMenus.js"></script>
 <title>Study Storm</title>
 </head>
 <body>
@@ -252,7 +253,7 @@
 
 			<label for="courseName">Select a Course: <span id="errCourse"></span></label>
 			<div id="itmCourse">
-				<select name="courseName" id="courseName" onblur="testCourseValid('#courseName')">
+				<select name="courseName" id="courseName" onchange="testCourseValid('#courseName')">
 					<option value="" selected="selected">Select One</option>
 					<option value="comp1510">comp1510</option>
 					<option value="comp1536">comp1536</option>
@@ -266,8 +267,10 @@
 
 			<div id="itmLocation">
 			
-				<label for="location">Location: <span id="errLocation"></span></label>
-				<input type="text" name="location" id="location" onkeyup="testLocationValid('#location')">
+				<label for="location">Location: <span id="errLocation"></span></label>				
+				<select name="location" id="location" data-native-menu="false" onchange="testLocationValid('#location')">
+				</select>
+				<!--<input type="text" name="location" id="location" onkeyup="testLocationValid('#location')">-->
 			</div><!-- /end itmLocation div -->
 
 			<label for="startTime">Start Time: <span id="errTime"></span></label>
