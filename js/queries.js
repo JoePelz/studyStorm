@@ -423,6 +423,10 @@ function forgotPassConfirm(data, status) {
 		$("#continueConfirm").fadeIn('fast');
 		$("#forgotPassEmail").prop('disabled', true);
 		$("#errForgotPassEmail").html("");
+	} else if (data == "Confirm Registration"){
+		
+		$("#errForgotPassEmail").html("Must confirm registration:");
+	
 	} else {
 		$("#errForgotPassEmail").html("Did not find account!\nData: " + data);
 	}

@@ -94,7 +94,7 @@
 
 	<div data-role="main" class="ui-content">
 		<h1>Forgot Password</h1>
-		
+		<!--updates: secCodePassword -->
 		<form id="forgotPassForm">
 			<label for="forgotPassEmail">Enter your e-mail: </label>
 			<input type="email" name="forgotPassEmail" id="forgotPassEmail" onkeyup="validateEmail('#forgotPassEmail', '#errRegEmail');">
@@ -102,17 +102,18 @@
 			<input type="button" value="Submit" id="forgotPassSubmit";>
 			<div id="errForgotPassEmail"></div>
 			
+			
 			<div id="continueConfirm" style="display:none">
 				<p>A security code has been sent to your my.bcit.ca account.</p>
 				<p>Please retrieve your code and submit it below.</p>
-				<label for="secCode">Security Code:</label>
-				<input type="text" name="secCode" id="secCode">
-				<label for="regPassword">Choose a password:</label>
-				<input type="password" name="regPassword" id="regPassword" onkeyup="validatePass('#regPassword', '#errRegPass');">
+				<label for="secCodePassword">Security Code:</label>
+				<input type="text" name="secCodePassword" id="secCodePassword">
+				<label for="forgotPassNew">Choose a password:</label>
+				<input type="password" name="forgotPassNew" id="forgotPassNew" onkeyup="validatePass('#forgotPassNew', '#errRegPass');">
 				<div id="errRegPass" class="errMsg invisible">Your password must be at least 4 letters.</div>
 
 				<label for="regConfirmPassword">Confirm your password:</label>
-				<input type="password" name="regConfirmPassword" id="regConfirmPassword" onkeyup="validateMatching('#regPassword', '#regConfirmPassword', '#errRegConfirmPass')">
+				<input type="password" name="regConfirmPassword" id="regConfirmPassword" onkeyup="validateMatching('#forgotPassNew', '#regConfirmPassword', '#errRegConfirmPass')">
 				<div id="errRegConfirmPass" class="errMsg invisible">Your passwords don't match right now.</div>
 			
 				<input type="submit" id="secCodeSubmit" value="Reset">
