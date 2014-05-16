@@ -65,3 +65,6 @@ li {
 }
 #location-listbox, #location-menu, #location-dialog, #location {
 }
+#swipeDiv {
+	display: block;
+}
