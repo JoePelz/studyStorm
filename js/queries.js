@@ -682,7 +682,7 @@ function getSessions() {
 		content += '<div data-role="collapsibleset" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">';
 		for (var i=0; i < courses.length; i++) {
 			content += '<div data-role="collapsible">';
-			content += "<h1>" + courses[i] + '<span class="ui-li-count" style="right: 50px;">'+sessions[i].length+'</span>' + "</h1>";
+			content += "<h1>" + courses[i] + '<span class="ui-li-count sessionCount" style="right: 50px;">'+sessions[i].length+'</span>' + "</h1>";
 			content += "<ul>";
 			for (var j = 0; j < sessions[i].length; j++) {
 				var t = sessions[i][j].startTime.split(/[- :]/);
@@ -697,8 +697,8 @@ function getSessions() {
 				var minutes = time.getMinutes();
 				if (minutes < 10) { minutes = "0" + minutes; }
 
-                content += "<li>" + hours + ":" + minutes + half + "&nbsp;&nbsp;&nbsp;&nbsp;";
-                content += "<a href=\"#detailsPage\" onclick=\"getDetails(" + sessions[i][j].sessionId + ")\" data-rel=\"dialog\" data-transition=\"pop\">" + sessions[i][j].studName + "</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+                content += "<li>" + hours + ":" + minutes + half + "&nbsp;&nbsp;";
+                content += "<a href=\"#detailsPage\" onclick=\"getDetails(" + sessions[i][j].sessionId + ")\" data-rel=\"dialog\" data-transition=\"pop\">" + sessions[i][j].studName + "</a>&nbsp;&nbsp;";
                 content += sessions[i][j].location + "</li>";
 			}
 			content += "</ul>";
@@ -711,6 +711,7 @@ function getSessions() {
 		//and implement the collapsible data-role
 		$('div[data-role=collapsible]').collapsible();
 		$('div[data-role=collapsibleset]').collapsibleset();
+		$(".sessionCount").css("border", "none").css("font-size", ".7em");
 		$.mobile.loading('hide');
 	});
 }

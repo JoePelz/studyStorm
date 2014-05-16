@@ -22,7 +22,7 @@ li {
 	list-style-type: none;
 }
 #logo {
-    text-align: center;
+  text-align: center;
 	margin: 0;
 	padding: 0;
 }
@@ -43,4 +43,25 @@ li {
 #navBar a{
 	font-size: 150%;
 	padding-top: 50px;
+}
+#navBar ul {
+	background: -webkit-radial-gradient(50% -50%, circle farthest-side, #fffffe 5%, #ffe264 100%);
+	background: -webkit-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(255,226,100,1));
+	background: -webkit-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(249,213,91,1));
+	border: none;
+	box-shadow: 0 20px 1px 0 rgba(0,0,0,.03);
+}
+#menuLeft, #menuRight {
+	background: #ffe264;
+	/*background: -webkit-linear-gradient(top, #fff987 10%,#ffe264 50%, #fff987 80%);*/
+	background: transparent;
+	border: none;
+	text-shadow: 0px  1px 1px rgba(255,255,255,.5);
+}
+#courseDest h1{
+	box-shadow: 0 20px 1px 0 rgba(0,0,0,.03);
+}
+#detailsPage > div {
+}
+#location-listbox, #location-menu, #location-dialog, #location {
 }
