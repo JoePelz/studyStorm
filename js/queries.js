@@ -984,7 +984,7 @@ function getLocations() {
 
 $(function() {
 	//Enable swiping...
-	$(document).swipe({
+	$("#swipeDiv").swipe({
 		//Generic swipe handler for all directions
 		swipe:function(event, direction, distance, duration, fingerCount) {
 			//Make swipe right take user to previous page.
