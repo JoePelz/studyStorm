@@ -723,7 +723,7 @@ function updateLogin() {
 		if (info.loggedIn) {
 			$("#mainWelcome").html("Welcome, " + info.studName);
 			if (info.sessionId > 0 && info.currentSession == info.sessionId) {
-				//the user has a session and is joined to it.
+				//the user has an active session.
 				$("#menuLeft").attr("onclick", "populateSessionForm(" + info.sessionId + ")");
 				$("#menuLeft").html("Edit Session");
 				$("#addSessionSubmit").addClass("invisible");
@@ -831,6 +831,10 @@ function getDetails(sessionId) {
 		// Check if user has already joined group, and changed 'Join' button accordingly
 		if (result.hasJoined) {
 			$("#joinLeaveButton").html("Leave Session").attr("onclick", "leaveSession()");
+		}
+
+		if (result.isOwner) {
+			$("#joinLeaveButton").html("Edit Session").attr("onclick", "populateSessionForm(" + result.sessionId + "); $.mobile.changePage('#userSessionPage')");
 		}
 		
 		var lat = result.latitude;

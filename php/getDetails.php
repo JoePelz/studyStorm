@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 //////////////////////////////////////////////
 //
@@ -7,7 +8,7 @@
 //  Returns JSON encoded row information.
 //
 //////////////////////////////////////////////
-session_start();
+
 require_once('./config.php');
 include('./getMembers.php');
 $membersCount = sizeof($studentsArray);
@@ -19,7 +20,7 @@ $db = mysql_select_db(DB_DATABASE) or die("Unable to select database");
 
 
 //data available: studName, sessionId, courseName, details, startTime, endTime, location, studId, isActive
-$qry = "SELECT u.studName, s.*, l.* FROM sessions s, students u, locations l WHERE u.studId=s.studId AND s.location=l.locationName AND s.sessionId=".$_GET['sessionId']." LIMIT 1";
+$qry = "SELECT u.studName, u.currentSession, s.*, l.* FROM sessions s, students u, locations l WHERE u.studId=s.studId AND s.location=l.locationName AND s.sessionId=".$_GET['sessionId']." LIMIT 1";
 $result = mysql_query($qry);
 
 
@@ -34,7 +35,11 @@ if ($result) {
 		$row['hasJoined'] = TRUE;
 	}
 	
-	
+	// Check if user is owner of the group
+	$row['isOwner'] = FALSE;
+	if ($row['studId'] == $_SESSION['studId'] AND $row['sessionId'] == $row['currentSession']) {
+		$row['isOwner'] = TRUE;
+	}
 	
 	print json_encode($row);
 } else {
