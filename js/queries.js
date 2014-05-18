@@ -853,11 +853,15 @@ function joinSession(sessionId) {
 	$.ajax({
 		url:"./php/joinSession.php?sessionId=" + sessionId,
 		cache: false,
-		success: joinSuccess,
+		success: function(data, status) {
+			joinSuccess(data, status);
+			getDetails(sessionId);
+		},
 		error: errorMsg
 	});
 	return false;
 }
+
 /* 
  * Function: joinSuccess(data, status)
  * Purpose: Supplemental to joinSession(), above.
@@ -873,7 +877,7 @@ function joinSuccess(result, data) {
 		$("#joinLeaveButton").html("Leave Session");
 		updateLogin();
 	} else {
-			alert("Error: did not join group.\nresult: " + result + "\ndata: " + data);
+		alert("Error: did not join group.\nresult: " + result + "\ndata: " + data);
 	}
 	$.mobile.loading('hide');
 }
@@ -900,11 +904,7 @@ function leaveSession() {
 	});
 	return false;
 }
-/*
-function leaveSuccess(result, data) {
-	$("#menuLeft").html("Add Session").attr("onclick",
-}
-*/
+
 /* 
  * Function: initialize(lat, lng, title)
  * Purpose: Get map coordinates and place them on a map.
