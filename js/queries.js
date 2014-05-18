@@ -121,7 +121,7 @@ function delSession() {
  *          to add a new session.
  *
  *          Calls addSessionSuccess(data, status) if ajax works
- *          and addSessionError(data, status) if not.
+ *          and errorMsg(data, status) if not.
  * Params: 
  *      data: empty object
  *      status: string indicating success/error
@@ -140,7 +140,7 @@ function addSession() {
 		cache: false,
 		data: formData,
 		success: addSessionSuccess,
-		error: addSessionError
+		error: errorMsg
 	});
 	return false;
 }
@@ -167,19 +167,6 @@ function addSessionSuccess(data, status) {
 	}
 	$.mobile.loading('hide');
 }
-/* 
- * Function: addSessionError(data, status)
- * Purpose: Supplemental to addSession(), above.
- *          Runs if AJAX failed.
- *          Pops up an alert box to display the status code.
- * Params: 
- *      data: empty object
- *      status: string indicating success/error
- * Return: none
- */
-function addSessionError(data, status) {
-	alert("Something went wrong " + data);
-}
 
 /* 
  * Function: editSession()
@@ -189,7 +176,7 @@ function addSessionError(data, status) {
  *
  *          (intentionally uses addSession's success/fail functions)
  *          Calls addSessionSuccess(data, status) if ajax works
- *          and addSessionError(data, status) if not.
+ *          and errorMsg(data, status) if not.
  * Params: 
  *      data: empty object
  *      status: string indicating success/error
@@ -208,7 +195,7 @@ function editSession() {
 		cache: false,
 		data: formData,
 		success: addSessionSuccess,
-		error: addSessionError
+		error: errorMsg
 	});
 	return false;
 }
