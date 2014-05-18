@@ -721,6 +721,9 @@ function updateLogin() {
 		var info = $.parseJSON(data);
 
 		if (info.loggedIn) {
+			if (location.hash == "" || location.hash == "#loginPage") {
+				$.mobile.changePage("#mainPage");
+			}
 			$("#mainWelcome").html("Welcome, " + info.studName);
 			if (info.sessionId > 0 && info.currentSession == info.sessionId) {
 				//the user has an active session.
