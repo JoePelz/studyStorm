@@ -829,6 +829,11 @@ function getDetails(sessionId) {
 		content += "<li>Location: " + result.location   + "</li>";
 		content += "<li>Details: "  + result.details    + "</li>";
 		content += "<li>Members: "  + result.membersCount    + "</li>";
+		content += "<li><ul>";
+		for (var i = 0; i < result.membersCount; i++) {
+			content += "<li>" + result.members[i].studName + "</li>";
+		}
+		content += "</ul></li>";
 		content += "</ul>";
 		content += "<div data-role='button' name='joinLeaveButton' id='joinLeaveButton' onclick='joinSession(" + result.sessionId + ")'>Join</div>";
 		content += "<div id='mapCanvas' style='height: 200px;'></div>";

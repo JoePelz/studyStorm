@@ -26,6 +26,7 @@ $result = mysql_query($qry);
 if ($result) {
 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
 	$row['membersCount'] = "".$membersCount."";
+	$row['members'] = $studentsArray;
 	
 	// Check if user has already joined this group
 	$row['hasJoined'] = FALSE;
