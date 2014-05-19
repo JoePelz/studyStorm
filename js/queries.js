@@ -52,6 +52,8 @@ $(document).ready(function() {
 	// Resend security code to user-entered email address
 	$("#resendCodeButton").click(resendCode);
 
+	// Call getAllLocations upon clicking 'Browse by Location' button
+	$("#browseByLocationButton").click(getAllLocations);
 	
 	getLocations();
 	getSizes();
@@ -766,6 +768,7 @@ function updateLogin() {
 	});
 		
 	getSessions();
+	getAllLocations();
 	
 	//$.mobile.loading();
 }
@@ -843,7 +846,7 @@ function getDetails(sessionId) {
 		var lat = result.latitude;
 		var lng = result.longitude;
 		var title = result.studName + ", " + result.courseName;
-		initialize(lat,lng,title);
+		showSessionMarker(lat,lng,title);
 		$.mobile.loading('hide');
 	});
 }
@@ -921,7 +924,7 @@ function leaveSession() {
  *		title - Student and course
  * Return: none
  */
-function initialize(lat, lng, title) {
+function showSessionMarker(lat, lng, title) {
 	// Coords for BCIT: 49.2482696, -123.0010414
   var myLatlng = new google.maps.LatLng(lat,lng);
   var mapOptions = {
@@ -939,6 +942,26 @@ function initialize(lat, lng, title) {
 	//google.maps.event.addDomListener(window, 'load', initialize);
 
 }
+
+function getAllLocations() {
+	$.getJSON("./php/getAllLocations.php", function(data) {
+		var mapOptions = {
+    zoom: 15,
+    center: new google.maps.LatLng(49.2482696, -123.0010414)
+		}
+		var map = new google.maps.Map(document.getElementById('allLocations'), mapOptions);
+		
+			for (var i = 0; i < data.length - 2; i++) {
+			
+				var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(data[i].latitude, data[i].longitude),
+					map: map,
+					title: data[i].studName + ", " + data[i].courseName
+				});
+			}
+	});
+}
+
 
 /* 
  * Function: sendEmail(email, subject, message, onSuccess)
@@ -995,6 +1018,6 @@ $(function() {
 			}
 		},
 		//Default is 75px, set to 0 for demo so any distance triggers swipe
-		threshold:0
+		threshold:75
 	});
 });

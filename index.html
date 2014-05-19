@@ -70,7 +70,8 @@
 	</div><!-- /data-role="header" -->
 	<div data-role="main" class="ui-content">
 		<div id="swipeDiv" style="text-align: center; cursor:n-resize;">
-		swipe down to refresh
+			<a href="#locationsPage" id="browseByLocationButton" data-role="button" data-inline="true" style="position:absolute; left: 1%; top: 100px;">Browse by Locations</a>
+			swipe down to refresh
 		</div>
 		<div id="courseDest">
 		</div>
@@ -90,6 +91,17 @@
 	<!-- /developer div -->
 		
 </section><!-- /#mainPage -->
+
+<section data-role="page" id="locationsPage">
+	<div data-role="header">
+		<h1>Browse by Location</h1>
+		<a href="#mainPage" data-role="button">Browse by Course</a>
+	</div>
+	<div data-role="main" class="ui-content">
+		<div id="allLocations" style="height: 500px;">
+		</div>
+	</div>
+</section>
 
 
 <!--FORGOT PASSWORD PAGE --Nadia May 13, 2014-->
