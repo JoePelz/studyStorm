@@ -788,6 +788,7 @@ function getDetails(sessionId) {
 	$.getJSON("./php/getDetails.php?sessionId=" + sessionId, function(result){
 		var header = "";
 		var content = "";
+		var membersNames = "";
 		//get times:
 		var t = result.startTime.split(/[- :]/);
 		var time = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
@@ -822,11 +823,15 @@ function getDetails(sessionId) {
 		content += "<li>Location: " + result.location   + "</li>";
 		content += "<li>Details: "  + result.details    + "</li>";
 		content += "<li>Members: "  + result.membersCount    + "</li>";
-		content += "<li><ul>";
 		for (var i = 0; i < result.membersCount; i++) {
-			content += "<li>" + result.members[i].studName + "</li>";
+			if (i==0) {
+			membersNames += "" + result.members[i].studName;
+			} else {
+			membersNames += ", " + result.members[i].studName;
+			}
 		}
-		content += "</ul></li>";
+		content += "<li>Members in Session: " + membersNames + "</li>";
+		content += "</li>";
 		content += "</ul>";
 		content += "<div data-role='button' name='joinLeaveButton' id='joinLeaveButton' onclick='joinSession(" + result.sessionId + ")'>Join</div>";
 		content += "<div id='mapCanvas' style='height: 200px;'></div>";
@@ -916,7 +921,7 @@ function leaveSession() {
 }
 
 /* 
- * Function: initialize(lat, lng, title)
+ * Function: showSessionMarker(lat, lng, title)                     // used to say 'initialize' function from the google api
  * Purpose: Get map coordinates and place them on a map.
  * Params:
  *		lat - latitude.
@@ -967,7 +972,7 @@ function getAllLocations() {
 		  infoWindow.close();
 		});
 		
-		for (var i = 0; i < data.length - 2; i++) {
+		for (var i = 0; i < data.length; i++) {
 		
 			var marker = new google.maps.Marker({
 					position: new google.maps.LatLng(data[i].latitude, data[i].longitude),
