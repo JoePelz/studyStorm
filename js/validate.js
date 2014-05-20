@@ -186,16 +186,28 @@ function testTimeValid2(idStart, idEnd) {
 	var end = parseInt(mins) + (60 * parseInt(hrs));
 	if ((t.indexOf("p") > -1) || (t.indexOf("P") > -1)) { end += 720;	}
 
+	isValid = true;
+	
 	if ($(idEnd).val() == "" || end <= start) {
 		$('#errTime2').removeClass("goodInput").addClass("badInput");
 		$('#errTime2').html("End time must be after start");
-		return false;
+		isValid = false;
 	}
+	
+	var d = new Date();
+	now = d.getHours() * 60 + d.getMinutes();
+	if (end < now) {
+		$('#errTime2').removeClass("goodInput").addClass("badInput");
+		$('#errTime2').html("Cannot create study sessions in the past.");
+		isValid = false;
+	}
+	
 	else {
 		$('#errTime2').removeClass("badInput").addClass("goodInput");
 		$('#errTime2').html("Valid");
-		return true;
 	}
+	
+	return isValid;
 }
 
 /* 
