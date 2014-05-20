@@ -962,16 +962,18 @@ function getAllLocations() {
 					name: data[i].studName,
 					course: data[i].courseName,
 					start: data[i].startTime.substring(11),
-					end: data[i].endTime.substring(11)
+					end: data[i].endTime.substring(11),
+					id: data[i].sessionId
 				});
 			notes = data[i].studName + "\n" + data[i].courseName;
 			
 
 			google.maps.event.addListener(marker, 'click', function(event) {
-				content = "<h1>" + this.name + "</h1>";
+				content = "<h2>" + this.name + "</h2>";
 				content += "<h3>" + this.course + "</h3>";
 				content += "<p>From: " + this.start + "</p>";
 				content += "<p>To: " + this.end + "</p>";
+				content += "<p><a href='#detailsPage' onclick='getDetails(" + this.id + ");'>Details page</a></p>";
 				infowindow.setContent(content);
 				infowindow.open(map, this);
 			});
