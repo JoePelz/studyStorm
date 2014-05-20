@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="themes/studyStormThemeJens.css">
 <link rel="stylesheet" href="css/customSelectMenus.css">
 <link rel="stylesheet" href="css/style.css">
+
 <!-- jQuery and jQuery Mobile -->
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
@@ -188,7 +189,7 @@
 				<p><strong>We do not scrutinize or checks the the validity of, or backgrounds of, any user or participant of this site.  While using this site to meet someone for a study group we suggest you take necessary precautions to be safe. You are encouraged to meet in public places during regular BCIT hours.  When meeting someone for the first time we encourage you to bring a friend.</strong></p>
 				<p>In no event shall studystorm.org be liable for any damages whatsoever, whether direct, indirect, special, general, compensatory, consequential, and/or incidental, arising out of or relating to the conduct of you or anyone else in connection with the use of the service, including without limitation, emotional distress, bodily injury, and/or any other damages resulting from meetings or communications with other registered users of our service or persons you meet through our service. You agree to take reasonable precautions in all interactions with other users of the service, particularly if you decide to meet again after one of our group study events. </p>			
 				</div>
-			<label for="disclaimerYes">I agree to the Terms of Use.</label>
+			<label for="disclaimerYes" id="disclaimerCheckLabel">I agree to the Terms of Use.</label>
 			<input type="checkbox" name="read" id="disclaimerYes" value="false" 
 			onchange="disclaimerCheckboxValidation('#disclaimerYes', '#disclaimerReg');">
 			<a href="#regPage" id="disclaimerReg" style="display:none">Continue to Registration</a>

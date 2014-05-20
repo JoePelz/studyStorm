@@ -74,3 +74,9 @@ li {
 #swipeDiv {
 	display: block;
 }
+#disclaimerCheckLabel {
+	background: #F7E183;
+}
+#disclaimerCheckLabel :after{
+	background-repeat: no-repeat;
+}
