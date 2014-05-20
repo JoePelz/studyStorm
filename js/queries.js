@@ -618,7 +618,9 @@ function populateSessionForm(sessionId) {
 		var end = eTime.getHours() + ":";
 		if (eTime.getMinutes() < 10) { end += "0"; }
 		end += eTime.getMinutes();
-
+		
+		form.location.value = result.location;
+		$("#location").selectmenu('refresh', true);
 		form.location.value = result.location;
 		form.startTime.value = start;
 		form.endTime.value = end;
@@ -951,7 +953,7 @@ function showSessionMarker(lat, lng, title) {
 function getAllLocations() {
 	$.getJSON("./php/getAllLocations.php", function(data) {
 		var mapOptions = {
-			zoom: 15,
+			zoom: 17,
 			center: new google.maps.LatLng(49.2482696, -123.0010414)
 		}
 		var map = new google.maps.Map(document.getElementById('allLocations'), mapOptions);
