@@ -40,7 +40,7 @@ if($result) {
 		//JSON TIME!!
 		$JSON['hasValidEmail'] = TRUE;
 		
-		if ($studArray['password'] == $password) {
+		if (password_verify($password, $studArray['password'])) {
 			$JSON['hasValidPassword'] = TRUE;
 		}	else {
 				$JSON['hasValidPassword'] = FALSE;

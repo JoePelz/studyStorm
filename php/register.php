@@ -67,6 +67,8 @@ if ($errflag == true) {
 	$JSON['hasErrors'] = TRUE;
 	$JSON['error'] = $output;
 } else {
+	//Hash password
+	$password = password_hash($password, PASSWORD_DEFAULT);
 	//Insert into the table!
     $qry = "INSERT INTO students (studName, email, password, secCode, hasConfirmed) VALUES ('$studName', '$email', '$password', '$secCode', 0)";
     $result = mysql_query($qry);
