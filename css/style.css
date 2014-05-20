@@ -1,3 +1,9 @@
+* {
+	-webkit-transition: all .5s;
+	-moz-transition: all .5s;
+	-o-transition: all .5s;
+	transition: all .5s;
+}
 @font-face {
 	font-family: "BonvenoCF-Light";
 	src: url("../font/BonvenoCF-Light.otf");
