@@ -86,7 +86,7 @@ function addSessionValidate() {
  * Return true if course is valid
  */
 function testCourseValid(id) {
-	if ($(id).prop("selectedIndex") == 0) {
+	if ($(id).prop("selectedIndex") == 0 || $(id).val() == "") {
 		$('#errCourse').removeClass("goodInput").addClass("badInput");
 		$("#errCourse").html("Select a course");
 		return false;
