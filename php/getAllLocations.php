@@ -5,7 +5,7 @@ $con = mysql_connect(DB_HOST,DB_USER,DB_PASSWORD) or die(mysql_error());
 mysql_select_db(DB_DATABASE) or die("No database found. " . mysql_error());
 
 $qry = "SELECT u.*, s.*, l.* FROM students u, sessions s, locations l
-				WHERE s.sessionId=u.currentSession
+				WHERE s.studId=u.studId
 				AND s.isActive=1
 				AND s.location=l.locationName";
 $result = mysql_query($qry);
