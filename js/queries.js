@@ -951,7 +951,21 @@ function getAllLocations() {
 		}
 		var map = new google.maps.Map(document.getElementById('allLocations'), mapOptions);
 		
-		var infowindow = new google.maps.InfoWindow();
+		var infoWindow = new google.maps.InfoWindow();
+		var oms = new OverlappingMarkerSpiderfier(map);
+		oms.addListener('click', function(marker, event) {
+			content = "<h2>" + marker.name + "</h2>";
+			content += "<h3>" + marker.course + "</h3>";
+			content += "<p>From: " + marker.start + "</p>";
+			content += "<p>To: " + marker.end + "</p>";
+			content += "<p><a href='#detailsPage' onclick='getDetails(" + marker.id + ");'>Details page</a></p>";
+			infoWindow.setContent(content);
+			infoWindow.open(map, marker);
+		});
+		
+		oms.addListener('spiderfy', function(markers) {
+		  infoWindow.close();
+		});
 		
 		for (var i = 0; i < data.length - 2; i++) {
 		
@@ -965,18 +979,11 @@ function getAllLocations() {
 					end: data[i].endTime.substring(11),
 					id: data[i].sessionId
 				});
-			notes = data[i].studName + "\n" + data[i].courseName;
 			
-
-			google.maps.event.addListener(marker, 'click', function(event) {
-				content = "<h2>" + this.name + "</h2>";
-				content += "<h3>" + this.course + "</h3>";
-				content += "<p>From: " + this.start + "</p>";
-				content += "<p>To: " + this.end + "</p>";
-				content += "<p><a href='#detailsPage' onclick='getDetails(" + this.id + ");'>Details page</a></p>";
-				infowindow.setContent(content);
-				infowindow.open(map, this);
-			});
+			oms.addMarker(marker);
+			//google.maps.event.addListener(marker, 'click', function(event) {
+			//	infoWindow.open(map, this);
+			//});
 		}
 	});
 }
