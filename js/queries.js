@@ -54,10 +54,7 @@ $(document).ready(function() {
 
 	// Call getAllLocations upon clicking 'Browse by Location' button
 	$("#browseByLocationButton").click(getAllLocations);
-	
-	// Bind the swipeHandler callback function to the swipe event on div.box
-	$( document ).on( "swipe", swipeHandler );
-  
+	  
 	getLocations();
 	getSizes();
 	//$.mobile.loading('show');
@@ -1042,29 +1039,25 @@ function getLocations() {
 	});
 }
 
-  
- 
-// Callback function references the event target and adds the 'swipe' class to it
-function swipeHandler( event ){
-	//$( event.target ).addClass( "swipe" );
-	alert("worked");
-}
-/*
 $(function() {
 	//Enable swiping...
 	$("#swipeDiv").swipe({
 		//Generic swipe handler for all directions
-		swipe:function(event, direction, distance, duration, fingerCount) {
+		swipeDown:function(event, direction, distance, duration, fingerCount) {
+			$(this).text("You swiped " + direction );	
+
 			//Make swipe right take user to previous page.
-			if (direction == "right") {
+	//		if (direction == "right") {
 			//$.mobile.back();
-			}
-			if (direction == "down") {
-			updateLogin();
-			}
+	//		}
+	//		if (direction == "down") {
+	//		updateLogin();
+	//		}
+		},
+		swipeRight:function(event, direction, distance, duration, fingerCount) {
+			$(this).text("You swiped " + direction );	
 		},
 		//Default is 75px, set to 0 for demo so any distance triggers swipe
 		threshold:75
 	});
 });
-*/
