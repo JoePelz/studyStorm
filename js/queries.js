@@ -946,19 +946,36 @@ function showSessionMarker(lat, lng, title) {
 function getAllLocations() {
 	$.getJSON("./php/getAllLocations.php", function(data) {
 		var mapOptions = {
-    zoom: 15,
-    center: new google.maps.LatLng(49.2482696, -123.0010414)
+			zoom: 15,
+			center: new google.maps.LatLng(49.2482696, -123.0010414)
 		}
 		var map = new google.maps.Map(document.getElementById('allLocations'), mapOptions);
 		
-			for (var i = 0; i < data.length - 2; i++) {
-			
-				var marker = new google.maps.Marker({
+		var infowindow = new google.maps.InfoWindow();
+		
+		for (var i = 0; i < data.length - 2; i++) {
+		
+			var marker = new google.maps.Marker({
 					position: new google.maps.LatLng(data[i].latitude, data[i].longitude),
 					map: map,
-					title: data[i].studName + ", " + data[i].courseName
+					title: data[i].studName + ", " + data[i].courseName,
+					name: data[i].studName,
+					course: data[i].courseName,
+					start: data[i].startTime.substring(11),
+					end: data[i].endTime.substring(11)
 				});
-			}
+			notes = data[i].studName + "\n" + data[i].courseName;
+			
+
+			google.maps.event.addListener(marker, 'click', function(event) {
+				content = "<h1>" + this.name + "</h1>";
+				content += "<h3>" + this.course + "</h3>";
+				content += "<p>From: " + this.start + "</p>";
+				content += "<p>To: " + this.end + "</p>";
+				infowindow.setContent(content);
+				infowindow.open(map, this);
+			});
+		}
 	});
 }
 
