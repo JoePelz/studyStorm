@@ -954,7 +954,7 @@ function getAllLocations() {
 	$.getJSON("./php/getAllLocations.php", function(data) {
 		var mapOptions = {
 			zoom: 16,
-			center: new google.maps.LatLng(49.2482696, -123.0010414)
+			center: new google.maps.LatLng(49.250633, -123.001058)
 		}
 		var map = new google.maps.Map(document.getElementById('allLocations'), mapOptions);
 		
