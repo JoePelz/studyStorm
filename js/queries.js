@@ -55,6 +55,9 @@ $(document).ready(function() {
 	// Call getAllLocations upon clicking 'Browse by Location' button
 	$("#browseByLocationButton").click(getAllLocations);
 	
+	// Bind the swipeHandler callback function to the swipe event on div.box
+	$( document ).on( "swipe", swipeHandler );
+  
 	getLocations();
 	getSizes();
 	//$.mobile.loading('show');
@@ -91,6 +94,8 @@ function getSizes() {
 	$("#disclaimerDiv").height( deviceHeight * .55 );
 	// Sets the size of the logo according to device width.
 	$("#logo > img").width( deviceWidth * .8);
+	// Sets the size of the map in 'browse by location' page
+	$("#allLocations").height( deviceHeight * .8 );
 }
 
 /* 
@@ -1037,6 +1042,14 @@ function getLocations() {
 	});
 }
 
+  
+ 
+// Callback function references the event target and adds the 'swipe' class to it
+function swipeHandler( event ){
+	//$( event.target ).addClass( "swipe" );
+	alert("worked");
+}
+/*
 $(function() {
 	//Enable swiping...
 	$("#swipeDiv").swipe({
@@ -1054,3 +1067,4 @@ $(function() {
 		threshold:75
 	});
 });
+*/
