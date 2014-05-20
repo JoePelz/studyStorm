@@ -953,7 +953,7 @@ function showSessionMarker(lat, lng, title) {
 function getAllLocations() {
 	$.getJSON("./php/getAllLocations.php", function(data) {
 		var mapOptions = {
-			zoom: 17,
+			zoom: 16,
 			center: new google.maps.LatLng(49.2482696, -123.0010414)
 		}
 		var map = new google.maps.Map(document.getElementById('allLocations'), mapOptions);
