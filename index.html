@@ -72,8 +72,9 @@
 		</div><!-- /data-role=navbar" -->
 	</div><!-- /data-role="header" -->
 	<div data-role="main" class="ui-content">
-		<div id="swipeDiv" style="text-align: center; cursor:n-resize; height: 300px;">
-			<a href="#locationsPage" id="browseByLocationButton" data-role="button" data-inline="true" style="position:absolute; left: 1%; top: 100px;">Browse by Locations</a>
+		<div id="swipeDiv" style="text-align: center; cursor:n-resize;">
+			<a href="#locationsPage" data-role="button" data-icon="location" data-iconpos="notext" style="position:absolute; left: 10px; top: 100px;">Browse by Location</a>
+			<!--<a href="#locationsPage" id="browseByLocationButton" data-role="button" data-inline="true" style="position:absolute; left: 1%; top: 100px;">Browse by Locations</a>--> <!-- Disabled for swipez0rx -Jens -->
 			swipe down to refresh
 		</div>
 		<div id="courseDest">
@@ -95,13 +96,13 @@
 		
 </section><!-- /#mainPage -->
 
-<section data-role="page" id="locationsPage">
+<section data-role="page" id="locationsPage" data-transition="flip">
 	<div data-role="header">
-		<h1>Browse by Location</h1>
-		<a href="#mainPage" data-role="button">Browse by Course</a>
+		<h1>Locations</h1>
+		<a href="#mainPage"  class="ui-btn-right" data-role="button" data-icon="bars" data-iconpos="notext">Browse by Course</a>
 	</div>
 	<div data-role="main" class="ui-content">
-		<div id="allLocations" style="height: 500px;">
+		<div id="allLocationsMap">
 		</div>
 	</div>
 </section>
