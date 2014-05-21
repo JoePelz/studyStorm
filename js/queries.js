@@ -453,25 +453,17 @@ function loginSuccess(data, status) {
 	
 	if (data.remembered) {
 	
-	if (data.hasValidEmail && data.hasValidPassword && data.hasConfirmed) {
-		updateLogin();
-		$.mobile.changePage("#mainPage");
-	} else if (data.hasValidEmail && !data.hasConfirmed) {
-		$.mobile.changePage("#confirmEmailPage");
-	} else {
-		$("#loginResult").html("Invalid email or password!");
+		if (data.hasValidEmail && data.hasValidPassword && data.hasConfirmed) {
+			updateLogin();
+			$.mobile.changePage("#mainPage");
+		} else if (data.hasValidEmail && !data.hasConfirmed) {
+			$.mobile.changePage("#confirmEmailPage");
+		} else {
+			$("#loginResult").html("Invalid email or password!");
+		}
+		$.mobile.loading('hide');
+		}
 	}
-	$.mobile.loading('hide');
-	/* old code to be erased when consensus is achieved
-	data = $.trim(data);
-	if (data == "Success!") {
-		updateLogin();
-		$.mobile.changePage("#mainPage");
-	} else {
-			$("#loginResult").html("Did not log in!\nData: " + data);
-	}
-	*/
-}
 /* 
  * Function: loginError(data, status)
  * Purpose: Supplemental to login(), above.
