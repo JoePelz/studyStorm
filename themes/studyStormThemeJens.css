@@ -637,7 +637,7 @@ html body .ui-group-theme-b .ui-slider-track .ui-btn-active,
 html body div.ui-slider-track.ui-body-b .ui-btn-active {
 	background-color: #d5b707 /*{b-active-background-color}*/;
 	border-color: #676000 /*{b-active-border}*/;
-	color: #ffffff /*{b-active-color}*/;
+	color: #000000 /*{b-active-color}*/;
 	text-shadow: 0 /*{b-active-shadow-x}*/ 1px /*{b-active-shadow-y}*/ 0 /*{b-active-shadow-radius}*/ #444444 /*{b-active-shadow-color}*/;
 	
 	background: #ffe264;
