@@ -1041,7 +1041,7 @@ function getLocations() {
 
 $(function() {
 	//Enable swiping for #mainPage
-	$("#mainPage").swipe({
+	$("#swipeDiv").swipe({
 		swipeDown:function(event, direction, distance, duration, fingerCount) {
 			updateLogin();
 		},
@@ -1051,7 +1051,6 @@ $(function() {
 		},
 		//Default is 75px, set to 0 for demo so any distance triggers swipe
 		threshold:40,
-		excludedElements:$.fn.swipe.defaults.excludedElements+", #allLocationsMap, #mapCanvas"
 	});
 	//Swiping for Browse By Location
 	$("#locationsPage").swipe({
