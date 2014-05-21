@@ -55,9 +55,8 @@ $(document).ready(function() {
 	// Call getAllLocations upon clicking 'Browse by Location' button
 	//$("#browseByLocationButton").click(getAllLocations); Disabled for swipeez -Jens
 	  
-	getLocations();
+	fillLocationList();
 	getSizes();
-	//$.mobile.loading('show');
 	updateLogin();
 	
 }); /*==== /$(document).ready() ====*
