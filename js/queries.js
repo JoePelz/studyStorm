@@ -1063,8 +1063,8 @@ $(function() {
 	});
 	
 	$("#linkLocationsPage").swipe({
-		swipeLeft:function(event, direction, distance, duration, fingerCount) {
-			$.mobile.changePage( "#locationsPage", { transition: "slide"})
+		swipeRight:function(event, direction, distance, duration, fingerCount) {
+			$.mobile.changePage( "#locationsPage", { transition: "slide", reverse: true})
 			getAllLocations();
 		},
 		threshold:40,
