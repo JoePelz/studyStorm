@@ -17,7 +17,11 @@ $studName = mysql_real_escape_string($_POST['regStudName']);
 $email = mysql_real_escape_string($_POST['regEmail']);
 $password = mysql_real_escape_string($_POST['regPassword']);
 $confirmPassword = mysql_real_escape_string($_POST['regConfirmPassword']);
-$secCode = rand();
+$f_contents = file("lines.txt");
+$line = $f_contents[array_rand($f_contents)];
+$line = trim($line);
+$randNum = rand() % 8 + 2;
+$secCode = $line . $randNum;
 
 //-- Validation --
 //Placeholder for errors
