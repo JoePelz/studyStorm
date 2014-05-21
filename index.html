@@ -78,7 +78,9 @@
 	</div><!-- /data-role="header" -->
 	<div data-role="main" class="ui-content">
 		<div id="swipeDiv">
-		<a href="#locationsPage" data-role="button" data-icon="location" data-iconpos="notext" style="position:absolute; left: 10px; top: 113px;">Browse by Location</a>
+		<div id="linkLocationsPage">
+			<a href="#locationsPage" data-role="button" data-icon="location" data-iconpos="notext">Browse by Location</a>
+		</div>
 			swipe down to refresh
 		</div>
 		<div id="courseDest">
@@ -155,10 +157,10 @@
 
 
 <!-- LOCATIONS PAGE -->
-<section data-role="panel" id="locationsPage">
+<section data-role="page" id="locationsPage">
 	<div data-role="header" id="locationsPageHeader">
-		<h1>Locations</h1>
 		<a href="#mainPage"  class="ui-btn-right" data-role="button" data-icon="bars" data-iconpos="notext">Browse by Course</a>
+		<h1>Locations</h1>
 	</div>
 	<div data-role="main" class="ui-content">
 		<div id="allLocationsMap">

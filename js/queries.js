@@ -54,7 +54,9 @@ $(document).ready(function() {
 
 	// Call getAllLocations upon clicking 'Browse by Location' button
 	//$("#browseByLocationButton").click(getAllLocations); Disabled for swipeez -Jens
-			  
+	
+	// Initialize 'Browse by locations' page on click
+	$("#linkLocationsPage > a").click(getAllLocations);
 	fillLocationList();
 	getSizes();
 	updateLogin();
@@ -450,20 +452,18 @@ function login(){
  */
 function loginSuccess(data, status) {
 	var data = $.parseJSON(data);
-	
-	if (data.remembered) {
-	
-		if (data.hasValidEmail && data.hasValidPassword && data.hasConfirmed) {
-			updateLogin();
-			$.mobile.changePage("#mainPage");
-		} else if (data.hasValidEmail && !data.hasConfirmed) {
-			$.mobile.changePage("#confirmEmailPage");
-		} else {
-			$("#loginResult").html("Invalid email or password!");
-		}
-		$.mobile.loading('hide');
-		}
+
+	if (data.hasValidEmail && data.hasValidPassword && data.hasConfirmed) {
+		updateLogin();
+		$.mobile.changePage("#mainPage");
+	} else if (data.hasValidEmail && !data.hasConfirmed) {
+		$.mobile.changePage("#confirmEmailPage");
+	} else {
+		$("#loginResult").html("Invalid email or password!");
 	}
+	$.mobile.loading('hide');
+	
+}
 /* 
  * Function: loginError(data, status)
  * Purpose: Supplemental to login(), above.
@@ -1059,7 +1059,15 @@ $(function() {
 		swipeLeft:function(event, direction, distance, duration, fingerCount) {
 			$.mobile.changePage( "#mainPage", { transition: "slide", reverse: false})
 		},
-		//Default is 75px, set to 0 for demo so any distance triggers swipe
+		threshold:40,
+		excludedElements:$.fn.swipe.defaults.excludedElements+", #allLocationsMap, #mapCanvas"
+	});
+	
+	$("#linkLocationsPage").swipe({
+		swipeLeft:function(event, direction, distance, duration, fingerCount) {
+			$.mobile.changePage( "#locationsPage", { transition: "slide"})
+			getAllLocations();
+		},
 		threshold:40,
 		excludedElements:$.fn.swipe.defaults.excludedElements+", #allLocationsMap, #mapCanvas"
 	});

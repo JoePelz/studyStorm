@@ -48,16 +48,20 @@ li {
 	padding-top: 50px;
 }
 #navBar ul {
-	background: -webkit-radial-gradient(50% -50%, circle farthest-side, #fffffe 5%, #ffe264 100%);
-	background: -webkit-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(255,226,100,1));
 	background: -webkit-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(249,213,91,1));
+	background: -moz-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(249,213,91,1));
+	background: -o-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(249,213,91,1));
+	background: radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(249,213,91,1));
+
 	border: none;
 	box-shadow: 0 20px 1px 0 rgba(0,0,0,.03);
 }
 #locationsPageHeader {
-	background: -webkit-radial-gradient(50% -50%, circle farthest-side, #fffffe 5%, #ffe264 100%);
-	background: -webkit-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(255,226,100,1));
 	background: -webkit-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(249,213,91,1));
+	background: -moz-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(249,213,91,1));
+	background: -o-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(249,213,91,1));
+	background: radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(249,213,91,1));
+
 	border: none;
 	box-shadow: 0 20px 1px 0 rgba(0,0,0,.03);
 }
@@ -79,9 +83,11 @@ li {
 	background: #F7E183;
 }
 #loadingDiv {
-	background: -webkit-radial-gradient(50% -50%, circle farthest-side, #fffffe 5%, #ffe264 100%);
-	background: -webkit-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(255,226,100,1));
 	background: -webkit-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(249,213,91,1));
+	background: -moz-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(249,213,91,1));
+	background: -o-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(249,213,91,1));
+	background: radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(249,213,91,1));
+
 	border: none;
 	border-bottom: 2px solid rgba(0,0,0,.2);
 	
@@ -103,7 +109,7 @@ li {
 #swipeDiv {
 	display: block;
 	text-align: center; 
-	cursor:move; 
+	cursor:move;
 	height: 40px; 
 	padding-top: 10px; 
 	/* Disable text selection*/
@@ -112,4 +118,16 @@ li {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+}
+#linkLocationsPage {
+	position:absolute;
+	left: 0;
+	top: 113px;
+	background: rgba(249,213,91,1);
+	padding-left: 15px;
+	padding-right: 10px;
+	-webkit-border-radius: 0 50px 50px 0;
+}
+#linkLocationsPage a{
+	
 }
