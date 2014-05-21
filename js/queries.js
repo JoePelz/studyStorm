@@ -54,13 +54,16 @@ $(document).ready(function() {
 
 	// Call getAllLocations upon clicking 'Browse by Location' button
 	//$("#browseByLocationButton").click(getAllLocations); Disabled for swipeez -Jens
-	  
+		
+	$("#testButton").click(function() {
+		$(document).scrollTop(0);
+	});
 	getLocations();
 	getSizes();
 	//$.mobile.loading('show');
 	updateLogin();
 	
-}); /*==== /$(document).ready() ====*
+}); /*==== /$(document).ready() ====*/
 
 /*
  *Purpose: Creates a loading icon and text when called.
@@ -1038,19 +1041,19 @@ function getLocations() {
 		error: errorMsg
 	});
 }
-
 $(function() {
 	//Enable swiping for #mainPage
 	$("#swipeDiv").swipe({
 		swipeDown:function(event, direction, distance, duration, fingerCount) {
+			$("#loadingDiv").slideDown(500);
 			updateLogin();
+			$("#loadingDiv").delay(250).slideUp(500);
 		},
 		swipeRight:function(event, direction, distance, duration, fingerCount) {
 			//$.mobile.changePage("#locationsPage");
 			$.mobile.changePage( "#locationsPage", { transition: "slide", reverse: true})
 			getAllLocations();
 		},
-		//Default is 75px, set to 0 for demo so any distance triggers swipe
 		threshold:40,
 	});
 	//Swiping for Browse By Location
