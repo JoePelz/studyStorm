@@ -23,6 +23,7 @@ mysql_select_db(DB_DATABASE) or die('database not found');
 
 $email = $_POST['loginEmail'];
 $password = $_POST['loginPassword'];
+$this = $_POST['rememberMe'];
 $JSON = array();
 
 $qry = "SELECT * FROM students WHERE email = '$email'";
@@ -51,7 +52,7 @@ if($result) {
 		}	else {
 				$JSON['hasConfirmed'] = FALSE;
 			}
-
+		$JSON['this'] = $this;
 		echo json_encode($JSON);
 		exit();
 	} else {
