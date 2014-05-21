@@ -1046,7 +1046,8 @@ $(function() {
 			updateLogin();
 		},
 		swipeRight:function(event, direction, distance, duration, fingerCount) {
-			$.mobile.changePage("#locationsPage");
+			//$.mobile.changePage("#locationsPage");
+			$.mobile.changePage( "#locationsPage", { transition: "slide", reverse: true})
 			getAllLocations();
 		},
 		//Default is 75px, set to 0 for demo so any distance triggers swipe
@@ -1058,7 +1059,7 @@ $(function() {
 			updateLogin();
 		},
 		swipeLeft:function(event, direction, distance, duration, fingerCount) {
-			$.mobile.changePage("#mainPage");
+			$.mobile.changePage( "#mainPage", { transition: "slide", reverse: false})
 		},
 		//Default is 75px, set to 0 for demo so any distance triggers swipe
 		threshold:40,
