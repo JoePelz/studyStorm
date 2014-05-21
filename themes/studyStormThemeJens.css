@@ -520,7 +520,7 @@ html .ui-panel-page-container-b {
 html .ui-bar-b a,
 html .ui-body-b a,
 html body .ui-group-theme-b a {
-	color: #BFAA4B /*{b-link-color}*/;
+	color: #665B28 /*{b-link-color}*/;
 	font-weight: bold;
 	text-decoration: none;
 }
@@ -528,21 +528,21 @@ html body .ui-group-theme-b a {
 html .ui-bar-b a:visited,
 html .ui-body-b a:visited,
 html body .ui-group-theme-b a:visited {
-    color: #BFAA4B /*{b-link-visited}*/;
+    color: #665B28 /*{b-link-visited}*/;
 		text-decoration: none;
 }
 .ui-page-theme-b a:hover,
 html .ui-bar-b a:hover,
 html .ui-body-b a:hover,
 html body .ui-group-theme-b a:hover {
-	color: #BFAA4B /*{b-link-hover}*/;
+	color: #665B28 /*{b-link-hover}*/;
 	text-decoration: none;
 }
 .ui-page-theme-b a:active,
 html .ui-bar-b a:active,
 html .ui-body-b a:active,
 html body .ui-group-theme-b a:active {
-	color: #BFAA4B /*{b-link-active}*/;
+	color: #665B28 /*{b-link-active}*/;
 	text-decoration: none;
 }
 /* Button up */

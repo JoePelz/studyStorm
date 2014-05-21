@@ -53,8 +53,8 @@ $(document).ready(function() {
 	$("#resendCodeButton").click(resendCode);
 
 	// Call getAllLocations upon clicking 'Browse by Location' button
-	$("#browseByLocationButton").click(getAllLocations);
-	
+	//$("#browseByLocationButton").click(getAllLocations); Disabled for swipeez -Jens
+	  
 	getLocations();
 	getSizes();
 	//$.mobile.loading('show');
@@ -91,6 +91,8 @@ function getSizes() {
 	$("#disclaimerDiv").height( deviceHeight * .55 );
 	// Sets the size of the logo according to device width.
 	$("#logo > img").width( deviceWidth * .8);
+	// Sets the size of the map in 'browse by location' page
+	$("#allLocationsMap").height( deviceHeight * .8 );
 }
 
 /* 
@@ -618,7 +620,9 @@ function populateSessionForm(sessionId) {
 		var end = eTime.getHours() + ":";
 		if (eTime.getMinutes() < 10) { end += "0"; }
 		end += eTime.getMinutes();
-
+		
+		form.location.value = result.location;
+		$("#location").selectmenu('refresh', true);
 		form.location.value = result.location;
 		form.startTime.value = start;
 		form.endTime.value = end;
@@ -768,7 +772,6 @@ function updateLogin() {
 	});
 		
 	getSessions();
-	getAllLocations();
 	
 	//$.mobile.loading();
 }
@@ -852,6 +855,7 @@ function getDetails(sessionId) {
 		var lng = result.longitude;
 		var title = result.studName + ", " + result.courseName;
 		showSessionMarker(lat,lng,title);
+		updateLogin();
 		$.mobile.loading('hide');
 	});
 }
@@ -944,17 +948,17 @@ function showSessionMarker(lat, lng, title) {
       title: title
   });
 	
-	//google.maps.event.addDomListener(window, 'load', initialize);
+	//google.maps.event.addDomListener(window, 'load', showSessionMarker);
 
 }
 
 function getAllLocations() {
 	$.getJSON("./php/getAllLocations.php", function(data) {
 		var mapOptions = {
-			zoom: 15,
-			center: new google.maps.LatLng(49.2482696, -123.0010414)
+			zoom: 16,
+			center: new google.maps.LatLng(49.250633, -123.001058)
 		}
-		var map = new google.maps.Map(document.getElementById('allLocations'), mapOptions);
+		var map = new google.maps.Map(document.getElementById('allLocationsMap'), mapOptions);
 		
 		var infoWindow = new google.maps.InfoWindow();
 		var oms = new OverlappingMarkerSpiderfier(map);
@@ -1036,19 +1040,29 @@ function getLocations() {
 }
 
 $(function() {
-	//Enable swiping...
+	//Enable swiping for #mainPage
 	$("#swipeDiv").swipe({
-		//Generic swipe handler for all directions
-		swipe:function(event, direction, distance, duration, fingerCount) {
-			//Make swipe right take user to previous page.
-			if (direction == "right") {
-			//$.mobile.back();
-			}
-			if (direction == "down") {
+		swipeDown:function(event, direction, distance, duration, fingerCount) {
 			updateLogin();
-			}
+		},
+		swipeRight:function(event, direction, distance, duration, fingerCount) {
+			//$.mobile.changePage("#locationsPage");
+			$.mobile.changePage( "#locationsPage", { transition: "slide", reverse: true})
+			getAllLocations();
 		},
 		//Default is 75px, set to 0 for demo so any distance triggers swipe
-		threshold:75
+		threshold:40,
+	});
+	//Swiping for Browse By Location
+	$("#locationsPage").swipe({
+		swipeDown:function(event, direction, distance, duration, fingerCount) {
+			updateLogin();
+		},
+		swipeLeft:function(event, direction, distance, duration, fingerCount) {
+			$.mobile.changePage( "#mainPage", { transition: "slide", reverse: false})
+		},
+		//Default is 75px, set to 0 for demo so any distance triggers swipe
+		threshold:40,
+		excludedElements:$.fn.swipe.defaults.excludedElements+", #allLocationsMap, #mapCanvas"
 	});
 });
