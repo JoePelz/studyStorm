@@ -462,7 +462,6 @@ function loginSuccess(data, status) {
 		$("#loginResult").html("Invalid email or password!");
 	}
 	$.mobile.loading('hide');
-	
 }
 /* 
  * Function: loginError(data, status)

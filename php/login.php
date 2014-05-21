@@ -54,8 +54,10 @@ if($result) {
 			}
 		if ($remembered=="on") {
 			$JSON['remembered'] = TRUE;
+			setcookie("username", $studArray['email'], time()+(60*60*24*365));
 		} else {
 			$JSON['remembered'] = FALSE;
+			setcookie("username", $_SESSION['email'], time() - 1);
 		}
 		
 		echo json_encode($JSON);

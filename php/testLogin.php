@@ -16,12 +16,43 @@ session_start();
 //      "currentSession"
 //
 ////////////////////////////////////////////////
+include_once 'config.php';
+	
+if (isset($_COOKIE["username"])) {
+	//connect to mysql
+	$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or die(mysql_error());
+	mysql_select_db(DB_DATABASE) or die("No database, foo'!");
+	
+	
+	//If the user has an active session,
+	//  Set session to that
+	//Else
+	//  Set session to -1
+	$session = 0;
+	$studName = "" + $_COOKIE['username'] + "a";
+	$qryCookie = "SELECT * FROM students WHERE studName = $studName";
+	$resultCookie = mysql_query($qryCookie);
+	if ($resultCookie) {
+		if(mysql_num_rows($resultCookie)) {
+			$row = mysql_fetch_array($resultCookie);
+			session_regenerate_id();
+			$_SESSION['studName'] = $row['studName'];
+			$_SESSION['email'] = $row['email'];
+			$_SESSION['studId'] = $row['studId'];
+			$_SESSION['currentSession'] = $row['currentSession'];
+			session_write_close();
+		}
+	}	
+	//connection was only opened if there was a cookie for that user.
+	mysql_close($con);
+} 
+
+
 if (isset($_SESSION['studId']) 
  && isset($_SESSION['email']) 
  && isset($_SESSION['studName'])) {
 
 	//connect to mysql
-	include 'config.php';
 	$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or die(mysql_error());
 	mysql_select_db(DB_DATABASE) or die("No database, foo'!");
 	
