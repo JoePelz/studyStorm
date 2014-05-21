@@ -451,6 +451,8 @@ function login(){
 function loginSuccess(data, status) {
 	var data = $.parseJSON(data);
 	
+	if (data.remembered) {
+	
 	if (data.hasValidEmail && data.hasValidPassword && data.hasConfirmed) {
 		updateLogin();
 		$.mobile.changePage("#mainPage");
