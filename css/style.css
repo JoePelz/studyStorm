@@ -54,6 +54,13 @@ li {
 	border: none;
 	box-shadow: 0 20px 1px 0 rgba(0,0,0,.03);
 }
+#locationsPageHeader {
+	background: -webkit-radial-gradient(50% -50%, circle farthest-side, #fffffe 5%, #ffe264 100%);
+	background: -webkit-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(255,226,100,1));
+	background: -webkit-radial-gradient(center -10%, 50% 100%, rgba(255,255,255,1), rgba(249,213,91,1));
+	border: none;
+	box-shadow: 0 20px 1px 0 rgba(0,0,0,.03);
+}
 #menuLeft, #menuRight {
 	background: #ffe264;
 	/*background: -webkit-linear-gradient(top, #fff987 10%,#ffe264 50%, #fff987 80%);*/
