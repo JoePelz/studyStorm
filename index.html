@@ -45,10 +45,12 @@
 			<input type="email" name="loginEmail" id="loginEmail">
 			<label for="loginPassword">Password</label>
 			<input type="password" name="loginPassword" id="loginPassword">
-			<a href="#forgotPassPage">Forgot password?</a>
-			<input type="submit" value="Log In" id="loginSubmit">
-		</form>
-		
+			<a href="#forgotPassPage">Forgot password?</a><br><br>
+			<label for="rememberMe"><a href="#rememberMe">Remember Me: </a></label>
+			<select name="rememberMe" id="rememberMe" data-role="slider">
+				<option value="off">Off</option>
+				<option value="on">On</option>
+			</select>
 		<a href="#disclaimerPage" data-role="button" data-transition="slideup">Register</a>
 		<div id="loginResult"></div>
 		<!--<a href="#mainPage" data-role="button">Back</a>-->
@@ -94,6 +96,16 @@
 	<!-- /developer div -->
 		
 </section><!-- /#mainPage -->
+
+<!--REMEMBER ME PAGE --Rosanna May 13, 2014-->
+<section data-role="page" id="rememberMe" data-theme="b">
+
+	<div data-role="main" class="ui-content">
+		<h1>Remember Me</h1>
+		<p>Select Remember Me slider to on to have the site remember your login. Do not use this feature on public computer.</p>
+	
+	</div><!-- /data-role="main" -->
+</section>
 
 <section data-role="page" id="locationsPage">
 	<div data-role="header">
