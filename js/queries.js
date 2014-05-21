@@ -588,7 +588,8 @@ function populateSessionForm(sessionId) {
 		//selected item from the database.
 		$("#courseName").selectmenu();
 		$("#courseName").selectmenu('refresh', true);
-		form.location.value = "";
+		form.location.value = "default";
+		$("#location").selectmenu('refresh', true);
 		form.startTime.value = "";
 		form.endTime.value = "";
 		form.details.value = "";
@@ -623,7 +624,6 @@ function populateSessionForm(sessionId) {
 		
 		form.location.value = result.location;
 		$("#location").selectmenu('refresh', true);
-		form.location.value = result.location;
 		form.startTime.value = start;
 		form.endTime.value = end;
 		form.details.value = result.details;
@@ -1017,11 +1017,16 @@ function sendEmail(email, subject, message, onSuccess) {
 		success: onSuccess
 	});
 }
-
-function getLocations() {
+/* 
+ * Function: fillLocationList()
+ * Purpose: populate the select list in the userSessionPage
+ * Params: 
+ * Return: none
+ */
+function fillLocationList() {
 	function locationsSuccess(data, result) {
 		var info = $.parseJSON(data);
-		var output = "<option value=''>Select One</option>";
+		var output = "<option value='default'>Select One</option>";
 		for (var i = 0; i < info.length; i++) {
 			output += '<option value="' + info[i].locationName + '">' + info[i].locationName + '</option>';
 		}
