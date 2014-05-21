@@ -16,10 +16,10 @@ session_start();
 //      "currentSession"
 //
 ////////////////////////////////////////////////
-
+include_once 'config.php';
+	
 if (isset($_COOKIE["username"])) {
 	//connect to mysql
-	include 'config.php';
 	$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or die(mysql_error());
 	mysql_select_db(DB_DATABASE) or die("No database, foo'!");
 	
@@ -53,7 +53,6 @@ if (isset($_SESSION['studId'])
  && isset($_SESSION['studName'])) {
 
 	//connect to mysql
-	include 'config.php';
 	$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or die(mysql_error());
 	mysql_select_db(DB_DATABASE) or die("No database, foo'!");
 	
