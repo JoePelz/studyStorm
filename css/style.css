@@ -127,6 +127,9 @@ li {
 	padding-left: 15px;
 	padding-right: 10px;
 	-webkit-border-radius: 0 50px 50px 0;
+	-moz-border-radius: 0 50px 50px 0;
+	-o-border-radius: 0 50px 50px 0;
+	border-radius: 0 50px 50px 0;
 }
 #linkLocationsPage a{
 	
