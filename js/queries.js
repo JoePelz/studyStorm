@@ -427,7 +427,9 @@ function secCodeSuccess(data, status) {
 function login(){
 	$.mobile.loading('show');
 	var formData = $("#loginForm").serialize();
-		
+	
+	//alert("sending: " + formData);
+
 	$.ajax({
 		type: "POST",
 		url: "./php/login.php",

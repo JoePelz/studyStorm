@@ -18,7 +18,7 @@ session_start();
 ////////////////////////////////////////////////
 include_once 'config.php';
 	
-if (isset($_COOKIE["username"])) {
+if (isset($_COOKIE["email"])) {
 	//connect to mysql
 	$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or die(mysql_error());
 	mysql_select_db(DB_DATABASE) or die("No database, foo'!");
@@ -29,8 +29,10 @@ if (isset($_COOKIE["username"])) {
 	//Else
 	//  Set session to -1
 	$session = 0;
-	$studName = "" + $_COOKIE['username'] + "a";
-	$qryCookie = "SELECT * FROM students WHERE studName = $studName";
+	$email = $_COOKIE['email'];
+	$email = str_replace("%40","@",$email);
+
+	$qryCookie = "SELECT * FROM students WHERE `email` = '$email'";
 	$resultCookie = mysql_query($qryCookie);
 	if ($resultCookie) {
 		if(mysql_num_rows($resultCookie)) {
