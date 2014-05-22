@@ -71,6 +71,8 @@ li {
 	background: transparent;
 	border: none;
 	text-shadow: 0px  1px 1px rgba(255,255,255,.5);
+	letter-spacing: 0px;
+	
 }
 #courseDest h1{
 	box-shadow: 0 20px 1px 0 rgba(0,0,0,.03);
@@ -112,6 +114,7 @@ li {
 	cursor:move;
 	height: 40px; 
 	padding-top: 10px; 
+	letter-spacing: 2px;
 	/* Disable text selection*/
 	-webkit-user-select: none;
 	-khtml-user-select: none;
