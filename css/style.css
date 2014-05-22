@@ -131,6 +131,14 @@ li {
 	-o-border-radius: 0 50px 50px 0;
 	border-radius: 0 50px 50px 0;
 }
-#linkLocationsPage a{
-	
+#linkMainPage {
+	margin-right: -10px;
+	background: rgba(249,213,91,1);
+	padding-left: 15px;
+	padding-right: 10px;
+	border: 1px solid rgba(0,0,0,.1);
+	-webkit-border-radius: 50px 0 0 50px;
+	-moz-border-radius: 50px 0 0 50px;
+	-o-border-radius: 50px 0 0 50px;
+	border-radius: 50px 0 0 50px;
 }
