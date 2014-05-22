@@ -6,8 +6,12 @@ $con = mysql_connect(DB_HOST,DB_USER,DB_PASSWORD) or die(mysql_error());
 mysql_select_db(DB_DATABASE) or die(mysql_error());
 
 $email = $_POST['confirmEmail'];
-$secCode = rand();
 $json = array();
+$f_contents = file("lines.txt");
+$line = $f_contents[array_rand($f_contents)];
+$line = trim($line);
+$randNum = rand() % 8 + 2;
+$secCode = $line . $randNum;
 
 $qry = "SELECT * FROM students WHERE email='$email'";
 $result = mysql_query($qry);
