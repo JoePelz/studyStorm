@@ -1,7 +1,7 @@
 <?php
 session_start();
 session_destroy();
-setcookie("email", " ", time() - 1, '/');
+setcookie("username", "", time() - 1);
 echo "Success!";
 //////////////////////////////////////////
 //
