@@ -494,6 +494,8 @@ function logout() {
 		success: updateLogin,
 		error: errorMsg
 	});
+	$("#loginEmail").val("");
+	$("#loginPassword").val("");
 	return false;
 }
 
