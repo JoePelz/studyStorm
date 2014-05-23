@@ -266,7 +266,7 @@ function regSuccess(data, status) {
 				$.mobile.changePage("#confirmEmailPage");
 			}); 
 	} else {
-		$("#regResult").html("Response data: " + data);	
+		$("#regResult").html(data.error);	
 	}
 	$.mobile.loading('hide');
 }
