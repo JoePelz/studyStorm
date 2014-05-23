@@ -30,9 +30,8 @@ if (isset($_COOKIE["email"])) {
 	//  Set session to -1
 	$session = 0;
 	$email = $_COOKIE['email'];
-	$email = str_replace("%40","@",$email);
 
-	$qryCookie = "SELECT * FROM students WHERE `email` = '$email'";
+	$qryCookie = "SELECT * FROM students WHERE hashedEmail = '$email'";
 	$resultCookie = mysql_query($qryCookie);
 	if ($resultCookie) {
 		if(mysql_num_rows($resultCookie)) {

@@ -54,10 +54,18 @@ if($result) {
 			}
 		if ($remembered=="on") {
 			$JSON['remembered'] = TRUE;
-			setcookie("email", $_SESSION['email'], time()+(60*60*24*365), '/');
+			$hash = sha1($_SESSION['email'] . time());
+			setcookie("email", $hash, time()+(60*60*24*365), '/');
+			$qry = "UPDATE students SET hashedEmail = '$hash' WHERE email = '$email'";
+			$result = mysql_query($qry);
+			if ($result) {
+				$JSON['hashed'] = TRUE;
+			} else {
+				$JSON['hashed'] = FALSE;
+			}
 		} else {
 			$JSON['remembered'] = FALSE;
-			setcookie("email", $_SESSION['email'], time() - 1, '/');
+			setcookie("email", sha1($_SESSION['email'] . time()), time() - 1, '/');
 		}
 		
 		echo json_encode($JSON);
